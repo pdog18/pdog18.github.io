@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          rxjava2 - Pdog的博客 | Pdog&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2018/03/07/rxjava2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Pdog&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>rxjava2</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Pdog on
+                        2018-03-07
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2 id="RxJava-笔记"><a href="#RxJava-笔记" class="headerlink" title="RxJava 笔记"></a>RxJava 笔记</h2><blockquote>
+<p>注意：这只是学习的过程，为了学习rxjava是怎么由callback嵌套转换而来，其中的map和flatMap 都只是精简过后的一个概念，不是真正的样子</p>
+</blockquote>
+<p>感谢</p>
+<blockquote>
+<p><a href="http://www.jianshu.com/u/a502db06530c" target="_blank" rel="noopener"></a> <a href="http://www.jianshu.com/u/a502db06530c" target="_blank" rel="noopener">W_BinaryTree</a><br>2楼 · 2017.05.12 01:07<br>flatMap不仅仅是把item封装成observable。 还有个merge的过程。</p>
+</blockquote>
+<h3 id="同步时"><a href="#同步时" class="headerlink" title="同步时"></a>同步时</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Response newsList = netApi.getNewsList(<span class="number">0</span>,<span class="number">10</span>);</span><br><span class="line">String title = findLatestTitle(newsList);</span><br><span class="line">Uri uri = netApi.save(title);</span><br></pre></td></tr></table></figure>
+<h3 id="异步时嵌套"><a href="#异步时嵌套" class="headerlink" title="异步时嵌套"></a>异步时嵌套</h3><h4 id="1-三个不同的接口"><a href="#1-三个不同的接口" class="headerlink" title="1. 三个不同的接口"></a>1. 三个不同的接口</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line">    String url = <span class="string">"http://op.juhe.cn/yi18/news/newsclass"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">ApiCallback</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(String data)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">TransferCallback</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Data data)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">ResultCallback</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Uri uri)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        Log.d(<span class="string">"ss"</span>, <span class="string">"sss"</span>);</span><br><span class="line">        findViewById(R.id.btn).setOnClickListener(v -&gt; &#123;</span><br><span class="line">            request(<span class="keyword">new</span> ApiCallback() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(String data)</span> </span>&#123;</span><br><span class="line">                            Data dat = tansfer(data);</span><br><span class="line">                            save(data, <span class="keyword">new</span> ResultCallback() &#123;</span><br><span class="line">                                <span class="meta">@Override</span></span><br><span class="line">                                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Uri uri)</span> </span>&#123;</span><br><span class="line">                                &#125;</span><br><span class="line"></span><br><span class="line">                                <span class="meta">@Override</span></span><br><span class="line">                                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;);</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 1. 请求网络获取数据</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> apiCallback</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">(ApiCallback apiCallback)</span> </span>&#123;</span><br><span class="line">        OkGo.get(url)</span><br><span class="line">                .params(<span class="string">"key"</span>, <span class="string">"2e6f34e3fe8fa96e5384021477f8e224"</span>)</span><br><span class="line">                .execute(<span class="keyword">new</span> StringCallback() &#123;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(String s, Call call, Response response)</span> </span>&#123;</span><br><span class="line">                        Log.d(<span class="string">"MainActivity"</span>, <span class="string">"onSuccess: "</span> + s);</span><br><span class="line">                        apiCallback.onSuccess(s);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Call call, Response response, Exception e)</span> </span>&#123;</span><br><span class="line">                        apiCallback.onError(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 2. 将获取的数据转换成对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Data <span class="title">tansfer</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">            Data data = GsonUtils.GsonToBean(s, Data.class);</span><br><span class="line">            <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 3.将对象中的某个数据保存</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(Data data, ResultCallback resultCallback)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ResultBean result = data.getResult();</span><br><span class="line">            ListBean list = result.getList();</span><br><span class="line">            List&lt;TngouBean&gt; tngou = list.getTngou();</span><br><span class="line"></span><br><span class="line">            String s = GsonUtils.GsonString(list);</span><br><span class="line">            SharedPreferences config = getSharedPreferences(<span class="string">"config"</span>, MODE_PRIVATE);</span><br><span class="line">            config.edit().putString(<span class="string">"tag"</span>, s).apply();</span><br><span class="line"></span><br><span class="line">            resultCallback.onSuccess(Uri.parse(s));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            resultCallback.onError(e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-将三个接口改为同一个接口，用泛型来确定onSuccess-的内容"><a href="#2-将三个接口改为同一个接口，用泛型来确定onSuccess-的内容" class="headerlink" title="2. 将三个接口改为同一个接口，用泛型来确定onSuccess()的内容"></a>2. 将三个接口改为同一个接口，用泛型来确定<code>onSuccess()</code>的内容</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line">    String url = <span class="string">"http://op.juhe.cn/yi18/news/newsclass"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">Callback</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(T data)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        Log.d(<span class="string">"ss"</span>, <span class="string">"sss"</span>);</span><br><span class="line">        findViewById(R.id.btn).setOnClickListener(v -&gt; &#123;</span><br><span class="line">            request(<span class="keyword">new</span> Callback&lt;String&gt;() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(String data)</span> </span>&#123;</span><br><span class="line">                    tansfer(data, <span class="keyword">new</span> Callback&lt;Data&gt;() &#123;</span><br><span class="line">                        <span class="meta">@Override</span></span><br><span class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Data data)</span> </span>&#123;</span><br><span class="line">                            save(data, <span class="keyword">new</span> Callback&lt;Uri&gt;() &#123;</span><br><span class="line">                                <span class="meta">@Override</span></span><br><span class="line">                                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Uri uri)</span> </span>&#123;</span><br><span class="line">                                &#125;</span><br><span class="line"></span><br><span class="line">                                <span class="meta">@Override</span></span><br><span class="line">                                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="meta">@Override</span></span><br><span class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 1. 请求网络获取数据</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> apiCallback</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">(Callback apiCallback)</span> </span>&#123;</span><br><span class="line">        OkGo.get(url)</span><br><span class="line">                .params(<span class="string">"key"</span>, <span class="string">"2e6f34e3fe8fa96e5384021477f8e224"</span>)</span><br><span class="line">                .execute(<span class="keyword">new</span> StringCallback() &#123;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(String s, Call call, Response response)</span> </span>&#123;</span><br><span class="line">                        Log.d(<span class="string">"MainActivity"</span>, <span class="string">"onSuccess: "</span> + s);</span><br><span class="line">                        apiCallback.onSuccess(s);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Call call, Response response, Exception e)</span> </span>&#123;</span><br><span class="line">                        apiCallback.onError(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 2. 将获取的数据转换成对象</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> transferCallback</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">tansfer</span><span class="params">(String s, Callback transferCallback)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Data data = GsonUtils.GsonToBean(s, Data.class);</span><br><span class="line">            transferCallback.onSuccess(data);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable throwable) &#123;</span><br><span class="line">            transferCallback.onError(throwable);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 3.将对象中的某个数据保存</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(Data data, Callback resultCallback)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ResultBean result = data.getResult();</span><br><span class="line">            ListBean list = result.getList();</span><br><span class="line">            List&lt;TngouBean&gt; tngou = list.getTngou();</span><br><span class="line"></span><br><span class="line">            String s = GsonUtils.GsonString(list);</span><br><span class="line">            SharedPreferences config = getSharedPreferences(<span class="string">"config"</span>, MODE_PRIVATE);</span><br><span class="line">            config.edit().putString(<span class="string">"tag"</span>, s).apply();</span><br><span class="line"></span><br><span class="line">            resultCallback.onSuccess(Uri.parse(s));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            resultCallback.onError(e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-第三步-让异步方法有返回值，从而避免嵌套"><a href="#3-第三步-让异步方法有返回值，从而避免嵌套" class="headerlink" title="3. 第三步,让异步方法有返回值，从而避免嵌套"></a>3. 第三步,让异步方法有返回值，从而避免嵌套</h4><p>异步操作是没有返回值的，但是我们可以返回一个可以把传递进来的参数变成结果的步骤（动作/Action）</p>
+<p>获得一个抽象类<code>AsyncJob</code>  这个<code>AsyncJob</code> 接收一个<code>Callback</code> ,有一个<code>start()</code> 的方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AsyncJob</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">start</span><span class="params">(Callback&lt;T&gt; callback)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个<code>start()</code> 方法就是要执行的动作，</p>
+<p>回到刚才话题</p>
+<ol>
+<li>创建异步任务的时候是没有返回值的</li>
+<li>所以我们要返回一个含有将传递进来的参数转变成结果的动作,<code>AsyncJob</code> 是返回结果,<code>start()</code>就是动作</li>
+<li>启动这个任务的时候需要的这个<code>Callback</code>中则会将成功/失败的结果传递出去</li>
+</ol>
+<p>将行为封装后，这样每次执行后就可以获得一个返回值（这个返回值实际上就是一个方法包装）</p>
+<p>这样行为的封装结果有了，那么就可以像同步方法一样执行一步一步的操作了；</p>
+<h4 id="map-faltMap操作符做了点什么"><a href="#map-faltMap操作符做了点什么" class="headerlink" title="map/faltMap操作符做了点什么"></a>map/faltMap操作符做了点什么</h4><ol>
+<li><p>使用前/抽离前</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">AsyncJob&lt;Model&gt; modelAsyncJob2 = <span class="keyword">new</span> AsyncJob&lt;Model&gt;() &#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">(RxCallback&lt;Model&gt; rxCallback)</span> </span>&#123;</span><br><span class="line">   <span class="comment">//responseAsyncJob 是上个AsyncJob对象</span></span><br><span class="line">    responseAsyncJob.start(<span class="keyword">new</span> RxCallback&lt;Response&gt;() &#123;</span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Response response)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//除了下面这一行其他都是模板代码，所以应该抽离出来</span></span><br><span class="line">        Model convert = convert(response);</span><br><span class="line">        rxCallback.onSuccess(convert);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">        rxCallback.onError(e);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用后/抽离后</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//responseAsyncJob 是上个AsyncJob对象</span></span><br><span class="line">AsyncJob&lt;Model&gt; modelAsyncJob1 = responseAsyncJob.map(<span class="keyword">new</span> FunC1&lt;Response, Model&gt;() &#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Model <span class="title">call</span><span class="params">(Response response)</span> </span>&#123;</span><br><span class="line">    Model model = convert(response);</span><br><span class="line">    <span class="keyword">return</span> model;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p>map操作符做了点什么</p>
+ <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;R&gt; <span class="function">AsyncJob&lt;R&gt; <span class="title">map</span><span class="params">(FunC1&lt;T, R&gt; funC1)</span> </span>&#123;</span><br><span class="line">  <span class="comment">//1. source 就是上一个资源 （上次对象）</span></span><br><span class="line">  AsyncJob&lt;T&gt; source = <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//2. 这里的new 对象就是返回的对象（简称本次对象）</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> AsyncJob&lt;R&gt;() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//3. 这里表示本次执行（start()）的时候，（调用start方法的时候，会去先执行上个对象的start()方法）</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">//4. 本个对象的start()方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">(RxCallback&lt;R&gt; callback)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">      <span class="comment">//5. 上个对象start()方法</span></span><br><span class="line">      source.start(<span class="keyword">new</span> RxCallback&lt;T&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(T t)</span> </span>&#123;</span><br><span class="line">          <span class="comment">//5.5 如果上个对象的start方法成功了</span></span><br><span class="line">          <span class="comment">//6.0这里有一个不确定的函数，这个函数声明了将一个T，类型的参数转换为一个R类型</span></span><br><span class="line">          R result = funC1.call(t);</span><br><span class="line">          <span class="comment">//7 -a将成功结果传递出去</span></span><br><span class="line">          callback.onSuccess(result);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">          <span class="comment">//7- b 将结果传递出去</span></span><br><span class="line">          callback.onError(e);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>flatMap 做了点什么</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;R&gt; <span class="function">AsyncJob&lt;R&gt; <span class="title">flatMap</span><span class="params">(FunC1&lt;T, AsyncJob&lt;R&gt;&gt; funC1)</span> </span>&#123;</span><br><span class="line">  <span class="comment">//1. 保存上个对象</span></span><br><span class="line">  AsyncJob&lt;T&gt; source = <span class="keyword">this</span>;</span><br><span class="line">  <span class="comment">//2. 返回本次对象</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> AsyncJob&lt;R&gt;() &#123;</span><br><span class="line">    <span class="comment">//3. 表示本次对象执行</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">(RxCallback&lt;R&gt; callback)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//4. 表示执行时首先会执行上个对象的start()方法</span></span><br><span class="line">      source.start(<span class="keyword">new</span> RxCallback&lt;T&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(T t)</span> </span>&#123;</span><br><span class="line">          <span class="comment">//5. 在上个对象成功中使用传入的抽象动作，将一个参数转换为另外一个AsyncJob对象</span></span><br><span class="line">          AsyncJob&lt;R&gt; call = funC1.call(t);</span><br><span class="line">          <span class="comment">//6. 调用这个AsyncJob对象的start()方法</span></span><br><span class="line">          call.start(<span class="keyword">new</span> RxCallback&lt;R&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(R r)</span> </span>&#123;</span><br><span class="line">              <span class="comment">//7. 在成功时将结果传递出去</span></span><br><span class="line">              callback.onSuccess(r);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">              callback.onError(e);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">          callback.onError(e);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p><code>map</code> 和<code>flatMap</code> 是哪里不一样？ </p>
+</li>
+</ol>
+<p>   <code>map</code> 中接收的接口中的泛型是<code>&lt;T,R&gt;</code> </p>
+<p>   说明<code>map</code>操作符中<code>Func1</code>接口的<code>call</code>方法的返回值是一个<code>R</code>类型的参数</p>
+   <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Model <span class="title">call</span><span class="params">(Response response)</span> </span>&#123;</span><br><span class="line">  Model model = convert(response);</span><br><span class="line">  <span class="keyword">return</span> model;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>   ​</p>
+<p>   <code>flatmap</code> 中接收的接口中的泛型是<code>&lt;T,Observable&lt;R&gt;&gt;</code> </p>
+<p>   说明<code>flatmap</code> 操作符中<code>Func1</code> 接口的<code>call</code>方法的返回值是一个<code>Observable&lt;R&gt;</code>类型的参数</p>
+   <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> AsyncJob&lt;Uri&gt; <span class="title">call</span><span class="params">(Model model)</span> </span>&#123;</span><br><span class="line">  AsyncJob&lt;Uri&gt; save = save(model);</span><br><span class="line">  <span class="keyword">return</span> save;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>   ​</p>
+<p>​    </p>
+<h3 id="封装完成前后的对比"><a href="#封装完成前后的对比" class="headerlink" title="封装完成前后的对比"></a>封装完成前后的对比</h3><h4 id="没有进行封装，需要传递CallBack的原始方法（含有嵌套操作）"><a href="#没有进行封装，需要传递CallBack的原始方法（含有嵌套操作）" class="headerlink" title="没有进行封装，需要传递CallBack的原始方法（含有嵌套操作）"></a>没有进行封装，需要传递CallBack的原始方法（含有嵌套操作）</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getResult</span><span class="params">(String url, RxCallback&lt;Uri&gt; rxCallback)</span> </span>&#123;</span><br><span class="line">  netApi.get(url, <span class="keyword">new</span> RxCallback&lt;Response&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Response response)</span> </span>&#123;</span><br><span class="line">      Model model = convert(response);</span><br><span class="line"></span><br><span class="line">      save(model, <span class="keyword">new</span> RxCallback&lt;Uri&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Uri uri)</span> </span>&#123;</span><br><span class="line">          rxCallback.onSuccess(uri);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">          rxCallback.onError(e);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">      rxCallback.onError(e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="使用封装了start-函数后"><a href="#使用封装了start-函数后" class="headerlink" title="使用封装了start()函数后"></a>使用封装了start()函数后</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> AsyncJob&lt;Uri&gt; <span class="title">getResult</span><span class="params">(String url)</span> </span>&#123;</span><br><span class="line">  AsyncJob&lt;Response&gt; responseAsyncJob = netApi.get(url);</span><br><span class="line">  AsyncJob&lt;Model&gt; modelAsyncJob = <span class="keyword">new</span> AsyncJob&lt;Model&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">(RxCallback&lt;Model&gt; rxCallback)</span> </span>&#123;</span><br><span class="line">      responseAsyncJob.start(<span class="keyword">new</span> RxCallback&lt;Response&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Response response)</span> </span>&#123;</span><br><span class="line">          Model convert = convert(response);</span><br><span class="line">          rxCallback.onSuccess(convert);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">          rxCallback.onError(e);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  AsyncJob&lt;Uri&gt; uriAsyncJob = <span class="keyword">new</span> AsyncJob&lt;Uri&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">(RxCallback&lt;Uri&gt; rxCallback)</span> </span>&#123;</span><br><span class="line">      modelAsyncJob.start(<span class="keyword">new</span> RxCallback&lt;Model&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Model model)</span> </span>&#123;</span><br><span class="line">          AsyncJob&lt;Uri&gt; save = save(model);</span><br><span class="line">          save.start(<span class="keyword">new</span> RxCallback&lt;Uri&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Uri uri)</span> </span>&#123;</span><br><span class="line">              rxCallback.onSuccess(uri);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">              rxCallback.onError(e);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line">          rxCallback.onError(e);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> uriAsyncJob;       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="封装了map操作符-和flatMap-操作符"><a href="#封装了map操作符-和flatMap-操作符" class="headerlink" title="封装了map操作符 和flatMap 操作符"></a>封装了map操作符 和flatMap 操作符</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> AsyncJob&lt;Uri&gt; <span class="title">getResult</span><span class="params">(String url)</span> </span>&#123;</span><br><span class="line">  AsyncJob&lt;Response&gt; responseAsyncJob = netApi.get(url);</span><br><span class="line">  AsyncJob&lt;Model&gt; modelAsyncJob1 = responseAsyncJob.map(<span class="keyword">new</span> FunC1&lt;Response, Model&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Model <span class="title">call</span><span class="params">(Response response)</span> </span>&#123;</span><br><span class="line">      Model model = convert(response);</span><br><span class="line">      <span class="keyword">return</span> model;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  AsyncJob&lt;Uri&gt; uriAsyncJob = modelAsyncJob1.flatMap(<span class="keyword">new</span> FunC1&lt;Model, AsyncJob&lt;Uri&gt;&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AsyncJob&lt;Uri&gt; <span class="title">call</span><span class="params">(Model model)</span> </span>&#123;</span><br><span class="line">      AsyncJob&lt;Uri&gt; save = save(model);</span><br><span class="line">      <span class="keyword">return</span> save;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="封装完成-，lambda化后"><a href="#封装完成-，lambda化后" class="headerlink" title="封装完成 ，lambda化后"></a>封装完成 ，lambda化后</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> AsyncJob&lt;Uri&gt; <span class="title">getResult</span><span class="params">(String url)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> netApi.get(url)</span><br><span class="line">    .map(<span class="keyword">this</span>::convert)</span><br><span class="line">    .flatMap(<span class="keyword">this</span>::save);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/03/07/hello-world/" data-toggle="tooltip" data-placement="top" title="Hello World">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "http://yoursite.com/2018/03/07/rxjava2/";
+    var disqus_url = "http://yoursite.com/2018/03/07/rxjava2/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/pdog18">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Pdog&#39;s Blog 2018 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'pdog18.cn';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
