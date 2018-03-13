@@ -13,11 +13,11 @@
 
     <title>
         
-          Pdog的博客 | Pdog&#39;s Blog
+          processor - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/">
+    <link rel="canonical" href="http://yoursite.com/2018/03/13/processor/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -147,259 +147,135 @@
 
 
     <!-- Main Content -->
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>Pdog&#39;s Blog</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading">To Be A Lean Developer!</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#注解与依赖注入框架" title="注解与依赖注入框架">注解与依赖注入框架</a>
+                        
+                    </div>
+                    <h1>processor</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Pdog on
+                        2018-03-13
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
-
-<!-- USE SIDEBAR -->
     <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                <!-- Main Content -->
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-
-<div class="post-preview">
-
-    <a href="/2018/03/13/todo/">
-        <h2 class="post-title">
-            todolist
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            TodoList
-注解框架自动绑定activity布局
-自定义控件滑块
-databinding mvvm
-kotlin
-jvm虚拟机
-AMS PMS 源码学习
-两种热修复方案复习整理
-类加载机制
-
-ButterKnife学习
-通过注解框架 AbstractProcessor 在编译期生成Target_ViewBinding的帮助类(后面简称ViewBinding)，ViewBinding 由......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-13
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/03/13/processor/">
-        <h2 class="post-title">
-            processor
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            注解与依赖注入框架1. 注解及注解处理器
-注解
-从JDK 5 开始，Java增加了注解。关于注解的资料网上有很多，这里就不再次重复了。
-
-注解处理器
-针对三种不同级别保留策略的注解分别有对应不同的注解处理器。
-
-RUNTIME：采用反射机制处理
-CLASS，SOURCE：采用AbstractProcessor来处理
-
-
-
-2. 注解处理器的编写2.1 编译时注解采用反射方式，略。
-2.2 运......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-13
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/03/12/synchronized/">
-        <h2 class="post-title">
-            Java并发synchronized关键字
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Java并发synchronized相关
-本文主要内容来自 聊聊并发（二）——Java SE1.6中的Synchronized
-
-1. 引言在1.6以前 synchronized很多人称呼它为重量级锁，在Java SE1.6对它进行了各种优化，有些情况它就不那么重了。下面详细介绍了Java SE1.6中为了减少获得锁和释放锁带来的性能消耗而引入的偏向锁和轻量级锁，以及锁的存储结构和升级过程。......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-12
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/03/07/rxjava2/">
-        <h2 class="post-title">
-            rxjava2
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            RxJava 笔记
-注意：这只是学习的过程，为了学习rxjava是怎么由callback嵌套转换而来，其中的map和flatMap 都只是精简过后的一个概念，不是真正的样子
-
-感谢
-
- W_BinaryTree2楼 · 2017.05.12 01:07flatMap不仅仅是把item封装成observable。 还有个merge的过程。
-
-同步时Response newsList = net......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-07
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/03/07/hello-world/">
-        <h2 class="post-title">
-            Hello World
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Qu......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-07
-    </p>
-
-</div>
-<hr>
-
-
-
-<!-- Pager -->
-
-<ul class="pager">
-    
-    
+                <h1 id="注解与依赖注入框架"><a href="#注解与依赖注入框架" class="headerlink" title="注解与依赖注入框架"></a>注解与依赖注入框架</h1><h2 id="1-注解及注解处理器"><a href="#1-注解及注解处理器" class="headerlink" title="1. 注解及注解处理器"></a>1. 注解及注解处理器</h2><ul>
+<li><p>注解</p>
+<p>从JDK 5 开始，Java增加了注解。关于注解的资料网上有很多，这里就不再次重复了。</p>
+</li>
+<li><p>注解处理器</p>
+<p>针对三种不同级别保留策略的注解分别有对应不同的注解处理器。</p>
+<ul>
+<li>RUNTIME：采用反射机制处理</li>
+<li>CLASS，SOURCE：采用<code>AbstractProcessor</code>来处理</li>
 </ul>
+</li>
+</ul>
+<h2 id="2-注解处理器的编写"><a href="#2-注解处理器的编写" class="headerlink" title="2. 注解处理器的编写"></a>2. 注解处理器的编写</h2><h3 id="2-1-编译时注解"><a href="#2-1-编译时注解" class="headerlink" title="2.1 编译时注解"></a>2.1 编译时注解</h3><p>采用反射方式，略。</p>
+<h3 id="2-2-运行时注解"><a href="#2-2-运行时注解" class="headerlink" title="2.2 运行时注解"></a>2.2 运行时注解</h3><p>在项目中新建一个Java Library来专门存放注解。</p>
+<p>编写注解处理器，同样在JavaLibrary中创建类继承于<code>AbstractProcessor</code>并且实现它的4个方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//伪代码</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyProcessor</span> <span class="keyword">extends</span> <span class="title">AbstractProcessor</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">process</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function">Set&lt;String&gt; <span class="title">getSupportedAnnotationTypes</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function">SourceVersion <span class="title">getSupportedSourceVersion</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>init()</code>，会被注解处理工具调用。注解处理工具会传入很多有用的工具类</li>
+<li><code>process()</code>，在这里获取你关心的文件及针对注解生成java文件。</li>
+<li><code>getSupportedAnnotationTypes()</code> 指定这个注解处理器是对应哪些注解类型</li>
+<li><code>getSupportedSourceVersion()</code> 指定使用的Java版本。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">processingEnv</span><br><span class="line">           .getMessager()</span><br><span class="line">           .printMessage(Diagnostic.Kind.ERROR, BindLayout.class.getCanonicalName());</span><br></pre></td></tr></table></figure>
+<p>上面的代码，举例了一个利用注解提供的工具类向控制台输出注解全包名路径的方式</p>
+<p><img src="/Users/pdog/Desktop/WechatIMG10.jpeg" alt="WechatIMG10"></p>
+<p>如果你在编译时遇到了以下问题。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Error:FAILURE: Build failed with an exception.</span><br><span class="line"></span><br><span class="line">* What went wrong:</span><br><span class="line">Execution failed for task &apos;:app:javaPreCompileDebug&apos;.</span><br><span class="line">&gt; Annotation processors must be explicitly declared now.  The following dependencies on the compile classpath are found to contain annotation processor.  Please add them to the annotationProcessor configuration.</span><br><span class="line">    - processor_lib.jar (project :processor_lib)</span><br><span class="line">  Alternatively, set android.defaultConfig.javaCompileOptions.annotationProcessorOptions.includeCompileClasspath = true to continue with previous behavior.  Note that this option is deprecated and will be removed in the future.</span><br><span class="line">  See https://developer.android.com/r/tools/annotation-processor-error-message.html for more details.</span><br><span class="line"></span><br><span class="line">* Try:</span><br><span class="line">Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.</span><br><span class="line"></span><br><span class="line">* Get more help at https://help.gradle.org</span><br><span class="line"></span><br><span class="line">BUILD FAILED in 5s</span><br></pre></td></tr></table></figure>
+<p>尝试在<code>build.gradle</code>中，添加下列代码解决</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  defaultConfig &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    javaCompileOptions &#123;</span><br><span class="line">      annotationProcessorOptions &#123;</span><br><span class="line">        includeCompileClasspath <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>使用注解处理器，需要用一个服务文件来注册它，当然我们也可以通过Google开源的<code>AutoService</code>来简化。</p>
+<p>添加<code>implementation &#39;com.google.auto.service:auto-service:1.0-rc2&#39;</code>依赖后。只要在我们的注解处理器类上添加<code>@AutoService(Processor.class)</code>注解就可以了。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@AutoService</span>(Processor.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyProcessor</span> <span class="keyword">extends</span> <span class="title">AbstractProcessor</span> </span>&#123;</span><br><span class="line"><span class="comment">//....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+                <hr>
 
-                <!-- 如果开启评论功能 -->
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2018/03/13/todo/" data-toggle="tooltip" data-placement="top" title="todolist">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/03/12/synchronized/" data-toggle="tooltip" data-placement="top" title="Java并发synchronized关键字">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
                 
 
             </div>
+    <!-- Side Catalog Container -->
+        
+
     <!-- Sidebar Container -->
+
             <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
                 <!-- Featured Tags -->
                 
                 <section>
                     <!-- no hr -->
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
-                        
-                            
-                        
-                            
-                        
-                            
+                       
+                          <a class="tag" href="/tags/#注解与依赖注入框架" title="注解与依赖注入框架">注解与依赖注入框架</a>
                         
                     </div>
                 </section>
                 
 
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-
-                        
-
-                        
-                            <p>!</p>
-                        
-
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                            
-
-                            
-
-                            
-
-                            
-                                <li>
-                                    <a target="_blank"  href="https://github.com/pdog18">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-                            
-                            
-                            
-                        </ul>
-                    </div>
-                </section>
-                
                 <!-- Friends Blog -->
                 
                 <hr>
@@ -422,9 +298,66 @@ Qu......
                 </ul>
                 
             </div>
-        
+
+        </div>
     </div>
-</div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "http://yoursite.com/2018/03/13/processor/";
+    var disqus_url = "http://yoursite.com/2018/03/13/processor/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
     <!-- Footer -->
