@@ -90,7 +90,7 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -104,7 +104,7 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -206,6 +206,29 @@
 <li>在<code>target</code>执行到<code>ButterKnife.bind(target)</code>的时候，会通过传入的目标的类名通过反射找到<code>ViewBinding</code>的构造器，同时将构造器，使用<code>Map</code>存储，减少使用反射的性能消耗</li>
 <li><code>ViewBinding</code>的构造器需要传入两个对象，<code>target</code>和<code>target</code>对应的<code>View</code>，在构造方法中直接对<code>target</code>的成员变量进行赋值。</li>
 </ol>
+<h2 id="ConcurrentHashMap学习"><a href="#ConcurrentHashMap学习" class="headerlink" title="ConcurrentHashMap学习"></a>ConcurrentHashMap学习</h2><h3 id="HashMap线程不安全"><a href="#HashMap线程不安全" class="headerlink" title="HashMap线程不安全"></a>HashMap线程不安全</h3><p>HashMap在多线程操作的时候会引起死循环（Java1.8已经不会了）</p>
+<h3 id="Hashtable-效率低下"><a href="#Hashtable-效率低下" class="headerlink" title="Hashtable 效率低下"></a>Hashtable 效率低下</h3><p>Hashtable容器使用synchronized来保证线程安全。但在县城竞争激烈的情况下Hashtable的效率非常低下。因为当一个线程访问Hashtable的同步方法时，其他线程访问Hashtable的同步方法时，可能会进入阻塞或轮询状态。如线程1使用put进行添加元素，线程2不但不能使用put方法添加元素，并且也不能使用get方法来获取元素，所以竞争越激烈效率越低。</p>
+<h3 id="锁分段技术"><a href="#锁分段技术" class="headerlink" title="锁分段技术"></a>锁分段技术</h3><p>Hashtable容器在竞争激烈的并发环境下表现出效率低下的原因是所有访问Hashtable的线程都必须竞争同一把锁，那假如容器里有多把锁，每一把锁用于锁容器其中一部分数据，那么当多线程访问容器里不同数据段的数据时，线程间就不会存在锁竞争，从而可以有效的提高并发访问效率，这就是ConcurrentHashMap所使用的锁分段技术，首先将数据分成一段一段的存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一个段数据的时候，其他段的数据也能被其他线程访问。</p>
+<h3 id="ConcurrentHashMap的结构-（1-7）"><a href="#ConcurrentHashMap的结构-（1-7）" class="headerlink" title="ConcurrentHashMap的结构 （1.7）"></a>ConcurrentHashMap的结构 （1.7）</h3><p>ConcurrentHashMap时由Segment数组结构和HashEntry数组结构组成。Segment是一种可重入锁ReentrantLock，在ConcurrentHashMap里扮演锁的角色，HashEntry则用于存储键值对数据。一个ConcurrentHashMap里包含一个Segment数组，每个HashEntry是一个链表结构的元素，每个Segment守护着一个HashEntry数组里的元素，当对HashEntry数组的数据进行修改时，必须首先获得它对应的Segment锁。</p>
+<blockquote>
+<p><a href="http://blog.csdn.net/yanyan19880509/article/details/52345422" target="_blank" rel="noopener">可重入锁</a></p>
+</blockquote>
+<p><img src="/Users/pdog/Desktop/2184951-af57d9d50ae9f547.png" alt="2184951-af57d9d50ae9f547"></p>
+<h3 id="ConcurrentHashMap的初始化"><a href="#ConcurrentHashMap的初始化" class="headerlink" title="ConcurrentHashMap的初始化"></a>ConcurrentHashMap的初始化</h3><p>ConcurrentHashMap初始化方法是通过initialCapacity，loadFactor，concurrencyLevel几个参数来初始化segments数组，段偏移量segmentShift，段掩码segmentMask和每个segment里的HashEntry数组。</p>
+<h3 id="ConcurrentHashMap的get操作"><a href="#ConcurrentHashMap的get操作" class="headerlink" title="ConcurrentHashMap的get操作"></a>ConcurrentHashMap的get操作</h3><p>为get方法里将要使用的共享变量都定义成volatile（如统计当前Segment大小的count字段和用于存储值的HashEntry的value），保持了变量的可见性。除非取到空值才会加锁重读。</p>
+<h3 id="ConcurrentHashMap的Put操作"><a href="#ConcurrentHashMap的Put操作" class="headerlink" title="ConcurrentHashMap的Put操作"></a>ConcurrentHashMap的Put操作</h3><p>由于put方法里需要对共享变量进行写入操作，所以为了线程安全，在操作共享变量时必须得加锁。put方法首先定位到Segment，然后在Segment里进行插入操作。插入操作需要经历两个步骤，第一步判断是否需要对Segment里的HashEntry数组进行扩容，第二步定位添加元素的位置然后放在HashEntry数组里。</p>
+<p>是否需要扩容。在插入元素前会先判断Segment里的HashEntry数组是否超过容量（threshold），如果超过阀值，数组进行扩容。值得一提的是，Segment的扩容判断比HashMap更恰当，因为HashMap是在插入元素后判断元素是否已经到达容量的，如果到达了就进行扩容，但是很有可能扩容之后没有新元素插入，这时HashMap就进行了一次无效的扩容。</p>
+<p>如何扩容。扩容的时候首先会创建一个两倍于原容量的数组，然后将原数组里的元素进行再hash后插入到新的数组里。为了高效ConcurrentHashMap不会对整个容器进行扩容，而只对某个segment进行扩容。</p>
+<h3 id="ConcurrentHashMap的size操作"><a href="#ConcurrentHashMap的size操作" class="headerlink" title="ConcurrentHashMap的size操作"></a>ConcurrentHashMap的size操作</h3><p>统计所有Segment里元素的大小后求和。Segment里的变量count是个volatile变量，虽然取到的count是最新的值，但是它们相加的时候可能使用的count发生了变化。ConcurrentHashMap的做法是先尝试2次通过不锁住Segment的方法来统计各个Segment的大小，如果统计的过程中，容器的count发生了变化，则再采用加锁的方式来统计所有segment的大小。</p>
+<p>那么ConcurrentHashMap是如何判断在统计的时候容器是否发生了变化呢？使用modCount变量，在put，remove，clean方法里操作元素前都会将变量modCount进行加1，那么在统计size前后比较modCount是否发生变化，从而得知容器的大小是否发生变化。</p>
+<h3 id="ConcurrentHashMap1-8实现"><a href="#ConcurrentHashMap1-8实现" class="headerlink" title="ConcurrentHashMap1.8实现"></a>ConcurrentHashMap1.8实现</h3><blockquote>
+<p><a href="https://www.jianshu.com/p/e694f1e868ec" target="_blank" rel="noopener">谈谈ConcurrentHashMap1.7和1.8的不同实现</a></p>
+</blockquote>
+<p>1.8中放弃了Segment臃肿的设计，取而代之的是采用Node+CAS+Synchronized来保证并发安全进行实现。</p>
+<p><img src="/Users/pdog/Desktop/2184951-d9933a0302f72d47.png" alt="2184951-d9933a0302f72d47"></p>
+<p>只有在执行第一次put方法时才会调用initTable()初始化Node数组。</p>
+<p>put实现</p>
+<p>当执行put方法插入数据时</p>
 
 
                 <hr>
