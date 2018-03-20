@@ -349,7 +349,15 @@
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> array = arrayOf(<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>)</span><br><span class="line">    <span class="comment">//sampleStart</span></span><br><span class="line">    <span class="keyword">for</span> (i <span class="keyword">in</span> array.indices) &#123;</span><br><span class="line">    	println(array[i])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//sampleEnd</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>或者你可以用库函数<code>withIndex</code>：</p>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> array = arrayOf(<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>)</span><br><span class="line">    <span class="comment">//sampleStart</span></span><br><span class="line">    <span class="keyword">for</span> ((index, value) <span class="keyword">in</span> array.withIndex()) &#123;</span><br><span class="line">   		 println(<span class="string">"the element at <span class="variable">$index</span> is <span class="variable">$value</span>"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//sampleEnd</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="While循环"><a href="#While循环" class="headerlink" title="While循环"></a>While循环</h3>
+<h3 id="While循环"><a href="#While循环" class="headerlink" title="While循环"></a>While循环</h3><h3 id="循环中的Break-和-continue"><a href="#循环中的Break-和-continue" class="headerlink" title="循环中的Break 和 continue"></a>循环中的Break 和 continue</h3><p>在循环中Kotlin支持传统的<code>break</code>和<code>continue</code>操作符。参见返回和跳转</p>
+<h2 id="返回和跳转"><a href="#返回和跳转" class="headerlink" title="返回和跳转"></a>返回和跳转</h2><p>Kotlin 有三种结构化跳转表达式：</p>
+<ul>
+<li><code>return</code></li>
+<li><code>break</code></li>
+<li><code>continue</code></li>
+</ul>
+<p>所有这些表达式都可以用做</p>
+
 
                 <hr>
 
@@ -358,7 +366,7 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2018/03/20/kotlin-basic-grammar/" data-toggle="tooltip" data-placement="top" title="Kotlin基础语法">&larr; Previous Post</a>
+                            <a href="/2018/03/20/kotlin-code-conventions/" data-toggle="tooltip" data-placement="top" title="Kotlin编码规范">&larr; Previous Post</a>
                         </li>
                     
                     
