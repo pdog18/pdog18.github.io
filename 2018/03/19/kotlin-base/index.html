@@ -90,7 +90,7 @@
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -104,7 +104,7 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -356,7 +356,27 @@
 <li><code>break</code></li>
 <li><code>continue</code></li>
 </ul>
-<p>所有这些表达式都可以用做</p>
+<p>所有这些表达式都可以用作更大的表达式的一部分：</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> s = person.name ?: <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
+<p>这些表达式的类型是Nothing类型</p>
+<h3 id="Break与Continue标签"><a href="#Break与Continue标签" class="headerlink" title="Break与Continue标签"></a>Break与Continue标签</h3><p>在Kotlin中任何表达式都可以用标签（<code>label</code>）来标记。标签的格式为标识符后跟<code>@</code>符号，例如：<code>abc@</code>、<code>fooBar</code>都是有效的标签。要为一个表达式加标签，我们只要在其前加标签即可。</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="symbol">loop@</span> <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1.</span><span class="number">.100</span>) &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在，我们可以用标签限制<code>break</code>或者<code>continue</code>：</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="symbol">loop@</span> <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1.</span><span class="number">.100</span>) &#123;</span><br><span class="line">  <span class="keyword">for</span> (j <span class="keyword">in</span> <span class="number">1.100</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (...) <span class="keyword">break</span><span class="symbol">@loop</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>标签限制的break跳转到行号位于该标签指定的循环后面的执行点。<code>continue</code> 继续标签指定的循环的下一次迭代。</p>
+<h3 id="标签处返回"><a href="#标签处返回" class="headerlink" title="标签处返回"></a>标签处返回</h3><p>Kotlin有函数字面量，局部函数和对象表达式。因此Kotlin的函数可以被嵌套。标签限制的<code>return</code>允许我们从外层函数返回。最重要的一个用途就是从lambda表达式中返回。回想一下我们这么写的时候：</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">()</span></span> &#123;</span><br><span class="line">    listOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>).forEach &#123;</span><br><span class="line">        <span class="keyword">if</span> (it == <span class="number">3</span>) <span class="keyword">return</span> <span class="comment">// 非局部直接返回到 foo() 的调用者</span></span><br><span class="line">        print(it)</span><br><span class="line">    &#125;</span><br><span class="line">    println(<span class="string">"this point is unreachable"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个 return 表达式从最直接包围它的函数即 foo 中返回。 （注意，这种非局部的返回只<br>支持传给内联函数的 lambda 表达式。） 如果我们需要从 lambda 表达式中返回，我们必须<br>给它加标签并用以限制 return 。</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">foo2</span><span class="params">()</span></span> &#123;</span><br><span class="line">    listOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>).forEach <span class="symbol">lit@</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (it == <span class="number">3</span>) <span class="keyword">return</span><span class="symbol">@lit</span> <span class="comment">// 局部返回到该 lambda 表达式的调用者，即 forEach 循环</span></span><br><span class="line">        print(it)</span><br><span class="line">    &#125;</span><br><span class="line">    print(<span class="string">" done with explicit label"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在，它只会从 lambda 表达式中返回。通常情况下使用隐式标签更方便。 该标签与接受该<br>lambda 的函数同名。</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">foo2</span><span class="params">()</span></span> &#123;</span><br><span class="line">    listOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>).forEach &#123;</span><br><span class="line">        <span class="keyword">if</span> (it == <span class="number">3</span>) <span class="keyword">return</span><span class="symbol">@forEach</span> <span class="comment">// 局部返回到该 lambda 表达式的调用者，即 forEach 循环</span></span><br><span class="line">        print(it)</span><br><span class="line">    &#125;</span><br><span class="line">    print(<span class="string">" done with explicit label"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者，我们用一个匿名函数替代 lambda 表达式。 匿名函数内部的 return 语句将从该匿名<br>函数自身返回</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">()</span></span> &#123;</span><br><span class="line">       listOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>).forEach(<span class="function"><span class="title">fun</span><span class="params">(value: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">           <span class="keyword">if</span> (value == <span class="number">3</span>) <span class="keyword">return</span> <span class="comment">// 局部返回到匿名函数的调用者，即 forEach 循环</span></span><br><span class="line">           print(value)</span><br><span class="line">       &#125;)</span><br><span class="line">       print(<span class="string">" done with anonymous function"</span>)</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>请注意，前文三个示例中使用的局部返回类似于在常规循环中使用 continue 。并没有<br>break 的直接等价形式，不过可以通过增加另一层嵌套 lambda 表达式并从其中非局部返回<br>来模拟：</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">()</span></span> &#123;</span><br><span class="line">  run <span class="symbol">loop@</span>&#123;</span><br><span class="line">    listOf(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>).forEach &#123;</span><br><span class="line">    <span class="keyword">if</span> (it == <span class="number">3</span>) <span class="keyword">return</span><span class="symbol">@loop</span> <span class="comment">// 从传入 run 的 lambda 表达式非局部返回</span></span><br><span class="line">    	print(it)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  print(<span class="string">" done with nested loop"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当要返一个回值的时候，解析器优先选用标签限制的 return，即</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span><span class="symbol">@a</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>意为“从标签 @a 返回 1”，而不是“返回一个标签标注的表达式 (@a 1) ”。</p>
 
 
                 <hr>
