@@ -13,11 +13,11 @@
 
     <title>
         
-          Kotlin编码规范 - Pdog的博客 | Pdog&#39;s Blog
+          10 kotlin tricks by Jake Wharton - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/2018/03/20/kotlin-code-conventions/">
+    <link rel="canonical" href="http://yoursite.com/2018/03/21/kotlin-tricks-by-Jake-Wharton/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -165,14 +165,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#Kotlin编码规范" title="Kotlin编码规范">Kotlin编码规范</a>
+                          <a class="tag" href="/tags/#10_kotlin_tricks_by_Jake_Wharton" title="10_kotlin_tricks_by_Jake_Wharton">10_kotlin_tricks_by_Jake_Wharton</a>
                         
                     </div>
-                    <h1>Kotlin编码规范</h1>
+                    <h1>10 kotlin tricks by Jake Wharton</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Pdog on
-                        2018-03-20
+                        2018-03-21
                     </span>
                 </div>
             </div>
@@ -191,83 +191,33 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="Kotlin编码规范"><a href="#Kotlin编码规范" class="headerlink" title="Kotlin编码规范"></a>Kotlin编码规范</h2><h2 id="编码规范"><a href="#编码规范" class="headerlink" title="编码规范"></a>编码规范</h2><p>本页包含当前Kotlin语言的编码风格</p>
-<ul>
-<li><p>源代码组织</p>
-<ul>
-<li>源文件名称 ，文件的名称应该描述文件中代码的作用。因此，应避免在文件名中使用诸如“Util”之类的无意义词语。</li>
-</ul>
-</li>
-<li><p>源文件组织</p>
-<p>鼓励多个声明（类、顶级函数或属性）放在同一Kotlin源文件中，只要这些声明在语义上彼此紧密关联并且文件保持合理大小（不超过几百行）。</p>
-<p>特别是在为类定义与类的所有客服都相关的扩展函数时，请将他们放在与类自身定义相同的地方。而在定义仅对指定客户有意义的扩展函数时，请将他们放在紧挨该客服代码之后。不要只是为了保存“Foo的所有扩展函数”而创建文件。</p>
-</li>
-<li><p>类布局</p>
-<p>通常一个类的内容按以下顺序排列：</p>
-<ul>
-<li>属性声明与初始化块</li>
-<li>次构造函数</li>
-<li>方法声明</li>
-<li>伴生对象</li>
-</ul>
-<p>不要按字母顺序或者可见性对方法声明排序，也不要将常规方法与扩展方法分开。而是要把相关的东西放在一起，这样从上到下阅读类的人就能够跟进锁发生事情的逻辑。选择一个顺序（高级别有限，或者相反）并坚持下去。</p>
-<p>将嵌套类妨碍紧挨使用这些类的代码之后。如果打算在外部使用嵌套类，而且类中并没有引用这些类，那么把它们放到末尾，在伴生对象之后。</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">KtClassLayout</span></span>(height: <span class="built_in">Int</span>) &#123;</span><br><span class="line">  <span class="comment">//1. 属性声明与初始化块</span></span><br><span class="line">  <span class="keyword">var</span> width: <span class="built_in">Int</span> = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">  init &#123;</span><br><span class="line">    <span class="keyword">var</span> area = <span class="number">42</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//2. 次构造函数</span></span><br><span class="line">  <span class="keyword">constructor</span>(width: <span class="built_in">Int</span>, height: <span class="built_in">Int</span>) : <span class="keyword">this</span>(height) &#123;</span><br><span class="line">    <span class="keyword">this</span>.width = width</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//3. 方法声明</span></span><br><span class="line">  <span class="function"><span class="keyword">fun</span> <span class="title">someMethod</span><span class="params">()</span></span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//4. 伴生对象</span></span><br><span class="line">  <span class="keyword">companion</span> <span class="keyword">object</span> User &#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="number">23</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>接口实现布局</p>
-<p>在实现一个接口时，实现成员的顺序应该与该接口的成员顺序相同（如果需要，还要插入用于实现的额外私有方法）</p>
-</li>
-<li><p>重载布局</p>
-<p>在类中总是将重载放在一起</p>
-</li>
-<li><p>命名规则 遵循Java命名约定。  </p>
-<ul>
-<li><p>测试方法的名称</p>
-<p>当且仅当在测试中，可以使用反引号扩起来的带空格的方法。（请注意，Android运行时目前不支持这样的方法名。）测试代码中也允许方法名使用下划线。</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestCase</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Test</span> <span class="function"><span class="keyword">fun</span> `ensure everythind works`<span class="params">()</span></span> &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="meta">@Test</span> <span class="function"><span class="keyword">fun</span> <span class="title">ensureEverythingWorks_onAndroid</span><span class="params">()</span></span> &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>属性名</p>
-<p>常量名称（标有<code>const</code> 的属性，或者保存不可变数据的没有自定义<code>get</code>函数的顶层/对象<code>val</code>属性）应该使用大写、下划线分隔的名称：</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">const <span class="keyword">val</span> MAX_COUNT = <span class="number">8</span></span><br><span class="line"><span class="keyword">val</span> USER_NAME_FIELD = <span class="string">"UserName"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>幕后属性的名称</p>
-<p>如果一个类有两个概念上相同的属性，一个是公共API的一部分，另一个是实现细节，那么使用下划线作为私有属性名称的前缀：</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">val</span> _elementList = mutableListOf&lt;Element&gt;()</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">val</span> elementList: List&lt;Element&gt;</span><br><span class="line">  		<span class="keyword">get</span>() = _elementList</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>选择好名称</p>
-<p>类的名称通常是用来解释类是什么的名词或者名词短语：<code>List</code>、<code>PersonReader</code>。</p>
-<p>方法的名称通常是动词或动词短语，说明该方法做什么：<code>close</code>、<code>readPersons</code> 。修改对象或者返回一个新对象的名词也应遵循建议。例如<code>sort</code>是对一个集合就地排序，而<code>sorted</code>是返回一个排序后的集合副本。</p>
-<p>名称应该表明实体的目的是什么，所以最好避免在名称中使用无意义的单词（<code>Manager</code>、<code>Wrapper</code>等）。</p>
-<p>当使用首字母缩写作为名称的一部分时，如果缩写由两个字母组成，就将其大写（<code>IOStream</code> ）；而如果缩写更长一些，就只大写首字母（<code>XmlFormatter</code> 、<code>HttpInputStream</code>）。</p>
-</li>
-<li><p>横向空白</p>
-<p>绝不在<code>.</code> 或者<code>?.</code> 左右留空格</p>
-<p>在<code>//</code> 之后留一个空格：<code>// 这是一条注释</code></p>
-<p>不要在<code>::</code>前后留空格：<code>Foo::class</code> 、<code>String::length</code></p>
-<p>不要在用于标记可空类型的<code>?</code>前留空格：<code>String?</code></p>
-</li>
-<li><p>属性格式化</p>
-<p>对于非常简单的只读属性，请考虑单行格式：</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> isEmpty: <span class="built_in">Boolean</span> <span class="keyword">get</span>() = size == <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<p>对于更复杂的属性总是将<code>get</code>与<code>set</code>关键字放在不同的行上：</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> foo: String </span><br><span class="line"><span class="keyword">get</span>() &#123;</span><br><span class="line">  	<span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对于具有初始化器的属性，如果初始化器很长，那么在等号后增加一个换行并将初始化器缩进四个空格：</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">val</span> defaultCharset: Charset? =</span><br><span class="line">	EncodingRegistry.getInstance().getDefaultCharsetForPropertiesFiles(file)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>格式化控制语句</p>
-<p>在<code>when</code>语句中，如果一个分支不止一行，可以考虑用空行将其与相邻的分支块分开：</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">parsePropertyValue</span><span class="params">(propName: <span class="type">String</span>, token: <span class="type">Token</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">when</span> (token) &#123;</span><br><span class="line">		<span class="keyword">is</span> Token.ValueToken -&gt;</span><br><span class="line">		callback.visitValue(propName, token.value)</span><br><span class="line">	</span><br><span class="line">    	Token.LBRACE -&gt; &#123; <span class="comment">// ……</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>方法调用格式化</p>
-<p>在较长参数列表的做括号后添加一个换行符。按4个空格缩进参数。将密切相关的额多个参数分在同一行</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">drawSquare(</span><br><span class="line">    x = <span class="number">10</span>, y = <span class="number">10</span>,</span><br><span class="line">    width = <span class="number">100</span>, height = <span class="number">100</span>,</span><br><span class="line">    fill = <span class="literal">true</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>在分隔参数名与值的<code>=</code>左右留空格。</p>
-</li>
-<li><p>链式调用换行</p>
-</li>
-</ul>
+                <h2 id="10-kotlin-tricks-by-Jake-Wharton"><a href="#10-kotlin-tricks-by-Jake-Wharton" class="headerlink" title="10 kotlin tricks by Jake Wharton"></a>10 kotlin tricks by Jake Wharton</h2><h3 id="01-explosive-placeholders"><a href="#01-explosive-placeholders" class="headerlink" title="01 explosive placeholders"></a>01 explosive placeholders</h3><p>使用Todo，来代替throws Exception</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">test</span><span class="params">()</span></span>:<span class="built_in">Int</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        TODO(<span class="string">"some thing"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="02-Semantic-Validation"><a href="#02-Semantic-Validation" class="headerlink" title="02 Semantic Validation"></a>02 Semantic Validation</h3><p>标准库中的检查工具</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">test</span><span class="params">(count: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">    require(count &lt; <span class="number">2</span>) &#123; <span class="string">"count &lt; 2 ,count = <span class="variable">$count</span>"</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//检查工具类</span></span><br><span class="line">require()</span><br><span class="line">requireNotNull()</span><br><span class="line">check()</span><br><span class="line">checkNotNull()</span><br><span class="line">assert()</span><br></pre></td></tr></table></figure>
+<h3 id="03-Anything-and-Nothing"><a href="#03-Anything-and-Nothing" class="headerlink" title="03 Anything and Nothing"></a>03 Anything and Nothing</h3><p>任何类都继承自<code>Any</code>类，而所有类都是<code>Nothing</code>的父类</p>
+<p>这很好的支持了evlis表达式</p>
+<p>在一个方法返回值为Nothing的时候说明这个方法不会停止。</p>
+<h3 id="04-Let"><a href="#04-Let" class="headerlink" title="04 Let"></a>04 Let</h3><p>使用<code>let</code> 确保<code>null safely</code></p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> user: User? = <span class="literal">null</span></span><br><span class="line">user?.let &#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 <code>let</code>让语句连贯</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">someMethod().let&#123;</span><br><span class="line">  result -&gt; <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>run用法</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">//run 用法1，调用run函数块，返回值为函数块最后一行或者指定retrun表达式</span></span><br><span class="line"><span class="keyword">val</span> a = run &#123;</span><br><span class="line">    println(<span class="string">"run"</span>)</span><br><span class="line">    <span class="keyword">return</span><span class="symbol">@run</span> <span class="number">3</span></span><br><span class="line">&#125;</span><br><span class="line">println(a)</span><br><span class="line"></span><br><span class="line"><span class="comment">//用法2 ，调用某对象的run函数，在函数块内可以通过 this 指代该对象。返回值为函数块的最后一行或指定return表达式。</span></span><br><span class="line"><span class="keyword">val</span> a = <span class="string">"string"</span>.run &#123;</span><br><span class="line">    println(<span class="keyword">this</span>)</span><br><span class="line">    <span class="number">3</span></span><br><span class="line">&#125;</span><br><span class="line">println(a)</span><br></pre></td></tr></table></figure>
+<p>apply用法</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">//调用某对象的apply函数，在函数块内可以通过 this 指代该对象。返回值为该对象自己。</span></span><br><span class="line"><span class="keyword">val</span> a = <span class="string">"string"</span>.apply &#123;</span><br><span class="line">    println(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br><span class="line">println(a)</span><br></pre></td></tr></table></figure>
+<h3 id="05-Multiline-String-Literals"><a href="#05-Multiline-String-Literals" class="headerlink" title="05 Multiline String Literals"></a>05 Multiline String Literals</h3><figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> string = <span class="string">"""</span></span><br><span class="line"><span class="string">|foo</span></span><br><span class="line"><span class="string">|bar</span></span><br><span class="line"><span class="string">|baz</span></span><br><span class="line"><span class="string">"""</span>.trimIndent()</span><br></pre></td></tr></table></figure>
+<h3 id="06-Lazy-but-Speedy"><a href="#06-Lazy-but-Speedy" class="headerlink" title="06 Lazy but Speedy"></a>06 Lazy but Speedy</h3><figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span></span>(<span class="keyword">val</span> firstName: String, <span class="keyword">val</span> lastName: String)&#123;</span><br><span class="line">    <span class="keyword">val</span> name :String <span class="keyword">by</span> lazy(LazyThreadSafetyMode.NONE) &#123; <span class="string">"<span class="variable">$firstName</span><span class="variable">$lastName</span>"</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="07-Code-Block-Measurement"><a href="#07-Code-Block-Measurement" class="headerlink" title="07 Code Block Measurement"></a>07 Code Block Measurement</h3><p>测量方法运行时间</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">measureTimeMillis &#123;  &#125;</span><br><span class="line">measureNanoTime &#123;  &#125;</span><br><span class="line">分别有返回值</span><br></pre></td></tr></table></figure>
+<h3 id="08-Deprecation-Levels"><a href="#08-Deprecation-Levels" class="headerlink" title="08 Deprecation Levels"></a>08 Deprecation Levels</h3><p><code>@Deprecated</code>注解必须说明原因，并且可以设置<code>level</code>,</p>
+<p><code>level</code> 为 <code>ERROR</code>时，不能编译通过，<code>HIDDEN</code>为隐藏方法</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Deprecated(<span class="meta-string">"warning"</span>,level = DeprecationLevel.WARNING)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">deprecatedMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="09-Deprecation-Replacements"><a href="#09-Deprecation-Replacements" class="headerlink" title="09 Deprecation Replacements"></a>09 Deprecation Replacements</h3><p><code>@deprecated</code>注解，可以设置<code>replaceWith</code> 提供替代方法</p>
+<p>在设置<code>replaceWith</code>的同时 可以指定<code>imports</code>导入相关的包</p>
+<h3 id="10-Erasing-Erasure"><a href="#10-Erasing-Erasure" class="headerlink" title="10 Erasing Erasure"></a>10 Erasing Erasure</h3><p>不能继承拥有不同泛型的相同的类</p>
+<p>在方法上，方法参数上也不能有相同类</p>
+<p>通过<code>@JvmName(&quot;sortInts&quot;)</code>注解来创建，两个被泛型擦除后相同的方法 （Java无法办到的）</p>
 
 
                 <hr>
@@ -276,13 +226,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2018/03/20/kotlin-basic-syntax/" data-toggle="tooltip" data-placement="top" title="Kotlin基础语法">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2018/03/19/kotlin-base/" data-toggle="tooltip" data-placement="top" title="Kotlin基础(基本类型、包、控制流、返回与跳转)">Next Post &rarr;</a>
+                            <a href="/2018/03/20/kotlin-classes-and-objects/" data-toggle="tooltip" data-placement="top" title="kotlin类与对象">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -315,7 +261,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Kotlin编码规范" title="Kotlin编码规范">Kotlin编码规范</a>
+                          <a class="tag" href="/tags/#10_kotlin_tricks_by_Jake_Wharton" title="10_kotlin_tricks_by_Jake_Wharton">10_kotlin_tricks_by_Jake_Wharton</a>
                         
                     </div>
                 </section>
@@ -355,8 +301,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "http://yoursite.com/2018/03/20/kotlin-code-conventions/";
-    var disqus_url = "http://yoursite.com/2018/03/20/kotlin-code-conventions/";
+    var disqus_identifier = "http://yoursite.com/2018/03/21/kotlin-tricks-by-Jake-Wharton/";
+    var disqus_url = "http://yoursite.com/2018/03/21/kotlin-tricks-by-Jake-Wharton/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

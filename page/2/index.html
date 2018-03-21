@@ -17,7 +17,7 @@
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/">
+    <link rel="canonical" href="http://yoursite.com/page/2/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -184,287 +184,16 @@
 
 <div class="post-preview">
 
-    <a href="/2018/03/21/kotlin-tricks-by-Jake-Wharton/">
+    <a href="/2018/03/07/hello-world/">
         <h2 class="post-title">
-            10 kotlin tricks by Jake Wharton
+            Hello World
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
-            10 kotlin tricks by Jake Wharton01 explosive placeholders使用Todo，来代替throws Exception
-fun test():Int&#123;    if(true)&#123;        return 1    &#125;else&#123;        TODO("some thing")    &#125;&#1......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-21
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/03/20/kotlin-classes-and-objects/">
-        <h2 class="post-title">
-            kotlin类与对象
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            类与对象所有对象相关的
-
-类与继承
-属性与字段
-接口
-可见性修饰符
-扩展
-数据类
-密封类
-泛型
-嵌套类
-枚举类
-对象
-委托
-委托属性
-
-类和继承类Kotlin 中使用关键字 class 声明类
-class Invoice &#123;&#125;
-类声明由类名、类头（指定其类型参数、主构造函数等）以及由花括号包围的类体构成。类头与类体都是可选的； 如果一个类没有类体，可以省略花括号。
-cla......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-20
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/03/20/kotlin-basic-syntax/">
-        <h2 class="post-title">
-            Kotlin基础语法
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            基础语法部分和java类似直接省略
-定义包定义函数fun sum(a: Int,b: Int): Int &#123;  return a + b&#125;fun sum(a: Int, b: Int) = a + bfun sum2(a: Int, b: Int): Unit &#123;    println("method sum2")&#125;//Unit 可以省略fun sum......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-20
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/03/20/kotlin-code-conventions/">
-        <h2 class="post-title">
-            Kotlin编码规范
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Kotlin编码规范编码规范本页包含当前Kotlin语言的编码风格
-
-源代码组织
-
-源文件名称 ，文件的名称应该描述文件中代码的作用。因此，应避免在文件名中使用诸如“Util”之类的无意义词语。
-
-
-源文件组织
-鼓励多个声明（类、顶级函数或属性）放在同一Kotlin源文件中，只要这些声明在语义上彼此紧密关联并且文件保持合理大小（不超过几百行）。
-特别是在为类定义与类的所有客服都相关的扩展函数......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-20
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/03/19/kotlin-base/">
-        <h2 class="post-title">
-            Kotlin基础(基本类型、包、控制流、返回与跳转)
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Kotlin 基础基础基础内容
-
-基本类型
-包
-控制流
-返回与跳转
-
-基本类型在Kotlin中，所有东西都是对象，在这里意义上讲我们可以在任何变量上调用成员函数和属性。一些类型可以有特殊的内部表示——例如，数字、字符和布尔值可以在运行时表示为原生类型值，但是对于用户来说，它们看起来就像普通的类。
-####数字
-####字面常量
-表示方式数字装箱不必保留同一性（若需要可空引用类型会被装箱，装箱......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-19
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/03/17/kotlin/">
-        <h2 class="post-title">
-            Kotlin
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Kotlin##Kotlin语法
-
-类方法 / 静态方法 ，class改为object
-object A &#123;  fun staticMethod() &#123;    //...  &#125;&#125;//调用A.staticMethod()
-
-单例模式
-
-
-字节码参数
-Gank::class.java val gank = Gank()  val clazz2 = gank......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-17
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/03/13/todo/">
-        <h2 class="post-title">
-            todolist
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            TodoList
-注解框架自动绑定activity布局
-自定义控件滑块
-databinding mvvm
-kotlin
-jvm虚拟机
-AMS PMS 源码学习
-两种热修复方案复习整理
-类加载机制
-
-ButterKnife学习
-通过注解框架 AbstractProcessor 在编译期生成Target_ViewBinding的帮助类(后面简称ViewBinding)，ViewBinding 由......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-13
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/03/13/processor/">
-        <h2 class="post-title">
-            Processor
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            注解与依赖注入框架1. 注解及注解处理器
-注解
-从JDK 5 开始，Java增加了注解。关于注解的资料网上有很多，这里就不再次重复了。
-
-注解处理器
-针对三种不同级别保留策略的注解分别有对应不同的注解处理器。
-
-RUNTIME：采用反射机制处理
-CLASS，SOURCE：采用AbstractProcessor来处理
-
-
-
-2. 注解处理器的编写2.1 编译时注解采用反射方式，略。
-2.2 运......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-13
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/03/12/synchronized/">
-        <h2 class="post-title">
-            Java并发synchronized关键字
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Java并发synchronized相关
-本文主要内容来自 聊聊并发（二）——Java SE1.6中的Synchronized
-
-1. 引言在1.6以前 synchronized很多人称呼它为重量级锁，在Java SE1.6对它进行了各种优化，有些情况它就不那么重了。下面详细介绍了Java SE1.6中为了减少获得锁和释放锁带来的性能消耗而引入的偏向锁和轻量级锁，以及锁的存储结构和升级过程。......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-12
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/03/07/rxjava2/">
-        <h2 class="post-title">
-            rxjava2
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            RxJava 笔记
-注意：这只是学习的过程，为了学习rxjava是怎么由callback嵌套转换而来，其中的map和flatMap 都只是精简过后的一个概念，不是真正的样子
-
-感谢
-
- W_BinaryTree2楼 · 2017.05.12 01:07flatMap不仅仅是把item封装成observable。 还有个merge的过程。
-
-同步时Response newsList = net......
+            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Qu......
         </div>
     </a>
     <p class="post-meta">
@@ -481,10 +210,10 @@ CLASS，SOURCE：采用AbstractProcessor来处理
 
 <ul class="pager">
     
-    
-        <li class="next">
-            <a href="/page/2/">Older Posts &rarr;</a>
+        <li class="previous">
+            <a href="/">&larr; Newer Posts</a>
         </li>
+    
     
 </ul>
 

@@ -90,13 +90,6 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/about/">About</a>
                         </li>
                         
@@ -105,6 +98,13 @@
                         
                         <li>
                             <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -227,17 +227,19 @@
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> listWithNulls: List&lt;String?&gt; = listOf(<span class="string">"A"</span>, <span class="literal">null</span>)</span><br><span class="line"><span class="keyword">for</span> (item <span class="keyword">in</span> listWithNulls) &#123;</span><br><span class="line">  item?.equals(<span class="string">"A"</span>).let &#123;</span><br><span class="line">    println(item)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>解构声明</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(argss: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> pair = Pair(<span class="string">"li"</span>, <span class="number">23</span>)</span><br><span class="line">    <span class="keyword">var</span> (name, age) = pair</span><br><span class="line">    println(<span class="string">"name = <span class="variable">$name</span> , age = <span class="variable">$age</span>"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="type">K, V</span>&gt;</span>(<span class="keyword">val</span> name: K, <span class="keyword">val</span> age: V) &#123;</span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">component1</span><span class="params">()</span></span>: K &#123;</span><br><span class="line">        <span class="keyword">return</span> name</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">component2</span><span class="params">()</span></span>: V &#123;</span><br><span class="line">        <span class="keyword">return</span> age</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//解构声明同样可以在for循环中使用</span></span><br><span class="line"><span class="keyword">for</span> ((a, b) <span class="keyword">in</span> collection) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
-<p>​</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(argss: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> pair = Pair(<span class="string">"li"</span>, <span class="number">23</span>)</span><br><span class="line">    <span class="keyword">var</span> (name, age) = pair</span><br><span class="line">    println(<span class="string">"name = <span class="variable">$name</span> , age = <span class="variable">$age</span>"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>class Pair&lt;K, V&gt;(val name: K, val age: V) {</p>
+<pre><code>operator fun component1(): K {
+    return name
+}
+
+operator fun component2(): V {
+    return age
+}
+</code></pre><p>}</p>
 </li>
 </ul>
-<h3 id="解构声明-Destructuring-Declaration"><a href="#解构声明-Destructuring-Declaration" class="headerlink" title="解构声明(Destructuring Declaration)"></a>解构声明(Destructuring Declaration)</h3><blockquote>
-<p><a href="http://blog.csdn.net/qq_32115439/article/details/74078507" target="_blank" rel="noopener">Kotlin-25.解构声明(Destructuring Declaration)</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/27736174" target="_blank" rel="noopener">Kotlin进阶之解构声明</a></p>
-</blockquote>
-<p>#####什么事解构声明</p>
-<p>Kotlin可以将一个对象解构为多个变量</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> (name, age) = user</span><br></pre></td></tr></table></figure>
+<p>  //解构声明同样可以在for循环中使用<br>  for ((a, b) in collection) { … }<br>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">  ​</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 解构声明(Destructuring Declaration)</span><br><span class="line"></span><br><span class="line">&gt; [Kotlin-25.解构声明(Destructuring Declaration)](http://blog.csdn.net/qq_32115439/article/details/74078507)</span><br><span class="line">&gt;</span><br><span class="line">&gt; [Kotlin进阶之解构声明](https://zhuanlan.zhihu.com/p/27736174)</span><br><span class="line"></span><br><span class="line">#####什么事解构声明</span><br><span class="line"></span><br><span class="line">Kotlin可以将一个对象解构为多个变量</span><br><span class="line"></span><br><span class="line">​```kotlin</span><br><span class="line">val (name, age) = user</span><br></pre></td></tr></table></figure></p>
 <h5 id="解构声明代码"><a href="#解构声明代码" class="headerlink" title="解构声明代码"></a>解构声明代码</h5><figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span></span>(<span class="keyword">val</span> name: String, <span class="keyword">val</span> age: <span class="built_in">Int</span>) &#123;</span><br><span class="line">  <span class="comment">//componentN是操作符,重载它,必须添加operator修饰符</span></span><br><span class="line">  <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">component1</span><span class="params">()</span></span>: String &#123;</span><br><span class="line">    <span class="keyword">return</span> name</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">component2</span><span class="params">()</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> age</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</span><br><span class="line">  <span class="comment">//解构声明会创建多个变量,可独立使用</span></span><br><span class="line">  <span class="keyword">val</span> (f, s) = User(<span class="string">"lioil"</span>, <span class="number">23</span>)</span><br><span class="line">  println(<span class="string">"<span class="variable">$f</span>, <span class="variable">$s</span>"</span>) <span class="comment">//输出"lioil", 23</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>解构声明自动为data类声明componentN()函数。</p>
 <h5 id="解构声明作用"><a href="#解构声明作用" class="headerlink" title="解构声明作用"></a>解构声明作用</h5><ol>
@@ -259,37 +261,6 @@
 <p>修改类中（copy类似clone，但是比clone强大）</p>
 </li>
 </ul>
-<h3 id="10-kotlin-tricks-by-Jake-Wharton"><a href="#10-kotlin-tricks-by-Jake-Wharton" class="headerlink" title="10 kotlin tricks by Jake Wharton"></a>10 kotlin tricks by Jake Wharton</h3><ul>
-<li>inline减少一次压栈出栈的过程</li>
-<li>dataclass</li>
-</ul>
-<h5 id="01-explosive-placeholders"><a href="#01-explosive-placeholders" class="headerlink" title="01 explosive placeholders"></a>01 explosive placeholders</h5><p>使用Todo，来代替throws Exception</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">test</span><span class="params">()</span></span>:<span class="built_in">Int</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        TODO(<span class="string">"some thing"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="02-Semantic-Validation"><a href="#02-Semantic-Validation" class="headerlink" title="02 Semantic Validation"></a>02 Semantic Validation</h5><p>标准库中的检查工具</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">test</span><span class="params">(count: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">    require(count &lt; <span class="number">2</span>) &#123; <span class="string">"count &lt; 2 ,count = <span class="variable">$count</span>"</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//检查工具类</span></span><br><span class="line">require()</span><br><span class="line">requireNotNull()</span><br><span class="line">check()</span><br><span class="line">checkNotNull()</span><br><span class="line">assert()</span><br></pre></td></tr></table></figure>
-<h5 id="03-Anything-and-Nothing"><a href="#03-Anything-and-Nothing" class="headerlink" title="03 Anything and Nothing"></a>03 Anything and Nothing</h5><p>任何类都继承自<code>Any</code>类，而所有类都是<code>Nothing</code>的父类</p>
-<p>这很好的支持了evlis表达式</p>
-<p>在一个方法返回值为Nothing的时候说明这个方法不会停止。</p>
-<h5 id="04-Let"><a href="#04-Let" class="headerlink" title="04 Let"></a>04 Let</h5><p>使用<code>let</code> 确保<code>null safely</code></p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> user: User? = <span class="literal">null</span></span><br><span class="line">user?.let &#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用 <code>let</code>让语句连贯</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">someMethod().let&#123;</span><br><span class="line">  result -&gt; <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>run用法</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">//run 用法1，调用run函数块，返回值为函数块最后一行或者指定retrun表达式</span></span><br><span class="line"><span class="keyword">val</span> a = run &#123;</span><br><span class="line">    println(<span class="string">"run"</span>)</span><br><span class="line">    <span class="keyword">return</span><span class="symbol">@run</span> <span class="number">3</span></span><br><span class="line">&#125;</span><br><span class="line">println(a)</span><br><span class="line"></span><br><span class="line"><span class="comment">//用法2 ，调用某对象的run函数，在函数块内可以通过 this 指代该对象。返回值为函数块的最后一行或指定return表达式。</span></span><br><span class="line"><span class="keyword">val</span> a = <span class="string">"string"</span>.run &#123;</span><br><span class="line">    println(<span class="keyword">this</span>)</span><br><span class="line">    <span class="number">3</span></span><br><span class="line">&#125;</span><br><span class="line">println(a)</span><br></pre></td></tr></table></figure>
-<p>apply用法</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">//调用某对象的apply函数，在函数块内可以通过 this 指代该对象。返回值为该对象自己。</span></span><br><span class="line"><span class="keyword">val</span> a = <span class="string">"string"</span>.apply &#123;</span><br><span class="line">    println(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br><span class="line">println(a)</span><br></pre></td></tr></table></figure>
-<h5 id="05-Multiline-String-Literals"><a href="#05-Multiline-String-Literals" class="headerlink" title="05 Multiline String Literals"></a>05 Multiline String Literals</h5><figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> string = <span class="string">"""</span></span><br><span class="line"><span class="string">|foo</span></span><br><span class="line"><span class="string">|bar</span></span><br><span class="line"><span class="string">|baz</span></span><br><span class="line"><span class="string">"""</span>.trimIndent()</span><br></pre></td></tr></table></figure>
-<h5 id="06-Lazy-but-Speedy"><a href="#06-Lazy-but-Speedy" class="headerlink" title="06 Lazy but Speedy"></a>06 Lazy but Speedy</h5><figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span></span>(<span class="keyword">val</span> firstName: String, <span class="keyword">val</span> lastName: String)&#123;</span><br><span class="line">    <span class="keyword">val</span> name :String <span class="keyword">by</span> lazy(LazyThreadSafetyMode.NONE) &#123; <span class="string">"<span class="variable">$firstName</span><span class="variable">$lastName</span>"</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="07-Code-Block-Measurement"><a href="#07-Code-Block-Measurement" class="headerlink" title="07 Code Block Measurement"></a>07 Code Block Measurement</h5><p>测量方法运行时间</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">measureTimeMillis &#123;  &#125;</span><br><span class="line">measureNanoTime &#123;  &#125;</span><br><span class="line">分别有返回值</span><br></pre></td></tr></table></figure>
-<h5 id="08-Deprecation-Levels"><a href="#08-Deprecation-Levels" class="headerlink" title="08 Deprecation Levels"></a>08 Deprecation Levels</h5><p><code>@Deprecated</code>注解必须说明原因，并且可以设置<code>level</code>,</p>
-<p><code>level</code> 为 <code>ERROR</code>时，不能编译通过，<code>HIDDEN</code>为隐藏方法</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Deprecated(<span class="meta-string">"warning"</span>,level = DeprecationLevel.WARNING)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">deprecatedMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="09-Deprecation-Replacements"><a href="#09-Deprecation-Replacements" class="headerlink" title="09 Deprecation Replacements"></a>09 Deprecation Replacements</h5><p><code>@deprecated</code>注解，可以设置<code>replaceWith</code> 提供替代方法</p>
-<p>在设置<code>replaceWith</code>的同时 可以指定<code>imports</code>导入相关的包</p>
-<h5 id="05-Erasing-Erasure"><a href="#05-Erasing-Erasure" class="headerlink" title="05 Erasing Erasure"></a>05 Erasing Erasure</h5><p>不能继承拥有不同泛型的相同的类</p>
-<p>在方法上，方法参数上也不能有相同类</p>
-<p>通过<code>@JvmName(&quot;sortInts&quot;)</code>注解来创建两个被泛型擦除后相同的方法</p>
 
 
                 <hr>
