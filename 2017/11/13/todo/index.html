@@ -13,11 +13,11 @@
 
     <title>
         
-          Java并发synchronized关键字 - Pdog的博客 | Pdog&#39;s Blog
+          todolist - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/2018/03/12/synchronized/">
+    <link rel="canonical" href="http://yoursite.com/2017/11/13/todo/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -165,14 +165,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#多线程 Java synchronized" title="多线程 Java synchronized">多线程 Java synchronized</a>
+                          <a class="tag" href="/tags/#TodoList" title="TodoList">TodoList</a>
                         
                     </div>
-                    <h1>Java并发synchronized关键字</h1>
+                    <h1>todolist</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Pdog on
-                        2018-03-12
+                        2017-11-13
                     </span>
                 </div>
             </div>
@@ -191,231 +191,44 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="Java并发synchronized相关"><a href="#Java并发synchronized相关" class="headerlink" title="Java并发synchronized相关"></a>Java并发synchronized相关</h2><blockquote>
-<p>本文主要内容来自 <a href="http://www.infoq.com/cn/articles/java-se-16-synchronized" target="_blank" rel="noopener">聊聊并发（二）——Java SE1.6中的Synchronized</a></p>
-</blockquote>
-<h3 id="1-引言"><a href="#1-引言" class="headerlink" title="1. 引言"></a>1. 引言</h3><p>在1.6以前 <code>synchronized</code>很多人称呼它为重量级锁，在Java SE1.6对它进行了各种优化，有些情况它就不那么重了。下面详细介绍了Java SE1.6中为了减少获得锁和释放锁带来的性能消耗而引入的偏向锁和轻量级锁，以及锁的存储结构和升级过程。</p>
-<blockquote>
-<p>Java 1.6之后 对synchronized 进行了优化，引入了偏向锁和轻量级锁，以及锁的存储结构和升级过程。</p>
-<p>关键字： <code>Java 1.6</code> <code>偏向锁</code> <code>轻量级锁</code> <code>锁的存储结构</code> <code>升级过程</code></p>
-</blockquote>
-<h3 id="2-术语定义"><a href="#2-术语定义" class="headerlink" title="2. 术语定义"></a>2. 术语定义</h3><table>
-<thead>
-<tr>
-<th>术语</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>CAS (Compare and Swap)</td>
-<td>比较(Compare)并设置(Swap)。用于在硬件层面上提供原子性操作。比较是否和给定的数值一致，如果一致则修改，不一致则不修改。</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>Compare and Swap </p>
-<p>关键字 ：<code>Compare</code> <code>Swap</code></p>
-</blockquote>
-<h3 id="3-同步的基础"><a href="#3-同步的基础" class="headerlink" title="3. 同步的基础"></a>3. 同步的基础</h3><p>Java中的每一个对象都可以作为锁。</p>
-<ul>
-<li>对于同步方法，锁是当前实例对象</li>
-<li>对于静态同步方法，锁是当前对象的Class对象</li>
-<li>对于同步方法块，锁是Synchonized括号里配置的对象</li>
+                <h1 id="TodoList"><a href="#TodoList" class="headerlink" title="TodoList"></a>TodoList</h1><ul>
+<li>注解框架自动绑定activity布局</li>
+<li>自定义控件滑块</li>
+<li>databinding mvvm</li>
+<li>kotlin</li>
+<li>jvm虚拟机</li>
+<li>AMS PMS 源码学习</li>
+<li>两种热修复方案复习整理</li>
+<li>类加载机制</li>
 </ul>
-<p>当一个线程试图访问同步代码块时，它首先必须得到锁，退出或抛出异常时必须释放锁。</p>
+<h2 id="ButterKnife学习"><a href="#ButterKnife学习" class="headerlink" title="ButterKnife学习"></a>ButterKnife学习</h2><ol>
+<li>通过注解框架 <code>AbstractProcessor</code> 在编译期生成<code>Target_ViewBinding</code>的帮助类(后面简称<code>ViewBinding</code>)，<code>ViewBinding</code> 由传入的<code>target</code>找到所有需要注解的成员变量的名称及类型等信息直接生成。</li>
+<li>在<code>target</code>执行到<code>ButterKnife.bind(target)</code>的时候，会通过传入的目标的类名通过反射找到<code>ViewBinding</code>的构造器，同时将构造器，使用<code>Map</code>存储，减少使用反射的性能消耗</li>
+<li><code>ViewBinding</code>的构造器需要传入两个对象，<code>target</code>和<code>target</code>对应的<code>View</code>，在构造方法中直接对<code>target</code>的成员变量进行赋值。</li>
+</ol>
+<h2 id="ConcurrentHashMap学习"><a href="#ConcurrentHashMap学习" class="headerlink" title="ConcurrentHashMap学习"></a>ConcurrentHashMap学习</h2><h3 id="HashMap线程不安全"><a href="#HashMap线程不安全" class="headerlink" title="HashMap线程不安全"></a>HashMap线程不安全</h3><p>HashMap在多线程操作的时候会引起死循环（Java1.8已经不会了）</p>
+<h3 id="Hashtable-效率低下"><a href="#Hashtable-效率低下" class="headerlink" title="Hashtable 效率低下"></a>Hashtable 效率低下</h3><p>Hashtable容器使用synchronized来保证线程安全。但在县城竞争激烈的情况下Hashtable的效率非常低下。因为当一个线程访问Hashtable的同步方法时，其他线程访问Hashtable的同步方法时，可能会进入阻塞或轮询状态。如线程1使用put进行添加元素，线程2不但不能使用put方法添加元素，并且也不能使用get方法来获取元素，所以竞争越激烈效率越低。</p>
+<h3 id="锁分段技术"><a href="#锁分段技术" class="headerlink" title="锁分段技术"></a>锁分段技术</h3><p>Hashtable容器在竞争激烈的并发环境下表现出效率低下的原因是所有访问Hashtable的线程都必须竞争同一把锁，那假如容器里有多把锁，每一把锁用于锁容器其中一部分数据，那么当多线程访问容器里不同数据段的数据时，线程间就不会存在锁竞争，从而可以有效的提高并发访问效率，这就是ConcurrentHashMap所使用的锁分段技术，首先将数据分成一段一段的存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一个段数据的时候，其他段的数据也能被其他线程访问。</p>
+<h3 id="ConcurrentHashMap的结构-（1-7）"><a href="#ConcurrentHashMap的结构-（1-7）" class="headerlink" title="ConcurrentHashMap的结构 （1.7）"></a>ConcurrentHashMap的结构 （1.7）</h3><p>ConcurrentHashMap时由Segment数组结构和HashEntry数组结构组成。Segment是一种可重入锁ReentrantLock，在ConcurrentHashMap里扮演锁的角色，HashEntry则用于存储键值对数据。一个ConcurrentHashMap里包含一个Segment数组，每个HashEntry是一个链表结构的元素，每个Segment守护着一个HashEntry数组里的元素，当对HashEntry数组的数据进行修改时，必须首先获得它对应的Segment锁。</p>
 <blockquote>
-<p>三种使用<code>synchronized</code>关键字的方式，以及对应的锁对象。</p>
-<p>线程在访问同步代码块时，首先需要获得锁，退出或者抛出异常时必须释放锁。</p>
+<p><a href="http://blog.csdn.net/yanyan19880509/article/details/52345422" target="_blank" rel="noopener">可重入锁</a></p>
 </blockquote>
-<h3 id="4-同步的原理"><a href="#4-同步的原理" class="headerlink" title="4. 同步的原理"></a>4. 同步的原理</h3><p>JVM规范规定JVM基于进入和退出Monitor对象来实现方法同步和代码块同步但两者实现细节不一样。代码块同步是使用monitorenter和monitorexit指令实现，而方法同步是使用另外一种方式实现的，细节在JVM规范里并没有详细说明，但是方法同步同样可以使用这两个指令。</p>
-<p>monitorenter指令时在编译后插入到同步代码块的开始为止，而monitorexit时插入到方法结束处和异常处，JVM要保证每个monitorenter必须有对应的monitorexit与之配对。任何对象都有一个monitor与之关联，当且一个monitor被持有后，它将处于锁定状态。线程执行到monitorenter指令时，将会尝试获得对象所对应的monitor的所有权，即尝试获得对象的锁。</p>
-<blockquote>
-<p>任何对象都有一个monitor与之关联，monitor被持有后，对象将处于锁定状态。monitor的monitorenter、monitorexit指令在编译后分别插入到同步代码块的开始 、结束和异常处。</p>
-<p>线程执行到monitorenter指令时尝试获得对象的锁</p>
-<p>关键字：<code>同步原理</code>  <code>对象关联</code> <code>monitor</code> <code>编译后插入</code> </p>
+<p><img src="/Users/pdog/Desktop/2184951-af57d9d50ae9f547.png" alt="2184951-af57d9d50ae9f547"></p>
+<h3 id="ConcurrentHashMap的初始化"><a href="#ConcurrentHashMap的初始化" class="headerlink" title="ConcurrentHashMap的初始化"></a>ConcurrentHashMap的初始化</h3><p>ConcurrentHashMap初始化方法是通过initialCapacity，loadFactor，concurrencyLevel几个参数来初始化segments数组，段偏移量segmentShift，段掩码segmentMask和每个segment里的HashEntry数组。</p>
+<h3 id="ConcurrentHashMap的get操作"><a href="#ConcurrentHashMap的get操作" class="headerlink" title="ConcurrentHashMap的get操作"></a>ConcurrentHashMap的get操作</h3><p>为get方法里将要使用的共享变量都定义成volatile（如统计当前Segment大小的count字段和用于存储值的HashEntry的value），保持了变量的可见性。除非取到空值才会加锁重读。</p>
+<h3 id="ConcurrentHashMap的Put操作"><a href="#ConcurrentHashMap的Put操作" class="headerlink" title="ConcurrentHashMap的Put操作"></a>ConcurrentHashMap的Put操作</h3><p>由于put方法里需要对共享变量进行写入操作，所以为了线程安全，在操作共享变量时必须得加锁。put方法首先定位到Segment，然后在Segment里进行插入操作。插入操作需要经历两个步骤，第一步判断是否需要对Segment里的HashEntry数组进行扩容，第二步定位添加元素的位置然后放在HashEntry数组里。</p>
+<p>是否需要扩容。在插入元素前会先判断Segment里的HashEntry数组是否超过容量（threshold），如果超过阀值，数组进行扩容。值得一提的是，Segment的扩容判断比HashMap更恰当，因为HashMap是在插入元素后判断元素是否已经到达容量的，如果到达了就进行扩容，但是很有可能扩容之后没有新元素插入，这时HashMap就进行了一次无效的扩容。</p>
+<p>如何扩容。扩容的时候首先会创建一个两倍于原容量的数组，然后将原数组里的元素进行再hash后插入到新的数组里。为了高效ConcurrentHashMap不会对整个容器进行扩容，而只对某个segment进行扩容。</p>
+<h3 id="ConcurrentHashMap的size操作"><a href="#ConcurrentHashMap的size操作" class="headerlink" title="ConcurrentHashMap的size操作"></a>ConcurrentHashMap的size操作</h3><p>统计所有Segment里元素的大小后求和。Segment里的变量count是个volatile变量，虽然取到的count是最新的值，但是它们相加的时候可能使用的count发生了变化。ConcurrentHashMap的做法是先尝试2次通过不锁住Segment的方法来统计各个Segment的大小，如果统计的过程中，容器的count发生了变化，则再采用加锁的方式来统计所有segment的大小。</p>
+<p>那么ConcurrentHashMap是如何判断在统计的时候容器是否发生了变化呢？使用modCount变量，在put，remove，clean方法里操作元素前都会将变量modCount进行加1，那么在统计size前后比较modCount是否发生变化，从而得知容器的大小是否发生变化。</p>
+<h3 id="ConcurrentHashMap1-8实现"><a href="#ConcurrentHashMap1-8实现" class="headerlink" title="ConcurrentHashMap1.8实现"></a>ConcurrentHashMap1.8实现</h3><blockquote>
+<p><a href="https://www.jianshu.com/p/e694f1e868ec" target="_blank" rel="noopener">谈谈ConcurrentHashMap1.7和1.8的不同实现</a></p>
 </blockquote>
-<h4 id="4-1-Java对象头"><a href="#4-1-Java对象头" class="headerlink" title="4.1 Java对象头"></a>4.1 Java对象头</h4><p>锁存在Java对象头里。如果对象时数组类型，则虚拟机用三个Word（自宽）存储对象头，如果对象时非数组类型，则用2字宽存储对象头。</p>
-<table>
-<thead>
-<tr>
-<th>内容</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Mark Word</td>
-<td>存储对象的hashCode或锁信息等。</td>
-</tr>
-<tr>
-<td>Class Metadata Address</td>
-<td>存储到对象类型数据的指针</td>
-</tr>
-<tr>
-<td>Array length （数组类型时）</td>
-<td>数组的长度（如果当前对象是数组）</td>
-</tr>
-</tbody>
-</table>
-<p>Java对象头里的Mark Word 里存储对象的HashCode，分代年龄和锁标记位。32位JVM的Mark Word 默认存储结构如下：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>25 bit</th>
-<th>4bit</th>
-<th>1bit是否是偏向锁</th>
-<th>2bit锁标志位</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>无锁状态</td>
-<td>对象的hashCode</td>
-<td>对象分代年龄</td>
-<td>0</td>
-<td>01</td>
-</tr>
-</tbody>
-</table>
-<p>在运行期间Mark Word 里存储的数据会随着锁标志位的变化而变化。Mark Word可能变化为存储以下4种数据：</p>
-<table>
-<thead>
-<tr>
-<th>锁状态</th>
-<th></th>
-<th></th>
-<th></th>
-<th>是否偏向锁</th>
-<th>锁标志位</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>轻量级锁</td>
-<td>指向栈中锁记录的指针</td>
-<td></td>
-<td></td>
-<td></td>
-<td>00</td>
-</tr>
-<tr>
-<td>重量级锁</td>
-<td>指向互斥量（重量级锁）的指针</td>
-<td></td>
-<td></td>
-<td></td>
-<td>10</td>
-</tr>
-<tr>
-<td>GC标记</td>
-<td>空</td>
-<td></td>
-<td></td>
-<td></td>
-<td>11</td>
-</tr>
-<tr>
-<td>偏向锁</td>
-<td>线程ID</td>
-<td>Epoch</td>
-<td>对象分代年龄</td>
-<td>1</td>
-<td>01</td>
-</tr>
-</tbody>
-</table>
-<p>在64位虚拟机下，Mark Word是64bit大小的，（32位是32bit）其存储结构如下： </p>
-<table>
-<thead>
-<tr>
-<th>锁状态</th>
-<th></th>
-<th>分代年龄</th>
-<th>偏向锁</th>
-<th>锁标志位</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>无锁</td>
-<td></td>
-<td></td>
-<td>0</td>
-<td>01</td>
-</tr>
-<tr>
-<td>偏向锁</td>
-<td>ThreadID(54bit)<br>Epoch(2bit)</td>
-<td></td>
-<td>1</td>
-<td>01</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>对象头信息 包含 Mark Word，数据指针，数组长度（如果是数组）</p>
-<p>Mark Word 中记录了 hashcode ，对象分代年龄及锁信息。</p>
-<p>关键字：<code>对象头</code> <code>Mark Word</code> <code>锁信息</code></p>
-</blockquote>
-<h4 id="4-2-锁的升级"><a href="#4-2-锁的升级" class="headerlink" title="4.2 锁的升级"></a>4.2 锁的升级</h4><p>Java SE1.6位了减少获得锁和释放锁所带来的性能消耗，引入了“偏向锁”和”轻量级锁“，所以在Java SE1.6里锁一共有四种状态，无锁状态，偏向锁状态，轻量级锁状态和重量级锁状态，它会随着竞争情况逐渐升级。锁可以升级但不能降级，意味着偏向锁升级成轻量级锁后不能降级成偏向锁。这种锁升级却不能降级的策略，目的是为了提高获得锁和释放锁的效率。下文会详细分析。</p>
-<p>偏向锁 —&gt; 轻量级锁 —&gt;重量级锁</p>
-<blockquote>
-<p>锁的升级机制。</p>
-<p>锁一共有四种状态，无锁状态，偏向锁状态，轻量级锁状态和重量级锁状态。</p>
-<p>锁可以升级但不能降级，不能降级的原因是为了提高获得锁和释放锁的效率</p>
-<p>关键字： <code>锁的升级</code> <code>锁的状态</code> <code>锁不能降级</code></p>
-</blockquote>
-<h4 id="4-3-偏向锁"><a href="#4-3-偏向锁" class="headerlink" title="4.3 偏向锁"></a>4.3 偏向锁</h4><p>Hotspot的作者经过以往的研究发现大多数情况锁不仅不存在多线程竞争，而且总是由同一线程多次获得，为了让线程获得锁的代价更低而引入了偏向锁。当一个线程访问同步块并获取锁时，会在对象头和栈帧中的锁记录里存储偏向的线程ID，以后该线程在进入和退出同步块时不需要花费CAS操作来加锁和解锁，而只需简单的测试一下对象头的Mark Word里是否存储着指向当前线程的偏向锁，如果测试成功，便是线程已经获得了锁，如果测试失败，则需要再测试下Mark Word中偏向锁的标识是否设置成了1（表示是偏向锁）如果没有设置则用CAS竞争锁，如果设置了则尝试使用CAS将对象头的偏向锁指向当前线程。</p>
-<p>偏向锁的撤销：偏向锁使用了一种等到竞争出现才释放锁的机制，所以当其他线程尝试竞争偏向锁时，持有偏向锁的线程才会释放锁。偏向锁的撤销，需要等待全局安全点（在这个时间点上没有字节码正在执行），它会首先暂停拥有偏向锁的线程，然后先检查有偏向锁的线程是否活着，如果线程不处于活动状态，则将对象头设置成无锁状态，如果线程仍然活着，拥有偏向锁的栈会被执行，遍历偏向对象的锁记录，栈中的锁记录和对象的Mark Word要么重新偏向于其他线程，要么恢复到无锁或者标记对象不适合作为偏向锁，最后唤醒暂停的线程。</p>
-<p>下图的线程1演示了偏向锁初始化的流程，线程2演示了偏向锁撤销的流程</p>
-<p><img src="image2.png" alt="image2"></p>
-<p>关闭偏向锁：偏向锁在Java6 和Java7是默认启用的。但是它在应用程序启动几秒钟之后才激活，如有必要可以使用JVM参数来关闭延迟。偏向锁可以通过JVM参数关闭，如果关闭则默认会进入轻量级锁状态。</p>
-<blockquote>
-<p>当一个线程获得锁时，会在对象头和栈帧中的锁记录里存储锁偏向的线程ID，以后该线程进入和退出同步块时不需要花费CAS操作来加锁和解锁，只需要测试对象头中是否存储着指向当前线程的偏向锁，如果测试成功，表示线程已经获得了锁。如果测试失败，则需要再测试当前是否是设置了偏向锁，如果没有设置，则使用CAS竞争锁。如果设置了，则尝试使用CAS将对象头的偏向锁指向当前线程。</p>
-<p>偏向锁使用了一种等到竞争出现才释放锁的机制，所以当其他线程尝试竞争偏向锁时，持有偏向锁的线程才会释放锁。</p>
-<p>关键字：<code>偏向锁</code> <code>记录线程ID</code> </p>
-</blockquote>
-<h4 id="4-4轻量级锁"><a href="#4-4轻量级锁" class="headerlink" title="4.4轻量级锁"></a>4.4轻量级锁</h4><p>轻量级锁加锁：线程在执行同步代码块之前，JVM会先在当前线程的栈帧中创建用于存储锁记录的空间，并将对象头中的Mark Word 复制到锁记录中，官方称为Displaced Mard Word。然后线程尝试使用CAS将对象中的Mark Word 替换为指向锁记录的指针。如果成功，当前线程获得锁，如果失败，则表示其他线程竞争锁，当前线程便尝试使用自旋来获取锁。</p>
-<p>轻量级解锁：轻量级解锁时，会使用原子的CAS操作来将Displaced Mark Word替换到对象头，如果成功，则表示没有竞争发生。如果失败，则表示当前锁存在竞争，锁就会膨胀成重量级锁。下图是两个线程同时争夺锁，导致膨胀的流程图。</p>
-<p><img src="image3.png" alt="image3"></p>
-<p>因为自旋会消耗CPU，为了避免无用的自旋（比如当前锁的线程被阻塞住了），一旦锁升级成重量级锁，就不会再恢复到轻量级锁状态。当锁处于这个状态，其他线程试图获取锁时，都会被阻塞住，当持有锁的线程释放锁之后会唤醒这些线程，被唤醒的线程就会进行新一轮的竞争。</p>
-<blockquote>
-<p>当前线程在轻量级锁竞争失败时会尝试使用自旋来获取锁。</p>
-<p>而升级到重量级锁后，其他线程试图获取锁时，都会被阻塞住，当持有锁的线程释放锁之后会唤醒这些线程，被唤醒的线程就会继续竞争。</p>
-<p>关键字：<code>自旋</code> <code>阻塞</code> </p>
-</blockquote>
-<h3 id="5-锁的优缺点对比"><a href="#5-锁的优缺点对比" class="headerlink" title="5. 锁的优缺点对比"></a>5. 锁的优缺点对比</h3><table>
-<thead>
-<tr>
-<th>锁</th>
-<th>优点</th>
-<th>缺点</th>
-<th>适用场景</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>偏向锁</td>
-<td>加锁和解锁不需要额外的消耗，和执行非同步方法比仅存在纳秒级的差距。</td>
-<td>如果线程间存在锁竞争，会带来额外的锁撤销的消耗。</td>
-<td>适用于只有一个线程访问同步块场景。</td>
-</tr>
-<tr>
-<td>轻量级锁</td>
-<td>竞争的线程不会阻塞，提高了程序的响应速度。</td>
-<td>如果始终得不到锁竞争的线程使用自旋会消耗CPU。</td>
-<td>追求响应时间。同步块执行速度非常快。</td>
-</tr>
-<tr>
-<td>重量级锁</td>
-<td>线程竞争不使用自旋，不会消耗CPU。</td>
-<td>线程阻塞，响应时间缓慢。</td>
-<td>追求吞吐量。同步块执行速度较长。</td>
-</tr>
-</tbody>
-</table>
+<p>1.8中放弃了Segment臃肿的设计，取而代之的是采用Node+CAS+Synchronized来保证并发安全进行实现。</p>
+<p><img src="/Users/pdog/Desktop/2184951-d9933a0302f72d47.png" alt="2184951-d9933a0302f72d47"></p>
+<p>只有在执行第一次put方法时才会调用initTable()初始化Node数组。</p>
+<p>put实现</p>
+<p>当执行put方法插入数据时</p>
 
 
                 <hr>
@@ -425,12 +238,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2018/03/17/kotlin/" data-toggle="tooltip" data-placement="top" title="Kotlin">&larr; Previous Post</a>
+                            <a href="/2018/01/13/processor/" data-toggle="tooltip" data-placement="top" title="Processor">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2018/01/13/processor/" data-toggle="tooltip" data-placement="top" title="Processor">Next Post &rarr;</a>
+                            <a href="/2017/06/07/rxjava2/" data-toggle="tooltip" data-placement="top" title="RxJava2学习笔记">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -463,7 +276,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#多线程 Java synchronized" title="多线程 Java synchronized">多线程 Java synchronized</a>
+                          <a class="tag" href="/tags/#TodoList" title="TodoList">TodoList</a>
                         
                     </div>
                 </section>
@@ -503,8 +316,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "http://yoursite.com/2018/03/12/synchronized/";
-    var disqus_url = "http://yoursite.com/2018/03/12/synchronized/";
+    var disqus_identifier = "http://yoursite.com/2017/11/13/todo/";
+    var disqus_url = "http://yoursite.com/2017/11/13/todo/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
