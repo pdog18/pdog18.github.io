@@ -13,7 +13,7 @@
 
     <title>
         
-          My_Basic_Library - Pdog的博客 | Pdog&#39;s Blog
+          我的简单基础库 - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -168,7 +168,7 @@
                           <a class="tag" href="/tags/#My_Basic_Library" title="My_Basic_Library">My_Basic_Library</a>
                         
                     </div>
-                    <h1>My_Basic_Library</h1>
+                    <h1>我的简单基础库</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Pdog on
@@ -191,24 +191,27 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>#我的基础库、一个简单的架构</p>
+                <h1 id="我的一个简单的基础库、架构"><a href="#我的一个简单的基础库、架构" class="headerlink" title="我的一个简单的基础库、架构"></a>我的一个简单的基础库、架构</h1><p>一个新项目每次都要处理一些新的基础库，整理一下我使用的方式。</p>
 <h2 id="使用到的第三方库"><a href="#使用到的第三方库" class="headerlink" title="使用到的第三方库"></a>使用到的第三方库</h2><p>参见这条配置文件<a href="https://github.com/pdog18/MyAndroidBasicLibrary/blob/master/core/build.gradle" target="_blank" rel="noopener">build.gradle</a>， 没什么好讲的</p>
-<h3 id="两个-帮助开发调试的工具类"><a href="#两个-帮助开发调试的工具类" class="headerlink" title="两个 帮助开发调试的工具类"></a>两个 帮助开发调试的工具类</h3><p>在 <a href="https://github.com/pdog18/MyAndroidBasicLibrary/blob/master/core/src/main/java/kt/pdog18/com/core/CoreApplication.kt" target="_blank" rel="noopener">CoreApplication.kt</a>中初始化了两个帮助开发调试的工具类和一个Toast工具类</p>
+<h3 id="两个帮助开发调试的工具"><a href="#两个帮助开发调试的工具" class="headerlink" title="两个帮助开发调试的工具"></a>两个帮助开发调试的工具</h3><p>在 <a href="https://github.com/pdog18/MyAndroidBasicLibrary/blob/master/core/src/main/java/kt/pdog18/com/core/CoreApplication.kt" target="_blank" rel="noopener">CoreApplication.kt</a>中初始化了两个帮助开发调试的工具类和一个Toast工具类</p>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">debugInstall(<span class="keyword">this</span>)</span><br><span class="line">ToastHelper.init(<span class="keyword">this</span>)</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>timber </p>
 <p>使用logcat输出日志时，自动在logcat中添加可点击跳转的代码行号</p>
+<p><img src="timber_in_code.jpeg" alt="Timber1"></p>
+<p><img src="timber_in_logcat.jpeg" alt="Timber2"></p>
 </li>
 <li><p>stetho</p>
 <p>使用stetho查看网络数据等</p>
+<p><img src="stetho.jpeg" alt="Stetho"></p>
 </li>
 </ul>
-<h3 id="网络请求"><a href="#网络请求" class="headerlink" title="网络请求"></a>网络请求</h3><p>对retrofit简单做了一个初始化及封装，<a href="https://github.com/pdog18/MyAndroidBasicLibrary/blob/master/core/src/main/java/kt/pdog18/com/core/Http.kt" target="_blank" rel="noopener">Http.kt</a></p>
+<h3 id="网络请求"><a href="#网络请求" class="headerlink" title="网络请求"></a>网络请求</h3><p>对retrofit简单做了一个初始化及封装，参见<a href="https://github.com/pdog18/MyAndroidBasicLibrary/blob/master/core/src/main/java/kt/pdog18/com/core/Http.kt" target="_blank" rel="noopener">Http.kt</a></p>
 <ol>
 <li><p>为<code>OkHttpClient</code>添加了一个<code>OkHttp</code>的日志拦截器</p>
 </li>
-<li><p>为<code>GsonConverter</code>设置了一个<code>gson</code> 对<code>Double</code>、<code>Float</code>、<code>Int</code>解析进行了处理。</p>
-<p>如果不能解析为基本数据类型则转换为默认值</p>
+<li><p>为<code>GsonConverter</code>设置了一个 对<code>Double</code>、<code>Float</code>、<code>Int</code>解析进行了处理的<code>Gson</code>对象。</p>
+<p>如果不能解析为基本数据类型则转换为默认值,而不是抛出异常</p>
 </li>
 <li><p>对<code>RxJava2CallAdapter</code> 设置了默认调度器为<code>Schedulers.io()</code></p>
 </li>
@@ -217,13 +220,13 @@
 </li>
 </ol>
 <h3 id="架构简单介绍"><a href="#架构简单介绍" class="headerlink" title="架构简单介绍"></a>架构简单介绍</h3><p>传统的MVP架构会对<code>View</code>和<code>Presenter</code>都向上抽取接口。</p>
-<p>而本项目中<code>Presenter</code>没有向上抽取接口，只是简单的为了方便的释放<code>RxJava</code>资源，设置了一个抽象类 </p>
-<p><a href="https://github.com/pdog18/MyAndroidBasicLibrary/blob/master/core/src/main/java/kt/pdog18/com/core/BasePresenter.kt" target="_blank" rel="noopener">BasePresenter.kt</a></p>
+<p>而本项目中<code>Presenter</code>没有向上抽取接口，有两个原因，一是普通项目中Presenter抽取接口意义不大。二是为了方便的释放<code>RxJava</code>资源，需要抽取一个抽象类。如果抽取接口，在编写新模块的时候既要继承抽象类又要实现接口，感觉比较丑陋。</p>
+<p>主要还是觉得普通项目中国呢Presenter抽取接口的意义不是特别大。</p>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BasePresenter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">val</span> compositeDisposable: CompositeDisposable <span class="keyword">by</span> lazy &#123;</span><br><span class="line">        CompositeDisposable()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">subscribe</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">unsubscribe</span><span class="params">()</span></span> &#123;</span><br><span class="line">        compositeDisposable.clear()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>BaseView.kt</code>中只是简单规定了持有一个<code>BasePresenter.kt</code>的子类</p>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">BaseView</span>&lt;<span class="type">out P : BasePresenter</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">val</span> presenter: P</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>而在<code>BaseActivity.kt</code>中的<code>onCreate</code>方法中依次调用了4个方法。 </p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">  <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">  <span class="comment">//..</span></span><br><span class="line">  initData(intent)					<span class="comment">// 1. 针对传入的intent进行某些初始化</span></span><br><span class="line">  setContentView(getLayoutId())		<span class="comment">// 2. 设置activity的布局</span></span><br><span class="line">  initViews()						<span class="comment">// 3. 对布局上的控件进行初始化</span></span><br><span class="line">  loadData(intent)					<span class="comment">// 4. 加载某些数据</span></span><br><span class="line">  <span class="comment">//..</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">  <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">  <span class="comment">//..startCreate</span></span><br><span class="line">  initData(intent)					<span class="comment">// 1. 针对传入的intent进行某些初始化</span></span><br><span class="line">  setContentView(getLayoutId())		<span class="comment">// 2. 设置activity的布局</span></span><br><span class="line">  initViews()						<span class="comment">// 3. 对布局上的控件进行初始化</span></span><br><span class="line">  loadData(intent)					<span class="comment">// 4. 加载某些数据</span></span><br><span class="line">  <span class="comment">//..endCreate</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>同时为了方便扩展，在这4个方法前后分别添加了额外的两个空实现的方法，以便子类在合适的时机更方便根据需求进行自定义。</p>
 <p>同时<code>MvpActivity</code>继承了这个<code>BaseActivity</code> 并且分别在<code>onCreate</code>和<code>onDestroy</code>呼叫了<code>Presenter</code>层对应的<code>subscribe()</code>和<code>unsubscribe()</code></p>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">MvpActivity</span>&lt;<span class="type">out P : BasePresenter</span>&gt; : <span class="type">BaseActivity</span></span>(), BaseView&lt;P&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">startCreate</span><span class="params">()</span></span>&#123;</span><br><span class="line">        presenter.subscribe()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDestroy</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onDestroy()</span><br><span class="line">        presenter.unsubscribe()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -246,6 +249,7 @@
 </ol>
 </li>
 </ul>
+<p><img src="uml.png" alt="结构图"></p>
 <h3 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h3><ol>
 <li>现在只对Activity进行了部分封装，应该对Fragment也进行封装</li>
 <li>Activity和Fragment交互时的一些操作的封装</li>
