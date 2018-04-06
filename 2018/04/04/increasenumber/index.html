@@ -13,7 +13,7 @@
 
     <title>
         
-          一个支持不同字体的数字增长动画 - Pdog的博客 | Pdog&#39;s Blog
+          20行代码实现数字增长动画 - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -168,7 +168,7 @@
                           <a class="tag" href="/tags/#increasenumber" title="increasenumber">increasenumber</a>
                         
                     </div>
-                    <h1>一个支持不同字体的数字增长动画</h1>
+                    <h1>20行代码实现数字增长动画</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Pdog on
@@ -191,21 +191,9 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="一个支持不同字体的数字增长动画"><a href="#一个支持不同字体的数字增长动画" class="headerlink" title="一个支持不同字体的数字增长动画"></a>一个支持不同字体的数字增长动画</h1><p>需求是数字需要不断增长，同时小数点后保留两位小数。</p>
-<p>整数部分的字体大小和小数部分的字体大小不相等。</p>
-<p>找了下没有相似的库，自己用<code>TypeEvalutor</code>来简单实现，效果如下。</p>
-<p><img src="img1.gif" alt="2018-04-03 18.28.21"></p>
-<p>使用的时候很简单，传入一个<code>TextView</code> 和最后的目标数值(<code>double</code>类型)</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">IncreaseNumber.begin(textView, <span class="number">999.55566</span>)</span><br><span class="line">    .apply &#123;</span><br><span class="line">        leftSize = <span class="number">64</span></span><br><span class="line">        rightSize = <span class="number">32</span></span><br><span class="line">        index = <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">    .createAnimator()</span><br><span class="line">    .setDuration(<span class="number">2000</span>)</span><br><span class="line">    .start()</span><br></pre></td></tr></table></figure>
-<p>通过<code>IncreaseNumber.kt</code>，输入不同的字体大小，获得一个属性动画，然后可以对这个属性动画设定一些动画相关的参数。</p>
-<p>当然如果你想在生成的字符串前后添加类似<code>$</code> 或者<code>%</code>等内容。</p>
-<p><img src="img2.gif" alt="2018-04-04 14.24.15"></p>
-<p>可以通过重写<code>joints</code></p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">IncreaseNumber.begin(textView, <span class="number">999.55566</span>)</span><br><span class="line">  .apply &#123;</span><br><span class="line">    leftSize = <span class="number">64</span></span><br><span class="line">    rightSize = <span class="number">32</span></span><br><span class="line">    index = <span class="number">2</span></span><br><span class="line">    joints =&#123; content, left, right -&gt;</span><br><span class="line">        content.append(<span class="string">"$"</span>).append(left).append(<span class="string">"👌"</span>).append(right).append(<span class="string">"%"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  .createAnimator()</span><br><span class="line">  .setDuration(<span class="number">2000</span>)</span><br><span class="line">  .start()</span><br></pre></td></tr></table></figure>
-<p>代码都很简单，只有两个文件<code>IncreaseEvaluator.kt</code> 和 <code>IncreaseNumber.kt</code>，前面一个类定义了数值变化的情况。后面的则是对文本内容修改的帮助类。</p>
-<p>基本没有太多自定义的地方，返回的也是一个原生的属性动画对象。所以也可以很方便的设置插值器。</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">IncreaseNumber.begin(textView, <span class="number">9999.55566</span>)</span><br><span class="line">    .apply &#123;</span><br><span class="line">      leftSize = <span class="number">64</span></span><br><span class="line">      rightSize = <span class="number">32</span></span><br><span class="line">      index = <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">    .createAnimator()</span><br><span class="line">    .setDuration(<span class="number">2000</span>)</span><br><span class="line">    .apply &#123;</span><br><span class="line">      interpolator = DecelerateInterpolator(<span class="number">3.0</span>f)</span><br><span class="line">    &#125;</span><br><span class="line">    .start()</span><br></pre></td></tr></table></figure>
-<p>具体代码查看 <a href="https://github.com/pdog18/View/tree/master/app/src/main/java/com/example/a18/path/evaluator" target="_blank" rel="noopener">github 这里</a></p>
+                <h1 id="20行代码实现数字增长动画"><a href="#20行代码实现数字增长动画" class="headerlink" title="20行代码实现数字增长动画"></a>20行代码实现数字增长动画</h1><p><img src="img1.gif" alt="2018-04-03 18.28.21"></p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fractionDigits = <span class="number">3</span></span><br><span class="line"><span class="keyword">var</span> leftSize = <span class="number">64</span></span><br><span class="line"><span class="keyword">var</span> rightSize = <span class="number">32</span></span><br><span class="line"><span class="keyword">var</span> builder = SpannableStringBuilder()</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> formatter = NumberFormat.getInstance().apply &#123;</span><br><span class="line">  maximumFractionDigits = fractionDigits</span><br><span class="line">  minimumFractionDigits = fractionDigits</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ValueAnimator.ofFloat(<span class="number">99.9</span>f).apply &#123;</span><br><span class="line">  duration = <span class="number">1000</span></span><br><span class="line">  addUpdateListener &#123;</span><br><span class="line">    (it.animatedValue <span class="keyword">is</span> <span class="built_in">Float</span>).let &#123;</span><br><span class="line">      <span class="keyword">val</span> value = formatter.format(<span class="keyword">this</span>.animatedValue).toString()</span><br><span class="line">      builder.apply &#123;</span><br><span class="line">        clear()</span><br><span class="line">        append(value)</span><br><span class="line">        setSpan(AbsoluteSizeSpan(leftSize, <span class="literal">true</span>), <span class="number">0</span>, value.length - fractionDigits, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)</span><br><span class="line">        setSpan(AbsoluteSizeSpan(rightSize, <span class="literal">true</span>), value.length - fractionDigits - <span class="number">1</span>, value.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)</span><br><span class="line">        textView!!.text = builder</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  start()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体代码查看 <a href="https://github.com/pdog18/View/blob/master/app/src/main/java/com/example/a18/path/evaluator/EvaluatorActivity.kt" target="_blank" rel="noopener">github 这里</a></p>
 
 
                 <hr>
