@@ -13,11 +13,11 @@
 
     <title>
         
-          jsnote - Pdog的博客 | Pdog&#39;s Blog
+          JavaScript Note - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/2018/04/08/jsnote/">
+    <link rel="canonical" href="http://pdog18.cn/2018/04/08/jsnote/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -149,7 +149,7 @@
     <!-- Main Content -->
     
 <!-- Image to hack wechat -->
-<!-- <img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="http://pdog18.cn/img/icon_wechat.png" width="0" height="0"> -->
 <!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
 
 <!-- Post Header -->
@@ -168,7 +168,7 @@
                           <a class="tag" href="/tags/#JavaScript学习笔记" title="JavaScript学习笔记">JavaScript学习笔记</a>
                         
                     </div>
-                    <h1>jsnote</h1>
+                    <h1>JavaScript Note</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Pdog on
@@ -337,10 +337,10 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>*<span class="title">foo</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">foo</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> *<span class="title">foo</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> * <span class="title">foo</span>(<span class="params"></span>)</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="16-1-2-yield-表达式"><a href="#16-1-2-yield-表达式" class="headerlink" title="16.1.2 yield 表达式"></a>16.1.2 yield 表达式</h4><p>​    由于Generator函数范围的遍历器对象只有调用next方法才会遍历下一个内部状态，所以其实提供了一种可以暂停执行的函数。yield语句就是暂停标志。</p>
 <p>​    遍历器对象的next方法的运行逻辑如下。</p>
-<pre><code>1. 遇到yield语句就暂停执行后面的操作，并将紧跟在yield后的表达式的值作为返回的对象的value属性值。
+<pre><code>  1. 遇到yield语句就暂停执行后面的操作，并将紧跟在yield后的表达式的值作为返回的对象的value属性值。
 2. 下一次调用next方法时再继续往下执行，直到return语句为止。
-3. 如果没有再遇到新的yield语句，就一直运行到函数结束，知道return语句为止，并将return语句后面的表达式的值作为返回对象的value属性值。
-4. 如果该函数没有return语句，则返回对象的value属性值为undefined。
+ 3. 如果没有再遇到新的yield语句，就一直运行到函数结束，知道return语句为止，并将return语句后面的表达式的值作为返回对象的value属性值。
+ 4. 如果该函数没有return语句，则返回对象的value属性值为undefined。
 </code></pre><p>注意：只有调用next方法且内部指针指向该语句时才会执行yield语句后面的表达式，因此等于为JavaScript提供了手动的“惰性求值”（Lazy Evaluation）的语法功能。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span> <span class="number">123</span> + <span class="number">456</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上面的代码中，yield后面的表达式<code>123+456</code>不会立即求值，只会在next方法将指针一到这一句时才求值。</p>
@@ -484,8 +484,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "http://yoursite.com/2018/04/08/jsnote/";
-    var disqus_url = "http://yoursite.com/2018/04/08/jsnote/";
+    var disqus_identifier = "http://pdog18.cn/2018/04/08/jsnote/";
+    var disqus_url = "http://pdog18.cn/2018/04/08/jsnote/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -627,7 +627,7 @@
 <script>
     // only load tagcloud.js in tag.html
     if($('#tag_cloud').length !== 0){
-        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+        async("http://pdog18.cn/js/jquery.tagcloud.js",function(){
             $.fn.tagcloud.defaults = {
                 //size: {start: 1, end: 1, unit: 'em'},
                 color: {start: '#bbbbee', end: '#0085a1'},
@@ -691,7 +691,7 @@
 
 
 <!-- Image to hack wechat -->
-<img src="http://yoursite.com/img/icon_wechat.png" width="0" height="0" />
+<img src="http://pdog18.cn/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>
