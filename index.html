@@ -97,14 +97,14 @@
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -181,6 +181,32 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2018/04/19/module/">
+        <h2 class="post-title">
+            android组件化
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Android组件化将你的项目改成组件化首先，假设现在你有业务模块假设这个业务模块是gank，它存在于gank module。
+你将你所有的逻辑都写在这一个module中，现在要将他们用组件化的方式来拆分
+建立三个module
+app ，所有业务module的根源，app壳
+gank，原本的gank
+core， 上面两个都依赖的核心库，里面存放了一些依赖（网络、图片、日志、调试等基础库）已经......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Pdog on
+        2018-04-19
+    </p>
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -425,34 +451,16 @@ ButterKnife学习
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/03/07/hello-world/">
-        <h2 class="post-title">
-            Hello World
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Qu......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2017-03-07
-    </p>
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
 
 <ul class="pager">
     
+    
+        <li class="next">
+            <a href="/page/2/">Older Posts &rarr;</a>
+        </li>
     
 </ul>
 
@@ -476,6 +484,8 @@ Qu......
                     <!-- no hr -->
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+                        
+                            
                         
                             
                         

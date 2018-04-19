@@ -13,11 +13,11 @@
 
     <title>
         
-          Processor - Pdog的博客 | Pdog&#39;s Blog
+          android组件化 - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://pdog18.cn/2018/01/13/processor/">
+    <link rel="canonical" href="http://pdog18.cn/2018/04/19/module/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -165,14 +165,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#注解与依赖注入框架" title="注解与依赖注入框架">注解与依赖注入框架</a>
+                          <a class="tag" href="/tags/#android 组件化" title="android 组件化">android 组件化</a>
                         
                     </div>
-                    <h1>Processor</h1>
+                    <h1>android组件化</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Pdog on
-                        2018-01-13
+                        2018-04-19
                     </span>
                 </div>
             </div>
@@ -191,38 +191,56 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="注解与依赖注入框架"><a href="#注解与依赖注入框架" class="headerlink" title="注解与依赖注入框架"></a>注解与依赖注入框架</h1><h2 id="1-注解及注解处理器"><a href="#1-注解及注解处理器" class="headerlink" title="1. 注解及注解处理器"></a>1. 注解及注解处理器</h2><ul>
-<li><p>注解</p>
-<p>从JDK 5 开始，Java增加了注解。关于注解的资料网上有很多，这里就不再次重复了。</p>
-</li>
-<li><p>注解处理器</p>
-<p>针对三种不同级别保留策略的注解分别有对应不同的注解处理器。</p>
+                <h2 id="Android组件化"><a href="#Android组件化" class="headerlink" title="Android组件化"></a>Android组件化</h2><h2 id="将你的项目改成组件化"><a href="#将你的项目改成组件化" class="headerlink" title="将你的项目改成组件化"></a>将你的项目改成组件化</h2><h3 id="首先，假设现在你有业务模块"><a href="#首先，假设现在你有业务模块" class="headerlink" title="首先，假设现在你有业务模块"></a>首先，假设现在你有业务模块</h3><p>假设这个业务模块是<code>gank</code>，它存在于<code>gank module</code>。</p>
+<p>你将你所有的逻辑都写在这一个<code>module</code>中，现在要将他们用组件化的方式来拆分</p>
+<h3 id="建立三个module"><a href="#建立三个module" class="headerlink" title="建立三个module"></a>建立三个module</h3><ul>
+<li><code>app</code> ，所有业务<code>module</code>的根源，app壳</li>
+<li><code>gank</code>，原本的<code>gank</code></li>
+<li><code>core</code>， 上面两个都依赖的核心库，里面存放了一些依赖（网络、图片、日志、调试等基础库）已经一些<code>BaseActivity</code> 和经常用到的工具类(或扩展方法)</li>
+</ul>
+<p>现在 <code>app</code>和<code>gank</code> 的<code>build.gradle</code>中，都会有这样的依赖</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation project(<span class="string">":core"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后你就可以发现，<code>app</code>和<code>gank</code> 都可以独立编译运行了。</p>
+<blockquote>
+<p>此时独立编译生成的包都不包含其他模块的代码，可以通过反编译验证</p>
+</blockquote>
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><p>这时候就遇到问题了。我怎么在<code>app</code>中打开<code>gank</code>呢？平时的 <code>startActivity()</code>根本没用，因为我在<code>app</code>中根本就没有<code>gank</code>啊（这个包里面就根本没有一点<code>gank</code>这个<code>module</code>的资源）。所以就要让<code>app</code>依赖<code>gank</code>。</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    implementation project(<span class="string">":module_gank"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来你又会遇到这些问题</p>
 <ul>
-<li>RUNTIME：采用反射机制处理</li>
-<li>CLASS，SOURCE：采用<code>AbstractProcessor</code>来处理</li>
-</ul>
+<li><p><code>gank</code> 不可以是<code>application</code> ，所以将<code>application</code> 修改为<code>library</code></p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//apply plugin: 'com.android.application'</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.android.library'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>gank</code>不能有<code>applicationId</code> ，所以将<code>applicationId</code>删除。</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        <span class="comment">//applicationId "kt.pdog18.com.module_gank"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>gank</code> 的清单文件错误，所以需要将清单文件修改。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">package</span>=<span class="string">"kt.pdog18.com.module_gank"</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">   <span class="comment">&lt;!-- android:allowBackup="true"</span></span><br><span class="line"><span class="comment">        android:icon="@mipmap/ic_launcher"</span></span><br><span class="line"><span class="comment">        android:label="@string/app_name"</span></span><br><span class="line"><span class="comment">        android:roundIcon="@mipmap/ic_launcher_round"</span></span><br><span class="line"><span class="comment">        android:supportsRtl="true"</span></span><br><span class="line"><span class="comment">        android:name="kt.pdog18.com.core.CoreApplication" --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">"@style/AppTheme"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">"kt.pdog18.com.module_gank.gank.GankActivity"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="2-注解处理器的编写"><a href="#2-注解处理器的编写" class="headerlink" title="2. 注解处理器的编写"></a>2. 注解处理器的编写</h2><h3 id="2-1-编译时注解"><a href="#2-1-编译时注解" class="headerlink" title="2.1 编译时注解"></a>2.1 编译时注解</h3><p>采用反射方式，略。</p>
-<h3 id="2-2-运行时注解"><a href="#2-2-运行时注解" class="headerlink" title="2.2 运行时注解"></a>2.2 运行时注解</h3><p>在项目中新建一个Java Library来专门存放注解。</p>
-<p>编写注解处理器，同样在JavaLibrary中创建类继承于<code>AbstractProcessor</code>并且实现它的4个方法。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//伪代码</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyProcessor</span> <span class="keyword">extends</span> <span class="title">AbstractProcessor</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">process</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function">Set&lt;String&gt; <span class="title">getSupportedAnnotationTypes</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function">SourceVersion <span class="title">getSupportedSourceVersion</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>改完这些，你终于可以编译通过了，而且在<code>app</code> 中也可以获取到<code>gank</code>的引用了。</p>
+<p>于是马上就有出现了二个新的问题：</p>
 <ul>
-<li><code>init()</code>，会被注解处理工具调用。注解处理工具会传入很多有用的工具类</li>
-<li><code>process()</code>，在这里获取你关心的文件及针对注解生成java文件。</li>
-<li><code>getSupportedAnnotationTypes()</code> 指定这个注解处理器是对应哪些注解类型</li>
-<li><code>getSupportedSourceVersion()</code> 指定使用的Java版本。</li>
+<li>太麻烦了！独立编译很好，但是成本也太高了。每次要改这么多地方，而且<code>app</code>中平时是不能引用到<code>gank</code>的，难道就要让他一直报错吗（或者每次都要修改）？这样不太好吧？</li>
+<li>模块之间的通信，而且如果我还有其他的业务模块是从<code>gank</code>中跳转的，例如<code>gank2</code>、<code>gank3</code> ，那我在写代码的时候还要在<code>gank</code>中依赖它们（不然无法获取它们的引用）？这也太麻烦了吧？而且这就违背了解耦（编译时）的目的了。我想要的是这样的效果，<strong>编写独立模块代码时，不需要声明模块之间的互相依赖，编写模块之间通信的代码不会因为没有这个依赖而报错。但是在项目完成时，也就是所有模块组装完成后这个模块之间的通信代码完全不需要修改！</strong></li>
 </ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">processingEnv</span><br><span class="line">           .getMessager()</span><br><span class="line">           .printMessage(Diagnostic.Kind.ERROR, BindLayout.class.getCanonicalName());</span><br></pre></td></tr></table></figure>
-<p>上面的代码，举例了一个利用注解提供的工具类向控制台输出注解全包名路径的方式</p>
-<p><img src="/Users/pdog/Desktop/WechatIMG10.jpeg" alt="WechatIMG10"></p>
-<p>如果你在编译时遇到了以下问题。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Error:FAILURE: Build failed with an exception.</span><br><span class="line"></span><br><span class="line">* What went wrong:</span><br><span class="line">Execution failed for task &apos;:app:javaPreCompileDebug&apos;.</span><br><span class="line">&gt; Annotation processors must be explicitly declared now.  The following dependencies on the compile classpath are found to contain annotation processor.  Please add them to the annotationProcessor configuration.</span><br><span class="line">    - processor_lib.jar (project :processor_lib)</span><br><span class="line">  Alternatively, set android.defaultConfig.javaCompileOptions.annotationProcessorOptions.includeCompileClasspath = true to continue with previous behavior.  Note that this option is deprecated and will be removed in the future.</span><br><span class="line">  See https://developer.android.com/r/tools/annotation-processor-error-message.html for more details.</span><br><span class="line"></span><br><span class="line">* Try:</span><br><span class="line">Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.</span><br><span class="line"></span><br><span class="line">* Get more help at https://help.gradle.org</span><br><span class="line"></span><br><span class="line">BUILD FAILED in 5s</span><br></pre></td></tr></table></figure>
-<p>尝试在<code>build.gradle</code>中，添加下列代码解决</p>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  defaultConfig &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    javaCompileOptions &#123;</span><br><span class="line">      annotationProcessorOptions &#123;</span><br><span class="line">        includeCompileClasspath <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
-<p>使用注解处理器，需要用一个服务文件来注册它，当然我们也可以通过Google开源的<code>AutoService</code>来简化。</p>
-<p>添加<code>implementation &#39;com.google.auto.service:auto-service:1.0-rc2&#39;</code>依赖后。只要在我们的注解处理器类上添加<code>@AutoService(Processor.class)</code>注解就可以了。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@AutoService</span>(Processor.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyProcessor</span> <span class="keyword">extends</span> <span class="title">AbstractProcessor</span> </span>&#123;</span><br><span class="line"><span class="comment">//....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="改动太多"><a href="#改动太多" class="headerlink" title="改动太多"></a>改动太多</h3><p>改动不仅很多，而且并不是只改动一次，很容易出错，这样肯定不行。所以我们要想一个一劳永逸的办法。</p>
+<p>首先要明确通常我们的组件之间的状态只有两种（特殊情况不考虑）</p>
+<ul>
+<li>所有组件被<code>app</code>引用</li>
+<li>所有组件处于独立状态</li>
+</ul>
+<p>切换的地方有三点，根据状态的不同，这三个地方分别都对应两个不同的内容</p>
+<ul>
+<li><code>module</code> 的类型 （<code>application</code> 或者<code>library</code>）</li>
+<li><code>module</code> 的<code>applicationId</code></li>
+<li><code>module</code>的清单文件</li>
+</ul>
+<p>那么我们是否可以通过一个状态的改变来自动的对这三处进行修改呢？</p>
+<p>当然是可以的啦。</p>
+<p>//todo </p>
+<h3 id="模块之间的通信"><a href="#模块之间的通信" class="headerlink" title="模块之间的通信"></a>模块之间的通信</h3><p>为了解决这个问题，简单的做法就是对<code>startActivity()</code>做一个封装，在调用他的时候传入指定的标识符（这个标识符可以是存在于一个共同依赖的模块可以被直接引用还是简单的字符串不会被IDE报错）启动指定的目标，在模块独立调试时，不会因为没有引用而不能编译，在发布时又可以不修改代码直接进行通信。</p>
+<p>当然，这并不需要我们来实现，网上有很多已经有很多实现好的路由框架。利用这些路由框架我们也就解决了这个模块之间的通信问题。</p>
 
 
                 <hr>
@@ -231,13 +249,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2018/03/12/synchronized/" data-toggle="tooltip" data-placement="top" title="Java并发synchronized关键字">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/11/13/todo/" data-toggle="tooltip" data-placement="top" title="todolist">Next Post &rarr;</a>
+                            <a href="/2018/04/08/jsnote/" data-toggle="tooltip" data-placement="top" title="JavaScript Note">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -270,7 +284,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#注解与依赖注入框架" title="注解与依赖注入框架">注解与依赖注入框架</a>
+                          <a class="tag" href="/tags/#android 组件化" title="android 组件化">android 组件化</a>
                         
                     </div>
                 </section>
@@ -310,8 +324,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "http://pdog18.cn/2018/01/13/processor/";
-    var disqus_url = "http://pdog18.cn/2018/01/13/processor/";
+    var disqus_identifier = "http://pdog18.cn/2018/04/19/module/";
+    var disqus_url = "http://pdog18.cn/2018/04/19/module/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
