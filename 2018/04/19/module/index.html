@@ -13,7 +13,7 @@
 
     <title>
         
-          android组件化 - Pdog的博客 | Pdog&#39;s Blog
+          Android组件化 - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
@@ -97,14 +97,14 @@
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
@@ -168,7 +168,7 @@
                           <a class="tag" href="/tags/#android 组件化" title="android 组件化">android 组件化</a>
                         
                     </div>
-                    <h1>android组件化</h1>
+                    <h1>Android组件化</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Pdog on
@@ -191,11 +191,11 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="Android组件化"><a href="#Android组件化" class="headerlink" title="Android组件化"></a>Android组件化</h2><h2 id="将你的项目改成组件化"><a href="#将你的项目改成组件化" class="headerlink" title="将你的项目改成组件化"></a>将你的项目改成组件化</h2><h3 id="首先，假设现在你有业务模块"><a href="#首先，假设现在你有业务模块" class="headerlink" title="首先，假设现在你有业务模块"></a>首先，假设现在你有业务模块</h3><p>假设这个业务模块是<code>gank</code>，它存在于<code>gank module</code>。</p>
+                <h2 id="Android组件化"><a href="#Android组件化" class="headerlink" title="Android组件化"></a>Android组件化</h2><h2 id="将你的项目改成组件化"><a href="#将你的项目改成组件化" class="headerlink" title="将你的项目改成组件化"></a>将你的项目改成组件化</h2><h3 id="首先，你有一个业务模块"><a href="#首先，你有一个业务模块" class="headerlink" title="首先，你有一个业务模块"></a>首先，你有一个业务模块</h3><p>假设这个业务模块是<code>gank</code>，它存在于<code>gank module</code>。</p>
 <p>你将你所有的逻辑都写在这一个<code>module</code>中，现在要将他们用组件化的方式来拆分</p>
 <h3 id="建立三个module"><a href="#建立三个module" class="headerlink" title="建立三个module"></a>建立三个module</h3><ul>
 <li><code>app</code> ，所有业务<code>module</code>的根源，app壳</li>
-<li><code>gank</code>，原本的<code>gank</code></li>
+<li><code>gank</code>，原本的业务模块<code>gank</code></li>
 <li><code>core</code>， 上面两个都依赖的核心库，里面存放了一些依赖（网络、图片、日志、调试等基础库）已经一些<code>BaseActivity</code> 和经常用到的工具类(或扩展方法)</li>
 </ul>
 <p>现在 <code>app</code>和<code>gank</code> 的<code>build.gradle</code>中，都会有这样的依赖</p>
@@ -234,14 +234,22 @@
 <ul>
 <li><code>module</code> 的类型 （<code>application</code> 或者<code>library</code>）</li>
 <li><code>module</code> 的<code>applicationId</code></li>
-<li><code>module</code>的清单文件</li>
+<li><code>module</code>的<code>Manifest</code></li>
 </ul>
 <p>那么我们是否可以通过一个状态的改变来自动的对这三处进行修改呢？</p>
 <p>当然是可以的啦。</p>
-<p>//todo </p>
+<p>首先，我可以定义一个变量<code>independent</code> ，它代表了我们是否需要将每个<code>module</code> 进行独立编译。</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//自由切换 module的类型</span></span><br><span class="line"><span class="keyword">if</span> (independent) &#123;</span><br><span class="line">    apply <span class="string">plugin:</span> <span class="string">'com.android.application'</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    apply <span class="string">plugin:</span> <span class="string">'com.android.library'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//applicationId</span></span><br><span class="line">android &#123;</span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        <span class="keyword">if</span> (independent) &#123;</span><br><span class="line">            applicationId <span class="string">"com.your.project.application"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Manifest</span></span><br><span class="line">sourceSets &#123;</span><br><span class="line">  main &#123;</span><br><span class="line">    <span class="keyword">if</span> (isIndependent()) &#123;</span><br><span class="line">      manifest.srcFile <span class="string">'src/debug/AndroidManifest.xml'</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      manifest.srcFile <span class="string">'src/main/AndroidManifest.xml'</span></span><br><span class="line">      java &#123;</span><br><span class="line">        <span class="comment">//release 时 debug 目录下文件不需要合并到主工程</span></span><br><span class="line">        exclude <span class="string">'debug/**'</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 'src/main/AndroidManifest.xml'--&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">package</span>=<span class="string">"kt.pdog18.com.module_gank"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span> <span class="attr">android:theme</span>=<span class="string">"@style/AppTheme"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">"kt.pdog18.com.module_gank.gank.GankActivity"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 'src/debug/AndroidManifest.xml'--&gt;</span></span><br><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">package</span>=<span class="string">"kt.pdog18.com.module_gank"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:name</span>=<span class="string">"kt.pdog18.com.core.CoreApplication"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:allowBackup</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:roundIcon</span>=<span class="string">"@mipmap/ic_launcher_round"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:supportsRtl</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">"@style/AppTheme"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">"kt.pdog18.com.module_gank.gank.GankActivity"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.MAIN"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>它们都可以放在同一个<code>gradle</code>文件下，然后被<code>module</code>引用。</p>
+<p>最终 <code>module</code>中的<code>build.gradle</code>文件内容是这样的。</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">apply <span class="string">from:</span> config</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    implementation project(<span class="string">":core"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="模块之间的通信"><a href="#模块之间的通信" class="headerlink" title="模块之间的通信"></a>模块之间的通信</h3><p>为了解决这个问题，简单的做法就是对<code>startActivity()</code>做一个封装，在调用他的时候传入指定的标识符（这个标识符可以是存在于一个共同依赖的模块可以被直接引用还是简单的字符串不会被IDE报错）启动指定的目标，在模块独立调试时，不会因为没有引用而不能编译，在发布时又可以不修改代码直接进行通信。</p>
 <p>当然，这并不需要我们来实现，网上有很多已经有很多实现好的路由框架。利用这些路由框架我们也就解决了这个模块之间的通信问题。</p>
-
+<h3 id="组件的生命周期"><a href="#组件的生命周期" class="headerlink" title="组件的生命周期"></a>组件的生命周期</h3>
 
                 <hr>
 
