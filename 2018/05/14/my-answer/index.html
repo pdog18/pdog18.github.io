@@ -193,7 +193,6 @@
 
                 <h1 id="泓洋推送的《阿里春招面经》简答"><a href="#泓洋推送的《阿里春招面经》简答" class="headerlink" title="泓洋推送的《阿里春招面经》简答"></a>泓洋推送的《阿里春招面经》简答</h1><p>今天早上群里就在说这个推送，大家说很难，我就点开看了下，发现的确有些地方不是很了解就此整理一下。</p>
 <p>虽然也有很简单的，但是我也简单答了。</p>
-<p>同时我对问题的难度相对于我来说做了一个难度评级。</p>
 <h2 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h2><p><strong>android中的dp、px、dip相关概念</strong></p>
 <p>dp 根据屏幕密度来决定，容易适配</p>
 <p>px 就是像素值，dp最后也是通过转换为对应px来绘制等的</p>
@@ -216,8 +215,8 @@
 <p><strong>布局相关的<merge>、<viewstub>控件作用及实现原理</viewstub></merge></strong></p>
 <p><code>&lt;merge&gt;</code> ：如果被inclued的根布局相关属性和使用<inclued>的布局相同则可以使用减少减少布局inclued时嵌套层次</inclued></p>
 <p><code>&lt;viewstub&gt;</code>：用作占位，只有被主动调用inflate 方法或者setVisibility方法时才会加载布局。</p>
-<p>实现原理不是很了解，但是<merge>肯定是 LayoutInflate时做了相关处理(对标签是<merge>时，向上一层传递属性吧)。</merge></merge></p>
-<p>而<viewstub> 看了下源码，是通过记录layout资源的id，然后在需要显示的时候再将这个资源id转换为view对象，然后将viewstub从viewgrounp中删除将新建的view对象添加</viewstub></p>
+<p>实现原理不是很了解，但是<code>&lt;merge&gt;</code>肯定是 LayoutInflate时做了相关处理(对标签是<code>&lt;merge&gt;</code>时，向上一层传递属性吧)。</p>
+<p>而<code>&lt;viewstub&gt;</code> 看了下源码，是通过记录layout资源的id，然后在需要显示的时候再将这个资源id转换为view对象，然后将viewstub从viewgrounp中删除将新建的view对象添加</p>
 <p><strong>android中的布局优化</strong></p>
 <p>这都是很老的问题了。关键是通过减少布局嵌套来减少测量的次数。同时可以说说常用布局的measure的次数什么的。不重复了。</p>
 <p><strong>relativelayout和LinearLayout在实现效果同等情况下选择使用哪个？为什么？</strong><br>使用线性布局，如果线性布局没有权重属性时，测量次数比相对布局少。（和性能无关的话题：而且写布局的时候清晰多了）</p>
