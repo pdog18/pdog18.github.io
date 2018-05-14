@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          my_answer - Pdog的博客 | Pdog&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://pdog18.cn/2018/05/14/my-answer/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Pdog&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://pdog18.cn/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#简答" title="简答">简答</a>
+                        
+                    </div>
+                    <h1>my_answer</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Pdog on
+                        2018-05-14
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="泓洋推送的《阿里春招面经》简答"><a href="#泓洋推送的《阿里春招面经》简答" class="headerlink" title="泓洋推送的《阿里春招面经》简答"></a>泓洋推送的《阿里春招面经》简答</h1><p>今天早上群里就在说这个推送，大家说很难，我就点开看了下，发现的确有些地方不是很了解就此整理一下。</p>
+<p>虽然也有很简单的，但是我也简单答了。</p>
+<p>同时我对问题的难度相对于我来说做了一个难度评级。</p>
+<h2 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h2><p><strong>android中的dp、px、dip相关概念</strong></p>
+<p>dp 根据屏幕密度来决定，容易适配</p>
+<p>px 就是像素值，dp最后也是通过转换为对应px来绘制等的</p>
+<p>dip 不知道问这个意义是什么 这个已经被dp替代了，2018年不应该关心这种东西了</p>
+<p>另外加上一个没有问到的sp，这个sp会根据用户调整手机系统字体的大小而发生改变（但是搞笑的阿里的《规范》中却主动提到用dp来进行字体统一适配，这虽然减轻了程序员的很多工作量，但是这是不负责任的表现）</p>
+<p><strong>handler机制，四个组成部分及源码解析</strong></p>
+<p>四个组成部分</p>
+<ul>
+<li>Handler</li>
+<li>Looper</li>
+<li>Message</li>
+<li>MessageQueue</li>
+</ul>
+<p>简单回答一下。handler用来帮助android处理线程间通信。</p>
+<p>每个handler创建时，需要Looper，每个Looper都会有MessageQueue。</p>
+<p>handler在sendMessage时，会将自己赋值给message.target，然后将message添加之 MessageQueue的单向链表，链表根据指定时间排序。</p>
+<p>其中Looper的死循环会一直调用MessageQueue的next方法，直到MessageQueue返回了message对象，然后通过message中的target调用handleMessage。正是因为Looper的死循环“捡起”message对象，这个操作，确保了handleMessage方法总是在Looper被创建的线程被回调的</p>
+<p>而MessageQueue的next方法是通过单向链表中的message的保存的回调时间与当前之间对比，如果满足条件则返回，否则阻塞时间差值</p>
+<p>（当然讲到looper肯定又会讲到ThreadLoacl，这个留给后面部分）</p>
+<p><strong>布局相关的<merge>、<viewstub>控件作用及实现原理</viewstub></merge></strong></p>
+<p><code>&lt;merge&gt;</code> ：如果被inclued的根布局相关属性和使用<inclued>的布局相同则可以使用减少减少布局inclued时嵌套层次</inclued></p>
+<p><code>&lt;viewstub&gt;</code>：用作占位，只有被主动调用inflate 方法或者setVisibility方法时才会加载布局。</p>
+<p>实现原理不是很了解，但是<merge>肯定是 LayoutInflate时做了相关处理(对标签是<merge>时，向上一层传递属性吧)。</merge></merge></p>
+<p>而<viewstub> 看了下源码，是通过记录layout资源的id，然后在需要显示的时候再将这个资源id转换为view对象，然后将viewstub从viewgrounp中删除将新建的view对象添加</viewstub></p>
+<p><strong>android中的布局优化</strong></p>
+<p>这都是很老的问题了。关键是通过减少布局嵌套来减少测量的次数。同时可以说说常用布局的measure的次数什么的。不重复了。</p>
+<p><strong>relativelayout和LinearLayout在实现效果同等情况下选择使用哪个？为什么？</strong><br>使用线性布局，如果线性布局没有权重属性时，测量次数比相对布局少。（和性能无关的话题：而且写布局的时候清晰多了）</p>
+<p><strong>view的工作原理及measure、layout、draw流程，要求了解源码</strong></p>
+<p>measure确定控件尺寸</p>
+<p>layout确定控件位置</p>
+<p>draw确定控件显示的内容</p>
+<p>要求了解源码的话这个应该要冲ViewRootImpl说起，我还没有掌握。（但我也不想花时间在这里）</p>
+<p><strong>怎样自定义一个弹幕控件？</strong></p>
+<p>从最简单的实现角度来讲，通过一个简单的View，其中维护一个弹幕内容的链表，根据时间改变链表中记录的内容的x坐标，在onDraw中不断绘制。如果x坐标已经小于负内容宽度了，则将内容对象从列表删除。</p>
+<p><strong>如果控件内部卡顿你如何去解决并优化？</strong></p>
+<p>这个不知道从何说起。</p>
+<p>按照以往遇到的问题就是，某个方法被调用特别频繁或者某个方法创建了大量对象导致GC。一步步定位到关键代码，然后想办法合理调用次数、通过对象池了避免大量new 对象吧。</p>
+<p><strong>listview的缓存机制</strong></p>
+<p>这个不了解，也不想深入</p>
+<p><strong>Invalidate、postInvalidate、requestLayout应用场景</strong><br>Invalidate ，立即触发控件重绘，</p>
+<p>postInvalidate ，在非UI线程中调用，在下个周期轮询中通知UI线程重绘</p>
+<p>requestLayout ， 触发测量和布局，如果设置了setWillNotDraw(false)和background则会触发重绘</p>
+<p><strong>多线程，5个线程内部打印hello和word，hello在前，要求提供一种方法使得5个线程先全部打印出hello后再打印5个word。</strong></p>
+<p>比较简单略过</p>
+<p><strong>实现一个自定义view，其中含有若干textview，textview文字可换行且自定义view的高度可自适应拓展</strong></p>
+<p>着重在测量时需要再次获取TextView最后的高度，根据这些内部textview的总高度来确定自身的高度</p>
+<h2 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h2><ul>
+<li><p>java内存模型，五个部分，程序计数器、栈、本地栈、堆、方法区。</p>
+</li>
+<li><p>每个部分的概念、特点、作用。</p>
+<ul>
+<li>计数器</li>
+<li>栈，每个方法都以栈桢的形式随着开始调用入栈，调用结束出栈</li>
+<li>本地栈？</li>
+<li>堆，存储new 操作符产生的对象</li>
+<li>方法区，存放 natvie方法，静态方法及静态变量的空间</li>
+</ul>
+</li>
+<li><p>类加载的过程，加载、验证、准备、解析、初始化。每个部分详细描述。</p>
+<ol>
+<li>加载，将类文件加载进内存</li>
+<li>验证，检查文件是否时class文件，编译版本号等信息</li>
+<li>准备？</li>
+<li>解析？</li>
+<li>初始化？</li>
+</ol>
+</li>
+<li><p>加载阶段读入.class文件，class文件时二进制吗，为什么需要使用二进制的方式？</p>
+</li>
+<li><p>验证过程是防止什么问题？验证过程是怎样的？加载和验证的执行顺序？符号引用的含义？</p>
+<p>防止类加载进非法的类，比如String类。</p>
+</li>
+<li><p>准备过程的静态成员变量分配空间和设置初始值问题。</p>
+<p>​</p>
+</li>
+<li><p>解析过程符号引用替代为直接引用细节相关。</p>
+</li>
+<li><p>初始化过程jvm的显式初始化相关。</p>
+</li>
+<li><p>类卸载的过程及触发条件。</p>
+</li>
+<li><p>三种类加载器，如何自定义一个类加载器？</p>
+</li>
+<li><p>双亲委派机制。</p>
+<p>每个类加载器在加载一个类之前总是递归找到它的上层加载器先加载，如果上层加载器不加载才会自己加载</p>
+</li>
+<li><p>JVM内存分配策略，优先放于eden区、动态对象年龄判断、分配担保策略等。</p>
+<p>​</p>
+</li>
+<li><p>JVM垃圾回收策略，怎样判对象、类需要被回收？</p>
+<p>可达性分析，如果一个对象没有被静态变量，natvie方法，或者当前栈中强引用，则说明这个对象是可以被回收的</p>
+</li>
+<li><p>四种垃圾回收算法标记-清除、复制、标记-整理、分代收集。</p>
+<ul>
+<li>标记-清除， GC时如果发现一个对象是可以被回收的则进行清除，缺点是内存容易碎片化</li>
+<li>复制，将内存空间分成两份，GC时将一份内存中所有存活的对象拷贝到另外一份内存中，缺点是内存只剩下一半，优点是内存排列整齐</li>
+<li>标记-整理，GC时发现对象可以被回收则进行清除，不可以回收则进行排列。</li>
+<li>分代收集，将内存分为新生代，老年代，和永久代。新生代的占用空间比例较小，使用复制算法，老年代使用标记整理算法。如果新生代对象每次经历过GC都会将对象头上的年龄增加，一定次数后会升级至老年代或者幸存区被填满剩余对象也会进入老年区。（大对象也会进入老年区）</li>
+</ul>
+</li>
+<li><p>JVM中的垃圾回收器，新生代回收器、老年代回收器、stop-the-world概念及解决方法。</p>
+<p>​</p>
+</li>
+<li><p>四类引用及使用场景？</p>
+<ul>
+<li>强引用，内存不足时如果都是强引用，抛出OOM</li>
+<li>软引用，一个对象只被软引用所引用，如果内存不足时则会被清除</li>
+<li>弱引用，GC时，如果一个对象只有弱引用，则会被马上清除</li>
+<li>虚引用，</li>
+</ul>
+</li>
+</ul>
+<h3 id="集合类"><a href="#集合类" class="headerlink" title="集合类"></a><strong>集合类</strong></h3><ul>
+<li><p>hashmap实现的数据结构，数组、桶等。</p>
+<p>数组加列表</p>
+</li>
+<li><p>hashmap的哈希冲突解决方法：拉链法等。拉链法的优缺点。</p>
+<p>相同hash的存放在一个单向链表上，如果hash比较密集，那么容易增加时间复杂度为O(N)</p>
+</li>
+<li><p>hashmap的参数及影响性能的关键参数：加载因子和初始容量。</p>
+<p>​</p>
+</li>
+<li><p>Resize操作的过程。</p>
+<p>​</p>
+</li>
+<li><p>hashmap容量为2次幂的原因。</p>
+<p>直接使用位运算比取模效率更高</p>
+</li>
+</ul>
+<ul>
+<li><p>hashtable线程安全、synchronized加锁。</p>
+<p>加锁，在get的同时不能进行set</p>
+</li>
+<li><p>hashtable和hashmap异同。</p>
+<p>线程安全？</p>
+</li>
+<li><p>为什么hashtable被弃用？</p>
+<p>效率低，有更好的替代品ConcurrentHashMap</p>
+</li>
+</ul>
+<p><strong>ConcurrentHashMap</strong></p>
+<p>锁分段技术</p>
+<p>通过volatile关键字确保set的值能同时被get获取到，不需要加锁</p>
+<ul>
+<li><p>容器类中fastfail的概念。</p>
+<p>？</p>
+</li>
+<li><p>concurrenthashmap的插入操作是直接操作数组中的链表吗？</p>
+<p>？</p>
+</li>
+</ul>
+<h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a><strong>多线程</strong></h3><ul>
+<li><p>为什么要使用多线程？多线程需要注意的问题。上下文开销、死锁等。</p>
+<p>充分利用cpu资源，需要注意死锁，和切换线程的额外开销</p>
+</li>
+<li><p>java内存模型、导致线程不安全的原因。</p>
+<p>每个线程都有自己的缓存内存，线程执行完指令后如果没有将结果写入主存则其他线程获取的数据还是没有变化。</p>
+</li>
+<li><p>volatile关键字，缓存一致性、指令重排序概念。</p>
+<p>通过volatile关键字，强制线程将结果直接写入主存中。同时丧失了指令重排序优化</p>
+</li>
+<li><p>synchronize关键字，java对象头、Markword概念、synchronize底层monitorenter和moniterexit指令。</p>
+<p>synchronized在编译时向代码块头尾添加enter和exit的指令。</p>
+</li>
+<li><p>lock语句和synchronize对比。</p>
+<p>​</p>
+</li>
+<li><p>原子操作，CAS概念、相关参数。</p>
+<p>​</p>
+</li>
+<li><p>乐观锁、悲观锁概念及使用场景。</p>
+<p>synchronized悲观锁。</p>
+<p>乐观锁，先对数据进行修改，如果修改后的数据的版本号符合则数据成功写入，如果版本号不符合则再次尝试</p>
+</li>
+<li><p>线程池概念、实现原理等。</p>
+</li>
+<li><p>JVM锁的优化，偏向锁、轻量级锁概念及原理。</p>
+<ul>
+<li>锁的优化，尽可能把锁加在最小范围。</li>
+<li>偏向锁，通过在对象头中记录的偏向线程，如果是同一个线程则代表现场已经获取了锁</li>
+<li>轻量级锁，尝试将对象头中的偏向线程修改为自身，如果成功则代表获取了锁，如果失败则使用自旋再次尝试</li>
+</ul>
+</li>
+</ul>
+<h3 id="通信协议"><a href="#通信协议" class="headerlink" title="通信协议"></a><strong>通信协议</strong></h3><ul>
+<li><p>TCP三次握手、四次挥手。</p>
+<ul>
+<li>三次握手 ， (syn) -&gt; (ack,syn -&gt;) (ack)</li>
+<li>四次挥手 ， (fin) -&gt; (ack -&gt; fin -&gt; )(ack)</li>
+</ul>
+</li>
+<li><p>http请求报文结构、响应报文，状态码。</p>
+<ul>
+<li><p>请求报文结构</p>
+<ul>
+<li>请求行 （请求方法，URL，协议版本）</li>
+<li>请求头</li>
+<li>请求体</li>
+</ul>
+</li>
+<li><p>响应报文</p>
+<ul>
+<li>状态行（协议版本，状态码，状态码描述）</li>
+<li>响应头部</li>
+<li>响应正文</li>
+</ul>
+</li>
+<li><p>状态码</p>
+<p>​</p>
+</li>
+</ul>
+</li>
+<li><p>http2.0相比于http1.0的新特性，推送、多路复用、消息头压缩等。</p>
+</li>
+</ul>
+<h3 id="android"><a href="#android" class="headerlink" title="android"></a><strong>android</strong></h3><ul>
+<li><p>handler机制组成，handler机制每一部分的源码包括looper中的loop方法、threadlocal概念、dispatchmessage方法源码，runnable封装message等。</p>
+</li>
+<li><p>listview缓存机制、recycleview缓存机制。</p>
+</li>
+<li><p>bitmap高效加载，三级缓存等。</p>
+<ul>
+<li>像素优化，大小优化</li>
+<li>内存缓存，硬盘缓存</li>
+</ul>
+</li>
+<li><p>binder机制原理。</p>
+<p>client层调用进入内核，内核通过servicemanager找到对应 service 。通过内核与service直接的内存映射。所以只有client -&gt; 内核binder的一次数据传输</p>
+</li>
+<li><p>view的工作原理及measure、layout、draw流程。哪一个流程可以放在子线程中去执行？</p>
+<p>不知道，应该是只要在viewrootimpl的检查机制开始之前都可以在子线程中执行的吧？</p>
+</li>
+<li><p>draw方法中需要注意的问题？</p>
+<p>ondraw中有可能会被频繁回调，所以如果在这里new对象的话</p>
+</li>
+<li><p>view的事件分发机制。</p>
+<p>这个说吐了</p>
+</li>
+<li><p>android性能优化：布局优化、绘制优化、内存泄露优化、bitmap、内存泄露等。</p>
+<ul>
+<li>布局优化，减少层级</li>
+<li>绘制优化，防止重复绘制</li>
+<li>内存泄露优化，</li>
+<li>bitmap优化，像素，大小，缓存</li>
+</ul>
+</li>
+<li><p>内存泄露的概念？android中发生的场景？怎么解决？讲了handler、动画等。</p>
+<p>应该被释放的对象，因为被大于生命周期的对象引用而得不到释放。</p>
+<ul>
+<li>handler 内部类形式，隐式的持有了外部类对象（例如activity）。一直说到MessageQueue和Looper中</li>
+<li>动画/耗时操作</li>
+<li>静态对象</li>
+</ul>
+</li>
+</ul>
+<p>剩下的数据库还有数据结构方面我都不懂</p>
+<ul>
+<li><p>红黑树</p>
+<p>特点，根节点到达每个black节点的深度都相同</p>
+<p>保持平衡，通过左旋/右旋来保持平衡，</p>
+</li>
+</ul>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/05/13/fromzero/" data-toggle="tooltip" data-placement="top" title="zhaiyifan 《从零开始》 学习笔记">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#简答" title="简答">简答</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">Foo</a></li>
+                    
+                        <li><a href="#" target="_blank">Bar</a></li>
+                    
+                        <li><a href="#" target="_blank">Example Friends</a></li>
+                    
+                        <li><a href="#" target="_blank">It helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "http://pdog18.cn/2018/05/14/my-answer/";
+    var disqus_url = "http://pdog18.cn/2018/05/14/my-answer/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/pdog18">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Pdog&#39;s Blog 2018 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://pdog18.cn/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'pdog18.cn';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://pdog18.cn/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
