@@ -13,7 +13,7 @@
 
     <title>
         
-          happykotlin - Pdog的博客 | Pdog&#39;s Blog
+          愉快的kotlin - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
@@ -165,8 +165,10 @@
                 <div class="post-heading">
                     <div class="tags">
                         
+                          <a class="tag" href="/tags/#kotlin" title="kotlin">kotlin</a>
+                        
                     </div>
-                    <h1>happykotlin</h1>
+                    <h1>愉快的kotlin</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Pdog on
@@ -189,7 +191,10 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                
+                <h3 id="获取当前类上的某个注解对象"><a href="#获取当前类上的某个注解对象" class="headerlink" title="获取当前类上的某个注解对象"></a>获取当前类上的某个注解对象</h3><figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T : Annotation&gt;</span> Any.<span class="title">getClassAnnotationValue</span><span class="params">()</span></span>: T &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>.<span class="title">getAnnotation</span></span>(T::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//调用</span></span><br><span class="line"><span class="keyword">val</span> layoutAnnotation = getClassAnnotationValue&lt;Layout&gt;()</span><br><span class="line"><span class="keyword">val</span> layoutId = layoutAnnotation.layoutId</span><br><span class="line">setContentView(layoutId)</span><br></pre></td></tr></table></figure>
+<h3 id="值为真时执行block"><a href="#值为真时执行block" class="headerlink" title="值为真时执行block"></a>值为真时执行block</h3><figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="built_in">Boolean</span>.<span class="title">yes</span><span class="params">(action: ()</span></span> -&gt; Any?): Any? &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">if</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">        action()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>todo</p>
+
 
                 <hr>
 
@@ -232,6 +237,8 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
+                          <a class="tag" href="/tags/#kotlin" title="kotlin">kotlin</a>
+                        
                     </div>
                 </section>
                 
