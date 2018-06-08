@@ -13,11 +13,11 @@
 
     <title>
         
-          Pdog的博客 | Pdog&#39;s Blog
+          I Like Gradle - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://pdog18.cn/page/2/">
+    <link rel="canonical" href="http://pdog18.cn/2018/06/08/ilikegradle/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -147,340 +147,102 @@
 
 
     <!-- Main Content -->
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://pdog18.cn/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>Pdog&#39;s Blog</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading">To Be A Lean Developer!</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#gradle" title="gradle">gradle</a>
+                        
+                    </div>
+                    <h1>I Like Gradle</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Pdog on
+                        2018-06-08
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
-
-<!-- USE SIDEBAR -->
     <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                <!-- Main Content -->
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h3 id="用module名字判断是否是独立module"><a href="#用module名字判断是否是独立module" class="headerlink" title="用module名字判断是否是独立module"></a>用module名字判断是否是独立module</h3><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 通过修改 project - build.gradle的 independent 值来控制module 是否可以独立编译</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> true ：module 是 app ，independent = true 并且 module 命名为 `module_` 开头</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">def</span> isIndependent() &#123;</span><br><span class="line">    <span class="comment">//是app module ，独立编译</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.name.startsWith(<span class="string">"app"</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//没有开启独立编译选项，所以为library</span></span><br><span class="line">    <span class="keyword">if</span> (!independent) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//开启了独立编译选项，但是模块名称不是module_ 开头，所以为 library</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.name.startsWith(<span class="string">"module_"</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="读取settings-gradle-，获取所有对应名字开头的module"><a href="#读取settings-gradle-，获取所有对应名字开头的module" class="headerlink" title="读取settings.gradle ，获取所有对应名字开头的module"></a>读取settings.gradle ，获取所有对应名字开头的module</h3><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> getModuleNames() &#123;</span><br><span class="line">    <span class="keyword">def</span> settings = <span class="keyword">new</span> File(<span class="string">"$&#123;rootDir&#125;/settings.gradle"</span>)</span><br><span class="line">    <span class="keyword">def</span> names = []</span><br><span class="line">    settings.withReader(<span class="string">"UTF-8"</span>) &#123; reader -&gt;</span><br><span class="line">        reader.eachLine &#123;</span><br><span class="line">            <span class="keyword">def</span> array = it.split(<span class="string">","</span>)</span><br><span class="line">            array.each &#123;</span><br><span class="line">                <span class="keyword">def</span> colon = it.indexOf(<span class="string">":"</span>)</span><br><span class="line">                <span class="keyword">def</span> module_name = it.substring(colon, it.length() - <span class="number">1</span>)</span><br><span class="line">                <span class="keyword">if</span> (module_name.contains(<span class="string">"module"</span>)) &#123;</span><br><span class="line">                    println(<span class="string">"implementation project $&#123;module_name&#125;"</span>)</span><br><span class="line">                    names.push(module_name)</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    println(<span class="string">"not module -&gt; $&#123;module_name&#125;"</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> names</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//加载settings.gradle 下所有符合条件的module</span></span><br><span class="line"><span class="keyword">if</span> (!independent) &#123;</span><br><span class="line">  getModuleNames().each &#123;</span><br><span class="line">    println(<span class="string">"it  ===&gt; $&#123;it&#125;"</span>)</span><br><span class="line">    implementation project(it)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-<div class="post-preview">
+                <hr>
 
-    <a href="/2018/03/21/kotlin-tricks-by-Jake-Wharton/">
-        <h2 class="post-title">
-            10个Kotlin小技巧 by Jake Wharton
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            10 kotlin tricks by Jake Wharton01 explosive placeholders使用Todo，来代替throws Exception
-fun test():Int&#123;    if(true)&#123;        return 1    &#125;else&#123;        TODO("some thing")    &#125;&#1......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-21
-    </p>
+                
 
-</div>
-<hr>
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/06/04/layoutmanager/" data-toggle="tooltip" data-placement="top" title="layoutmanager">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
 
-<div class="post-preview">
+                
 
-    <a href="/2018/03/17/kotlin/">
-        <h2 class="post-title">
-            Kotlin
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            KotlinKotlin语法
-类方法 / 静态方法 ，class改为object
-object A &#123;  fun staticMethod() &#123;    //...  &#125;&#125;//调用A.staticMethod()
-
-单例模式
-
-
-字节码参数
-Gank::class.java val gank = Gank()  val clazz2 = gank.ja......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-17
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/03/12/synchronized/">
-        <h2 class="post-title">
-            Java并发synchronized关键字
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Java并发synchronized相关
-本文主要内容来自 聊聊并发（二）——Java SE1.6中的Synchronized
-
-1. 引言在1.6以前 synchronized很多人称呼它为重量级锁，在Java SE1.6对它进行了各种优化，有些情况它就不那么重了。下面详细介绍了Java SE1.6中为了减少获得锁和释放锁带来的性能消耗而引入的偏向锁和轻量级锁，以及锁的存储结构和升级过程。......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-12
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/01/13/processor/">
-        <h2 class="post-title">
-            Processor
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            注解与依赖注入框架1. 注解及注解处理器
-注解
-从JDK 5 开始，Java增加了注解。关于注解的资料网上有很多，这里就不再次重复了。
-
-注解处理器
-针对三种不同级别保留策略的注解分别有对应不同的注解处理器。
-
-RUNTIME：采用反射机制处理
-CLASS，SOURCE：采用AbstractProcessor来处理
-
-
-
-2. 注解处理器的编写2.1 编译时注解采用反射方式，略。
-2.2 运......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-01-13
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/11/13/todo/">
-        <h2 class="post-title">
-            todolist
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            TodoList
-注解框架自动绑定activity布局
-自定义控件滑块
-databinding mvvm
-kotlin
-jvm虚拟机
-AMS PMS 源码学习
-两种热修复方案复习整理
-类加载机制
-
-ButterKnife学习
-通过注解框架 AbstractProcessor 在编译期生成Target_ViewBinding的帮助类(后面简称ViewBinding)，ViewBinding 由......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2017-11-13
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/06/07/rxjava2/">
-        <h2 class="post-title">
-            RxJava2学习笔记
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            RxJava 笔记
-注意：这只是学习的过程，为了学习rxjava是怎么由callback嵌套转换而来，其中的map和flatMap 都只是精简过后的一个概念，不是真正的样子
-
-感谢
-
- W_BinaryTree2楼 · 2017.05.12 01:07flatMap不仅仅是把item封装成observable。 还有个merge的过程。
-
-同步时Response newsList = net......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2017-06-07
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/03/07/hello-world/">
-        <h2 class="post-title">
-            Hello World
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Qu......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2017-03-07
-    </p>
-
-</div>
-<hr>
-
-
-
-<!-- Pager -->
-
-<ul class="pager">
-    
-        <li class="previous">
-            <a href="/">&larr; Newer Posts</a>
-        </li>
-    
-    
-</ul>
-
-
-
-                <!-- 如果开启评论功能 -->
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
                 
 
             </div>
+    <!-- Side Catalog Container -->
+        
+
     <!-- Sidebar Container -->
+
             <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
                 <!-- Featured Tags -->
                 
                 <section>
                     <!-- no hr -->
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
+                       
+                          <a class="tag" href="/tags/#gradle" title="gradle">gradle</a>
                         
                     </div>
                 </section>
                 
 
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-
-                        
-
-                        
-                            <p>!</p>
-                        
-
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                            
-
-                            
-
-                            
-
-                            
-                                <li>
-                                    <a target="_blank"  href="https://github.com/pdog18">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-                            
-                            
-                            
-                        </ul>
-                    </div>
-                </section>
-                
                 <!-- Friends Blog -->
                 
                 <hr>
@@ -503,9 +265,66 @@ Qu......
                 </ul>
                 
             </div>
-        
+
+        </div>
     </div>
-</div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "http://pdog18.cn/2018/06/08/ilikegradle/";
+    var disqus_url = "http://pdog18.cn/2018/06/08/ilikegradle/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
     <!-- Footer -->
