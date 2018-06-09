@@ -13,11 +13,11 @@
 
     <title>
         
-          About - Pdog的博客 | Pdog&#39;s Blog
+          hashmap能聊点什么？ - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://pdog18.cn/about/">
+    <link rel="canonical" href="http://pdog18.cn/2018/06/09/hashmap/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -147,176 +147,163 @@
 
 
     <!-- Main Content -->
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/about-bg.jpg')">
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://pdog18.cn/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading">
-                    <h1>About</h1>
-                    <!--<hr class="small">-->
-                    <span class="subheading">Hey, this is Kaijun.</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#hashmap" title="hashmap">hashmap</a>
+                        
+                    </div>
+                    <h1>hashmap能聊点什么？</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Pdog on
+                        2018-06-09
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        
-
-<!-- USE SIDEBAR -->
     <!-- Post Container -->
             <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-            
-                <blockquote>
-<p>写写代码，做做设计，看看产品。<br>世界那么大，多玩玩看看。</p>
-</blockquote>
-<p>9月21日上午，阳光明媚，鲜花斗艳。帕洛阿尔托苹果店里欢声笑语，人头攒动。苹果公司首席执行官蒂姆·库克先生在店长欧阳猛南陪同下，不远千米，深入到一线店面，为那里的员工带去节曰的问候和良好的祝愿。<br><br>“果粉们，你们辛苦了，我代表某果公司，祝你们身体健康，生活幸福，工作成功！”库克亲切慰问广大员工和顾客，并就iOS7、iPhone 5S和iPhone 5C的销售状况进行调研。 <br><br>“您现在每月工资有多少？肾5S拿到了吗？”在店里，库克关切地向果粉们问起这一问题。当听说果粉们排到了5S，库克满意地连连点头。接着他指出，近年来苹果事业发展取得巨大成就，特别是iPhone影响剧增，老百姓对iOS满意度逐步提高，在这个转变过程中，果粉的辛勤工作功不可没。<br><br>库克看到一个中国小朋友在排队买iPhone 5S，亲切的问：“5288元一台能承受不？”小朋友回答到：“能！”当得知这位小朋友卖了一个肾来买iPhone 5S时，库克叮嘱道：“在支持苹果的同时，也要爱护身体。”<br><br>库克与购买苹果手机的果粉们兴致勃勃地参观了苹果专卖店，和员工们拉了拉家常，并饶有兴趣地玩了四盘切西瓜游戏，与普通员工同乐。<br><br>在交谈中，库克多次关心地强调：“有了iPhone 5C，就不卖iPhone 5了。”并对顾客说：“好好休息，身体是革命的本钱嘛！”会谈始终在亲切友好的气氛中进行。<br><br>顾客们就库克的讲话达成了广泛的共识，并承认世界上只有iOS最流畅，要紧紧的团结在以库克先生为首席执行官的苹果公司集体周围，一心一意抓学习，聚精会神谋发展。<br><br><br>帕洛阿尔托苹果专卖店当日原则通过《蒂姆·库克首席执行官在加州新苹果店的讲话纪要》，并下发各分店认真学习、研讨。</p>
-<p style="text-align:right;"><br>    —— <a href="http://www.zhihu.com/question/19687065" target="_blank" rel="noopener">李书航 － 什么是「共产中文腔调」？ </a><br></p>
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-                <!-- 如果开启评论功能 -->
+                <h1 id="聊一下"><a href="#聊一下" class="headerlink" title="聊一下"></a>聊一下</h1><p><code>HashMap</code> 可以算是Java中一个非常经典的问题里。</p>
+<p>就着这个问题，其实可以一步一步的深入，简直是<code>循序渐进</code> 的最佳伴侣。</p>
+<ul>
+<li><p>菜鸟 </p>
+<p>说出<code>HashMap</code>和<code>Hashtable</code>的区别，顺带说下HashMap的<code>key</code> 可以为<code>null</code></p>
+</li>
+<li><p>入门</p>
+<p>理解<code>HashMap</code>的数据结构，<code>put</code>方法做了什么。</p>
+<p>可以说出实现一个有<code>put</code> 和<code>get</code>方法的简化版<code>HashMap</code>的大致思路</p>
+<p>可以说出数组，链表和二叉树的时间复杂度</p>
+</li>
+<li><p>初级</p>
+<p>红黑树的理解（可以说出红黑树的目的）</p>
+<p>可以说出多线程操作<code>HashMap</code>导致死循环的原因，判断链表如何有环</p>
+<p><code>ConcurrentHashMap</code>的实现原理</p>
+<p><code>synchronized</code>关键字原理,<code>volatile</code>关键字用处，java多线程内存模型</p>
+<p>可重入锁，公平锁，悲观锁，乐观锁</p>
+<p>​</p>
+</li>
+</ul>
+<h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><ol>
+<li><p>和Hashtable有什么区别？</p>
+<p>略</p>
+</li>
+<li><p>底层数据结构是怎么样的？java1.8有什么优化</p>
+<p>数组+链表，1.8链表达到阈值后转化为红黑树</p>
+</li>
+<li><p>什么是红黑树？</p>
+<p>红黑树相对二叉树更加平衡，通过旋转节点防止节点层级过深（最坏情况下等于链表）</p>
+</li>
+<li><p>为什么数组长度要2的n次幂？</p>
+<p><code>&amp;</code> 运算比<code>%</code> 要快，同时在进行<code>hash</code>的时候会对<code>hashCode</code>进行右移，减少<code>hash</code>冲突</p>
+</li>
+<li><p>HashMap 是同步的吗？需要确保线程安全应该怎么办？</p>
+<p>可以通过<code>Collections.synchronizedCollection</code>来返回一个线程安全的<code>Map</code> ，或者使用<code>ConcurrentHashMap</code></p>
+</li>
+<li><p>多线程操作HashMap会发生什么？</p>
+<p>在扩容时，链表上成为了有环链表，导致死循环</p>
+</li>
+<li><p>如何判断链表是否有环？如何知道环的长度？如何找到环的起点？</p>
+<p>使用追赶的方法，让两个指针<code>slow</code>,<code>fast</code>同时指向链表起点，每次分别前进1步，2步，如两者相遇，则链表有环。</p>
+<p>记录两个指针的相遇点，两个指针从相遇点出发，再次相遇<code>slow</code>经过的节点数就是环的长度。</p>
+<p>当两个指针相遇时，将<code>fast</code>重新指向链表起点，每次前进1步。两个节点再次相遇的所在位置就是环的节点处。</p>
+<p>​</p>
+</li>
+</ol>
+<h3 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h3><ol>
+<li><p>和Hashtable有什么区别</p>
+<p>Hashtable是一个单独的锁，任何对这个数据结构进行的操作都需要获取锁，在<code>put</code>的同时，另外一个线程调用<code>get</code>会被阻塞。</p>
+<p>而ConcurrentHashMap使用了锁分段，将锁设置在若干个<code>segment</code>上，同时通过<code>volatile</code>关键字，在<code>put</code>时直接将值写入主存，这样<code>get</code>可以同步获取</p>
+</li>
+<li><p>1.7 和1.8的实现</p>
+</li>
+<li><p>可重入锁，公平锁</p>
+</li>
+<li><p>volatile 原理</p>
+</li>
+<li><p>java多线程内存模型</p>
+<p>​</p>
+</li>
+<li><p>synchronized原理</p>
+</li>
+</ol>
+<h3 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h3><p>为所有提问添加完整的回答。</p>
+
+
+                <hr>
+
                 
-                    <hr>
 
+                <ul class="pager">
                     
-
                     
-                    <!-- disqus 评论框 start -->
-                    <div class="comment">
-                        <div id="disqus_thread" class="disqus-thread"></div>
-                    </div>
-                    <!-- disqus 评论框 end -->
+                        <li class="next">
+                            <a href="/2018/06/08/ilikegradle/" data-toggle="tooltip" data-placement="top" title="I Like Gradle">Next Post &rarr;</a>
+                        </li>
                     
+                </ul>
 
+                
 
-                    
-
-                    
-                    <!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
-                    <script type="text/javascript">
-                        /* * * CONFIGURATION VARIABLES * * */
-                        var disqus_shortname = "hexo-theme-huxblog";
-                        var disqus_identifier = "http://pdog18.cn/about/index.html";
-                        var disqus_url = "http://pdog18.cn/about/index.html";
-
-                        (function() {
-                            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                        })();
-
-                        
-                    </script>
-                    <!-- disqus 公共JS代码 end -->
-                    
-
-
-
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
                 
 
             </div>
+    <!-- Side Catalog Container -->
+        
+
     <!-- Sidebar Container -->
+
             <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
                 <!-- Featured Tags -->
                 
                 <section>
                     <!-- no hr -->
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
+                       
+                          <a class="tag" href="/tags/#hashmap" title="hashmap">hashmap</a>
                         
                     </div>
                 </section>
                 
 
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
-                    <div class="short-about">
-
-                        
-
-                        
-                            <p>!</p>
-                        
-
-                        <!-- SNS Link -->
-                        <ul class="list-inline">
-                            
-                            
-                            
-
-                            
-
-                            
-
-                            
-                                <li>
-                                    <a target="_blank"  href="https://github.com/pdog18">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            
-                            
-                            
-                            
-                        </ul>
-                    </div>
-                </section>
-                
                 <!-- Friends Blog -->
                 
                 <hr>
@@ -339,9 +326,66 @@
                 </ul>
                 
             </div>
-        
+
+        </div>
     </div>
-</div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "http://pdog18.cn/2018/06/09/hashmap/";
+    var disqus_url = "http://pdog18.cn/2018/06/09/hashmap/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
     <!-- Footer -->
