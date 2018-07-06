@@ -184,6 +184,30 @@
 
 <div class="post-preview">
 
+    <a href="/2018/07/06/kotlinoperator/">
+        <h2 class="post-title">
+            一个减法的故事：Kotlin 扩展函数 ，Operator 和 性能优化
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            前言在写自定义控件的时候，有时会需要对PointF对象进行一定操作，计算两个点之间的水平间距和垂直间距。
+简化需求也就是要算出两个点之间的差值。
+用代码实现大概是这样的
+fun minusPoint(p1: PointF, p2: PointF): PointF &#123;    val dx = p1.x - p2.x    val dy = p1.y - p2.y    return ......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Pdog on
+        2018-07-06
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2018/06/09/hashmap/">
         <h2 class="post-title">
             hashmap能聊点什么？
@@ -400,28 +424,6 @@ core， 上面两个都依赖的核心库，里面存放了一些依赖（网络
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/04/04/increasenumber/">
-        <h2 class="post-title">
-            几行代码的简单效果
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            几行代码的简单效果不同字体的数字增长动画
-var fractionDigits = 3var leftSize = 64var rightSize = 32var builder = SpannableStringBuilder()val formatter = NumberFormat.getInstance().apply &#123;  maximumFractionDigits = ......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-04-04
-    </p>
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -455,6 +457,8 @@ var fractionDigits = 3var leftSize = 64var rightSize = 32var builder = Spannable
                     <!-- no hr -->
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+                        
+                            
                         
                             
                         

@@ -13,11 +13,11 @@
 
     <title>
         
-          hashmap能聊点什么？ - Pdog的博客 | Pdog&#39;s Blog
+          一个减法的故事：Kotlin 扩展函数 ，Operator 和 性能优化 - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://pdog18.cn/2018/06/09/hashmap/">
+    <link rel="canonical" href="http://pdog18.cn/2018/07/06/kotlinoperator/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -165,14 +165,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#hashmap" title="hashmap">hashmap</a>
+                          <a class="tag" href="/tags/#Kotlin Operator 性能优化" title="Kotlin Operator 性能优化">Kotlin Operator 性能优化</a>
                         
                     </div>
-                    <h1>hashmap能聊点什么？</h1>
+                    <h1>一个减法的故事：Kotlin 扩展函数 ，Operator 和 性能优化</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Pdog on
-                        2018-06-09
+                        2018-07-06
                     </span>
                 </div>
             </div>
@@ -191,70 +191,53 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="聊一下"><a href="#聊一下" class="headerlink" title="聊一下"></a>聊一下</h1><p><code>HashMap</code> 可以算是Java中一个非常经典的问题里。</p>
-<p>就着这个问题，其实可以一步一步的深入，简直是<code>循序渐进</code> 的最佳伴侣。</p>
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在写自定义控件的时候，有时会需要对<code>PointF</code>对象进行一定操作，计算两个点之间的水平间距和垂直间距。</p>
+<p>简化需求也就是要算出两个点之间的差值。</p>
+<p>用代码实现大概是这样的</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">minusPoint</span><span class="params">(p1: <span class="type">PointF</span>, p2: <span class="type">PointF</span>)</span></span>: PointF &#123;</span><br><span class="line">    <span class="keyword">val</span> dx = p1.x - p2.x</span><br><span class="line">    <span class="keyword">val</span> dy = p1.y - p2.y</span><br><span class="line">    <span class="keyword">return</span> PointF(dx, dy)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用</span></span><br><span class="line"><span class="keyword">val</span> p = minusPoint(p1,p2)</span><br></pre></td></tr></table></figure>
+<h3 id="第一次修改"><a href="#第一次修改" class="headerlink" title="第一次修改"></a>第一次修改</h3><p>这样的写法太<code>Java</code>了，因为我们用到的是<code>Kotlin</code>，我们可以改成这样</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">minusPoint</span><span class="params">(p1: <span class="type">PointF</span>, p2: <span class="type">PointF</span>)</span></span>: PointF = PointF(p1.x - p2.x, p1.y - p2.y)</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用</span></span><br><span class="line"><span class="keyword">val</span> p = minusPoint(p1,p2)</span><br></pre></td></tr></table></figure>
+<h3 id="第二次修改"><a href="#第二次修改" class="headerlink" title="第二次修改"></a>第二次修改</h3><p>当然，这样也不够好。我们使用<code>Kotlin</code>的扩展函数为<code>PointF</code>这个对象添加上一个扩展函数</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> PointF.<span class="title">minusPoint</span><span class="params">(p2: <span class="type">PointF</span>)</span></span>: PointF = PointF(<span class="keyword">this</span>.x - p2.x, <span class="keyword">this</span>.y - p2.y)</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用</span></span><br><span class="line"><span class="keyword">val</span> p = p1.minusPoint(p2)</span><br></pre></td></tr></table></figure>
+<p>这样的调用看起来可读性高了非常多。</p>
+<h3 id="第三次修改"><a href="#第三次修改" class="headerlink" title="第三次修改"></a>第三次修改</h3><p>因为<code>PointF</code>自带了<code>offset</code>的方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">offset</span><span class="params">(<span class="keyword">float</span> dx, <span class="keyword">float</span> dy)</span> </span>&#123;</span><br><span class="line">  x += dx;</span><br><span class="line">  y += dy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以我们将可以改成这个样子</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> PointF.<span class="title">minusPoint</span><span class="params">(p2: <span class="type">PointF</span>)</span></span>: PointF = PointF().apply &#123;</span><br><span class="line">    <span class="keyword">this</span>.offset(-p2.x, -p2.y)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用</span></span><br><span class="line"><span class="keyword">val</span> p = p1.minusPoint(p2)</span><br></pre></td></tr></table></figure>
+<h3 id="第四次修改"><a href="#第四次修改" class="headerlink" title="第四次修改"></a>第四次修改</h3><p>有编程经验的小伙伴可能从第一次就发现了这个函数的一个“问题”，就是每次都会创建一个新的<code>PointF</code>对象。所以我们还可以对它进行一次“优化”</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> PointF.<span class="title">minusPoint</span><span class="params">(p2: <span class="type">PointF</span>)</span></span>: PointF = <span class="keyword">this</span>.apply &#123;</span><br><span class="line">    <span class="keyword">this</span>.offset(-p2.x, -p2.y)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用</span></span><br><span class="line"><span class="keyword">val</span> p = p1.minusPoint(p2)</span><br></pre></td></tr></table></figure>
+<p>这样每次调用都不会产生新的对象，直接使用原来的对象就可以了。一切都看起来很美妙。</p>
+<h3 id="第五次修改"><a href="#第五次修改" class="headerlink" title="第五次修改"></a>第五次修改</h3><p>我们再次回到我们一开始的时候，我们一开始需要解决的问题是“计算两个点的差值”，那么从语义上来讲。是不是可以简单的描述成为这样</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> p1: Point</span><br><span class="line"><span class="keyword">val</span> p2: Point</span><br><span class="line"><span class="keyword">val</span> p = p1 - p2</span><br></pre></td></tr></table></figure>
+<p>了解<code>Kotlin</code> 的<code>operator</code>的同学可能从第一次看到需求的时候就想到了<code>-</code>操作符。</p>
+<p>很明显 <code>ktx</code>中就有<code>PointF</code>的扩展操作符。</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Offsets this point by the negation of the specified point and returns the result</span></span><br><span class="line"><span class="comment"> * as a new point.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> PointF.<span class="title">minus</span><span class="params">(p: <span class="type">PointF</span>)</span></span>: PointF &#123;</span><br><span class="line">    <span class="keyword">return</span> PointF(x, y).apply &#123;</span><br><span class="line">        offset(-p.x, -p.y)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用</span></span><br><span class="line"><span class="keyword">val</span> p = p1 - p2</span><br></pre></td></tr></table></figure>
+<p>再一次被<code>Kotlin</code> 甜到 !</p>
+<h3 id="第六次修改"><a href="#第六次修改" class="headerlink" title="第六次修改"></a>第六次修改</h3><p>细心的朋友发现，这个扩展操作符每次都返回了一个新的对象。</p>
+<p>那是不是<code>ktx</code>这个函数写的不好？</p>
+<p>其实不是这样的，现在回到我们的第四次的“优化”。</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> PointF.<span class="title">minusPoint</span><span class="params">(p2: <span class="type">PointF</span>)</span></span>: PointF = <span class="keyword">this</span>.apply &#123;</span><br><span class="line">    <span class="keyword">this</span>.offset(-p2.x, -p2.y)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用</span></span><br><span class="line"><span class="keyword">val</span> p = p1.minusPoint(p2)</span><br></pre></td></tr></table></figure>
+<p>现在我们来考虑一个问题，我们使用了<code>p1</code>对象减去<code>p2</code>的获得了一个对象<code>p</code> ，这时<code>p</code>其实就是<code>p1</code>，而它们的属性此时已被改变。如果这时，再去使用<code>p1</code>去做一些其他操作，显然就和预期得到的结果不一样了。</p>
+<p>发现问题所在了吗？我们的优化“减法”改变被减数，这显然是不合理的。</p>
+<p>所以我们在第五次的修改是不太合理的，但是我又不想用第六次的方案，因为它的确额外的对象，我就是饿死，死在外面，也不会吃这个语法糖的？！。</p>
+<p>那么应该怎么办呢？</p>
+<p>上面我们说到，一个减法是不应该去改变被减数的，减法得到的值理所当然是一个新的值。</p>
+<p>那么是否我们就只能这样了呢？当然不是，我们再次回到我们的需求，“获得两个点之间的差值”，其实这句需求还可以再增加完善一些，“获得两个点之间的差值，为了不产生新的对象可以直接修改其中一个点的值”</p>
+<p>那么到这里可以发现，我们有一个非常合适的操作符来描述它，也就是 <code>-=</code></p>
+<p>直接来上代码</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> PointF.<span class="title">minusAssign</span><span class="params">(p: <span class="type">PointF</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.apply &#123;</span><br><span class="line">        offset(-p.x, -p.y)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用,没有返回值</span></span><br><span class="line">p -= p2</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> btw，由于传入的参数不是函数类型，这里的<code>inline</code>是多余的。</p>
+</blockquote>
+<p>由于没有返回值，那么我们可以这样调用</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> p1 = p.apply &#123;</span><br><span class="line">    <span class="keyword">this</span> -= center</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此，我们的减法就算完成了。</p>
+<p>通过这个减法，我得到了什么？</p>
 <ul>
-<li><p>菜鸟 </p>
-<p>说出<code>HashMap</code>和<code>Hashtable</code>的区别，顺带说下HashMap的<code>key</code> 可以为<code>null</code></p>
-</li>
-<li><p>入门</p>
-<p>理解<code>HashMap</code>的数据结构，<code>put</code>方法做了什么。</p>
-<p>可以说出实现一个有<code>put</code> 和<code>get</code>方法的简化版<code>HashMap</code>的大致思路</p>
-<p>可以说出数组，链表和二叉树的时间复杂度</p>
-</li>
-<li><p>初级</p>
-<p>红黑树的理解（可以说出红黑树的目的）</p>
-<p>可以说出多线程操作<code>HashMap</code>导致死循环的原因，判断链表如何有环</p>
-<p><code>ConcurrentHashMap</code>的实现原理</p>
-<p><code>synchronized</code>关键字原理,<code>volatile</code>关键字用处，java多线程内存模型</p>
-<p>可重入锁，公平锁，悲观锁，乐观锁</p>
-<p>​</p>
-</li>
+<li>了解了<code>kotlin</code>的<code>operator</code>写法</li>
+<li>了解了<code>kotlin</code>的<code>inline</code>的一些规则</li>
+<li>函数如果会对传入参数进行修改，需要谨慎是否真的应该这样做。</li>
 </ul>
-<h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><ol>
-<li><p>和Hashtable有什么区别？</p>
-<p>略</p>
-</li>
-<li><p>底层数据结构是怎么样的？java1.8有什么优化</p>
-<p>数组+链表，1.8链表达到阈值后转化为红黑树</p>
-</li>
-<li><p>什么是红黑树？</p>
-<p>红黑树相对二叉树更加平衡，通过旋转节点防止节点层级过深（最坏情况下等于链表）</p>
-</li>
-<li><p>为什么数组长度要2的n次幂？</p>
-<p><code>&amp;</code> 运算比<code>%</code> 要快，同时在进行<code>hash</code>的时候会对<code>hashCode</code>进行右移，减少<code>hash</code>冲突</p>
-</li>
-<li><p>HashMap 是同步的吗？需要确保线程安全应该怎么办？</p>
-<p>可以通过<code>Collections.synchronizedCollection</code>来返回一个线程安全的<code>Map</code> ，或者使用<code>ConcurrentHashMap</code></p>
-</li>
-<li><p>多线程操作HashMap会发生什么？</p>
-<p>在扩容时，链表上成为了有环链表，导致死循环</p>
-</li>
-<li><p>如何判断链表是否有环？如何知道环的长度？如何找到环的起点？</p>
-<p>使用追赶的方法，让两个指针<code>slow</code>,<code>fast</code>同时指向链表起点，每次分别前进1步，2步，如两者相遇，则链表有环。</p>
-<p>记录两个指针的相遇点，两个指针从相遇点出发，再次相遇<code>slow</code>经过的节点数就是环的长度。</p>
-<p>当两个指针相遇时，将<code>fast</code>重新指向链表起点，每次前进1步。两个节点再次相遇的所在位置就是环的节点处。</p>
-<p>​</p>
-</li>
-</ol>
-<h3 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h3><ol>
-<li><p>和Hashtable有什么区别</p>
-<p>Hashtable是一个单独的锁，任何对这个数据结构进行的操作都需要获取锁，在<code>put</code>的同时，另外一个线程调用<code>get</code>会被阻塞。</p>
-<p>而ConcurrentHashMap使用了锁分段，将锁设置在若干个<code>segment</code>上，同时通过<code>volatile</code>关键字，在<code>put</code>时直接将值写入主存，这样<code>get</code>可以同步获取</p>
-</li>
-<li><p>1.7 和1.8的实现</p>
-</li>
-<li><p>可重入锁，公平锁</p>
-</li>
-<li><p>volatile 原理</p>
-</li>
-<li><p>java多线程内存模型</p>
-<p>​</p>
-</li>
-<li><p>synchronized原理</p>
-</li>
-</ol>
-<h3 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h3><p>为所有提问添加完整的回答。</p>
 
 
                 <hr>
@@ -263,13 +246,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2018/07/06/kotlinoperator/" data-toggle="tooltip" data-placement="top" title="一个减法的故事：Kotlin 扩展函数 ，Operator 和 性能优化">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2018/06/08/ilikegradle/" data-toggle="tooltip" data-placement="top" title="I Like Gradle">Next Post &rarr;</a>
+                            <a href="/2018/06/09/hashmap/" data-toggle="tooltip" data-placement="top" title="hashmap能聊点什么？">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -302,7 +281,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#hashmap" title="hashmap">hashmap</a>
+                          <a class="tag" href="/tags/#Kotlin Operator 性能优化" title="Kotlin Operator 性能优化">Kotlin Operator 性能优化</a>
                         
                     </div>
                 </section>
@@ -342,8 +321,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "http://pdog18.cn/2018/06/09/hashmap/";
-    var disqus_url = "http://pdog18.cn/2018/06/09/hashmap/";
+    var disqus_identifier = "http://pdog18.cn/2018/07/06/kotlinoperator/";
+    var disqus_url = "http://pdog18.cn/2018/07/06/kotlinoperator/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
