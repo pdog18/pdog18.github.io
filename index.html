@@ -241,7 +241,7 @@ fun minusPoint(p1: PointF, p2: PointF): PointF &#123;    val dx = p1.x - p2.x   
 
     <a href="/2018/06/09/hashmap/">
         <h2 class="post-title">
-            hashmap能聊点什么？
+            当我们聊HashMap时能聊点什么？
         </h2>
         <h3 class="post-subtitle">
             
@@ -262,72 +262,6 @@ fun minusPoint(p1: PointF, p2: PointF): PointF &#123;    val dx = p1.x - p2.x   
     <p class="post-meta">
         Posted by Pdog on
         2018-06-09
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/06/08/ilikegradle/">
-        <h2 class="post-title">
-            I Like Gradle
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            用module名字判断是否是独立module/** * 通过修改 project - build.gradle的 independent 值来控制module 是否可以独立编译 * @return true ：module 是 app ，independent = true 并且 module 命名为 `module_` 开头 */def isIndependent() &#123;    ......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-06-08
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/06/04/layoutmanager/">
-        <h2 class="post-title">
-            layoutmanager
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            写一个RecyclerView的Manager
-http://blog.csdn.net/user11223344abc/article/details/78080671主要内容出自【蛟-blog】
-
-一、开始开始class MyLayoutManager : RecyclerView.LayoutManager() &#123;    override fun generateDefaul......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-06-04
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/05/31/happykotlin/">
-        <h2 class="post-title">
-            愉快的kotlin
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            获取当前类上的某个注解对象inline fun &lt;reified T : Annotation&gt; Any.getClassAnnotationValue(): T &#123;    return this::class.java.getAnnotation(T::class.java)&#125;//调用val layoutAnnotation = getClassAnnota......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-05-31
     </p>
 
 </div>
@@ -360,7 +294,7 @@ server &#123;    listen       80;        #端口    server_name  localhost;   #�
 
     <a href="/2018/05/14/my-answer/">
         <h2 class="post-title">
-            my_answer
+            《阿里春招面经》简答
         </h2>
         <h3 class="post-subtitle">
             
@@ -386,7 +320,7 @@ dip 不知道问这个意义是什么 这个已经被dp替代了，2018年不应
 
     <a href="/2018/05/13/fromzero/">
         <h2 class="post-title">
-            zhaiyifan 《从零开始》 学习笔记
+            《从零开始》 学习笔记
         </h2>
         <h3 class="post-subtitle">
             
@@ -431,6 +365,79 @@ core， 上面两个都依赖的核心库，里面存放了一些依赖（网络
 </div>
 <hr>
 
+<div class="post-preview">
+
+    <a href="/2018/04/08/jsnote/">
+        <h2 class="post-title">
+            《JavaScript高级程序设计》学习笔记
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            《JavaScript高级程序设计》 学习笔记3.1.4 严格模式ES5 引入了严格模式(strict mode)，在整个脚本中启用严格模式，可以在顶部添加如下代码
+"use strict"
+4.2 执行环境及作用域每个执行环境都有一个与之关联的变量对象(variable object) , 环境中定义的所有变量和函数都保存在这个对象中。
+全局执行环境是最外围的一个执行环境，根据ECMASc......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Pdog on
+        2018-04-08
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/04/04/increasenumber/">
+        <h2 class="post-title">
+            几行代码的简单效果
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            几行代码的简单效果不同字体的数字增长动画
+var fractionDigits = 3var leftSize = 64var rightSize = 32var builder = SpannableStringBuilder()val formatter = NumberFormat.getInstance().apply &#123;  maximumFractionDigits = ......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Pdog on
+        2018-04-04
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/03/26/my-basic-library/">
+        <h2 class="post-title">
+            我的简单基础库
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            一个简单的基础库、架构一个新项目每次都要处理一些新的基础库，整理一下我使用的方式。
+使用到的第三方库参见这条配置文件build.gradle， 没什么好讲的
+两个帮助开发调试的工具在 CoreApplication.kt中初始化了两个帮助开发调试的工具类和一个Toast工具类
+debugInstall(this)ToastHelper.init(this)
+
+timber 
+使用logcat......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Pdog on
+        2018-03-26
+    </p>
+
+</div>
+<hr>
+
 
 
 <!-- Pager -->
@@ -470,17 +477,7 @@ core， 上面两个都依赖的核心库，里面存放了一些依赖（网络
                             
                         
                             
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
+                            <a href="/tags/#笔记" title="笔记" rel="2">笔记</a>
                             
                         
                             

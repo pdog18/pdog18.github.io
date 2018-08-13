@@ -184,82 +184,9 @@
 
 <div class="post-preview">
 
-    <a href="/2018/04/08/jsnote/">
-        <h2 class="post-title">
-            JavaScript Note
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            《JavaScript高级程序设计》 学习笔记3.1.4 严格模式ES5 引入了严格模式(strict mode)，在整个脚本中启用严格模式，可以在顶部添加如下代码
-"use strict"
-4.2 执行环境及作用域每个执行环境都有一个与之关联的变量对象(variable object) , 环境中定义的所有变量和函数都保存在这个对象中。
-全局执行环境是最外围的一个执行环境，根据ECMASc......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-04-08
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/04/04/increasenumber/">
-        <h2 class="post-title">
-            几行代码的简单效果
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            几行代码的简单效果不同字体的数字增长动画
-var fractionDigits = 3var leftSize = 64var rightSize = 32var builder = SpannableStringBuilder()val formatter = NumberFormat.getInstance().apply &#123;  maximumFractionDigits = ......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-04-04
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/03/26/my-basic-library/">
-        <h2 class="post-title">
-            我的简单基础库
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            我的一个简单的基础库、架构一个新项目每次都要处理一些新的基础库，整理一下我使用的方式。
-使用到的第三方库参见这条配置文件build.gradle， 没什么好讲的
-两个帮助开发调试的工具在 CoreApplication.kt中初始化了两个帮助开发调试的工具类和一个Toast工具类
-debugInstall(this)ToastHelper.init(this)
-
-timber 
-使用logc......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-03-26
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
     <a href="/2018/03/21/kotlin-tricks-by-Jake-Wharton/">
         <h2 class="post-title">
-            10个Kotlin小技巧 by Jake Wharton
+            10个Kotlin小技巧[转]
         </h2>
         <h3 class="post-subtitle">
             
@@ -281,7 +208,7 @@ fun test():Int&#123;    if(true)&#123;        return 1    &#125;else&#123;      
 
     <a href="/2018/03/17/kotlin/">
         <h2 class="post-title">
-            Kotlin
+            Kotlin语法随记
         </h2>
         <h3 class="post-subtitle">
             
@@ -291,11 +218,8 @@ fun test():Int&#123;    if(true)&#123;        return 1    &#125;else&#123;      
 类方法 / 静态方法 ，class改为object
 object A &#123;  fun staticMethod() &#123;    //...  &#125;&#125;//调用A.staticMethod()
 
-单例模式
-
-
 字节码参数
-Gank::class.java val gank = Gank()  val clazz2 = gank.ja......
+Gank::class.java val gank = Gank()  val clazz2 = gank.javaClass......
         </div>
     </a>
     <p class="post-meta">
@@ -310,7 +234,7 @@ Gank::class.java val gank = Gank()  val clazz2 = gank.ja......
 
     <a href="/2018/03/12/synchronized/">
         <h2 class="post-title">
-            Java并发synchronized关键字
+            Synchronized关键字
         </h2>
         <h3 class="post-subtitle">
             
@@ -332,60 +256,24 @@ Gank::class.java val gank = Gank()  val clazz2 = gank.ja......
 
 <div class="post-preview">
 
-    <a href="/2018/01/13/processor/">
-        <h2 class="post-title">
-            Processor
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            注解与依赖注入框架1. 注解及注解处理器
-注解
-从JDK 5 开始，Java增加了注解。关于注解的资料网上有很多，这里就不再次重复了。
-
-注解处理器
-针对三种不同级别保留策略的注解分别有对应不同的注解处理器。
-
-RUNTIME：采用反射机制处理
-CLASS，SOURCE：采用AbstractProcessor来处理
-
-
-
-2. 注解处理器的编写2.1 编译时注解采用反射方式，略。
-2.2 运......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-01-13
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
     <a href="/2017/11/13/todo/">
         <h2 class="post-title">
-            todolist
+            TodoList
         </h2>
         <h3 class="post-subtitle">
             
         </h3>
         <div class="post-content-preview">
             TodoList
-注解框架自动绑定activity布局
-自定义控件滑块
-databinding mvvm
-kotlin
-jvm虚拟机
+DataBinding MVVM
+kotlin  `@2018.02`
+JVM虚拟机
 AMS PMS 源码学习
-两种热修复方案复习整理
-类加载机制
+两种热修复方案复习整理 `@2017.12`
+类加载机制 `@2017.12`
 
 ButterKnife学习
-通过注解框架 AbstractProcessor 在编译期生成Target_ViewBinding的帮助类(后面简称ViewBinding)，ViewBinding 由......
+通过注解框架 AbstractProcessor 在编译期生成Target_ViewBinding的帮助类(后面简称ViewBinding)，ViewBi......
         </div>
     </a>
     <p class="post-meta">
@@ -485,17 +373,7 @@ Qu......
                             
                         
                             
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                        
+                            <a href="/tags/#笔记" title="笔记" rel="2">笔记</a>
                             
                         
                             
