@@ -13,11 +13,11 @@
 
     <title>
         
-          当我们聊HashMap时能聊点什么？ - Pdog的博客 | Pdog&#39;s Blog
+          Git - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://pdog18.cn/2018/06/09/hashmap/">
+    <link rel="canonical" href="http://pdog18.cn/2018/08/22/git/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -165,14 +165,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#HashMap 源码" title="HashMap 源码">HashMap 源码</a>
+                          <a class="tag" href="/tags/#git" title="git">git</a>
                         
                     </div>
-                    <h1>当我们聊HashMap时能聊点什么？</h1>
+                    <h1>Git</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Pdog on
-                        2018-06-09
+                        2018-08-22
                     </span>
                 </div>
             </div>
@@ -191,70 +191,38 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="聊一下"><a href="#聊一下" class="headerlink" title="聊一下"></a>聊一下</h1><p><code>HashMap</code> 可以算是Java中一个非常经典的问题里。</p>
-<p>就着这个问题，其实可以一步一步的深入，简直是<code>循序渐进</code> 的最佳伴侣。</p>
+                <h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><h2 id="Feature-Branching"><a href="#Feature-Branching" class="headerlink" title="Feature Branching"></a>Feature Branching</h2><p>做法每开发一个新的功能做一个修复，都使用单独的分支，在做完之后 <code>merge</code> 到 <code>master</code>去</p>
 <ul>
-<li><p>菜鸟 </p>
-<p>说出<code>HashMap</code>和<code>Hashtable</code>的区别，顺带说下HashMap的<code>key</code> 可以为<code>null</code></p>
-</li>
-<li><p>入门</p>
-<p>理解<code>HashMap</code>的数据结构，<code>put</code>方法做了什么。</p>
-<p>可以说出实现一个有<code>put</code> 和<code>get</code>方法的简化版<code>HashMap</code>的大致思路</p>
-<p>可以说出数组，链表和二叉树的时间复杂度</p>
-</li>
-<li><p>初级</p>
-<p>红黑树的理解（可以说出红黑树的目的）</p>
-<p>可以说出多线程操作<code>HashMap</code>导致死循环的原因，判断链表如何有环</p>
-<p><code>ConcurrentHashMap</code>的实现原理</p>
-<p><code>synchronized</code>关键字原理,<code>volatile</code>关键字用处，java多线程内存模型</p>
-<p>可重入锁，公平锁，悲观锁，乐观锁</p>
-<p>​</p>
+<li>本地merge ：略</li>
+<li>使用github：先创建pull request，在同事省略完成之后，通过按钮实现在线merge<ul>
+<li>pull request是什么：是开发者对远端仓库的提出的「拉取某个branch」的请求</li>
+</ul>
 </li>
 </ul>
-<h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><ol>
-<li><p>和Hashtable有什么区别？</p>
-<p>略</p>
-</li>
-<li><p>底层数据结构是怎么样的？java1.8有什么优化</p>
-<p>数组+链表，1.8链表达到阈值后转化为红黑树</p>
-</li>
-<li><p>什么是红黑树？</p>
-<p>红黑树相对二叉树更加平衡，通过旋转节点防止节点层级过深（最坏情况下等于链表）</p>
-</li>
-<li><p>为什么数组长度要2的n次幂？</p>
-<p><code>&amp;</code> 运算比<code>%</code> 要快，同时在进行<code>hash</code>的时候会对<code>hashCode</code>进行右移，减少<code>hash</code>冲突</p>
-</li>
-<li><p>HashMap 是同步的吗？需要确保线程安全应该怎么办？</p>
-<p>可以通过<code>Collections.synchronizedCollection</code>来返回一个线程安全的<code>Map</code> ，或者使用<code>ConcurrentHashMap</code></p>
-</li>
-<li><p>多线程操作HashMap会发生什么？</p>
-<p>在扩容时，链表上成为了有环链表，导致死循环</p>
-</li>
-<li><p>如何判断链表是否有环？如何知道环的长度？如何找到环的起点？</p>
-<p>使用追赶的方法，让两个指针<code>slow</code>,<code>fast</code>同时指向链表起点，每次分别前进1步，2步，如两者相遇，则链表有环。</p>
-<p>记录两个指针的相遇点，两个指针从相遇点出发，再次相遇<code>slow</code>经过的节点数就是环的长度。</p>
-<p>当两个指针相遇时，将<code>fast</code>重新指向链表起点，每次前进1步。两个节点再次相遇的所在位置就是环的节点处。</p>
-<p>​</p>
+<h3 id="冲突"><a href="#冲突" class="headerlink" title="冲突"></a>冲突</h3><p>当冲突发生时</p>
+<ol>
+<li>把文件修改好</li>
+<li>把修改的内容用 <code>add</code> 添加到<code>stage</code></li>
+<li>使用命令继续自动合并流程<ul>
+<li>merge ：<code>git merge —continue</code> </li>
+<li>rebase：<code>git rebase —continue</code> </li>
+</ul>
 </li>
 </ol>
-<h3 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h3><ol>
-<li><p>和Hashtable有什么区别</p>
-<p>Hashtable是一个单独的锁，任何对这个数据结构进行的操作都需要获取锁，在<code>put</code>的同时，另外一个线程调用<code>get</code>会被阻塞。</p>
-<p>而ConcurrentHashMap使用了锁分段，将锁设置在若干个<code>segment</code>上，同时通过<code>volatile</code>关键字，在<code>put</code>时直接将值写入主存，这样<code>get</code>可以同步获取</p>
+<h3 id="提交过的东西写错了"><a href="#提交过的东西写错了" class="headerlink" title="提交过的东西写错了"></a>提交过的东西写错了</h3><ol>
+<li><p>最新的一条内容需要修改：</p>
+<p><code>git commit —amend</code></p>
+<blockquote>
+<p>「修改」只是概念 为，实质上会产  个新的 commit</p>
+</blockquote>
 </li>
-<li><p>1.7 和1.8的实现</p>
+<li><p>旧的内容需要修改</p>
+<p><code>git reabse -i 指定的commit</code> 交互式 rebase</p>
 </li>
-<li><p>可重入锁，公平锁</p>
-</li>
-<li><p>volatile 原理</p>
-</li>
-<li><p>java多线程内存模型</p>
-<p>​</p>
-</li>
-<li><p>synchronized原理</p>
+<li><p>​</p>
 </li>
 </ol>
-<h3 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h3><p>为所有提问添加完整的回答。</p>
+<p>​<br>​<br>​    </p>
 
 
                 <hr>
@@ -263,13 +231,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2018/07/06/kotlinoperator/" data-toggle="tooltip" data-placement="top" title="一个减法的故事：Kotlin 扩展函数 ，Operator 和 性能优化">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2018/06/08/gradle/" data-toggle="tooltip" data-placement="top" title="「术」Gradle">Next Post &rarr;</a>
+                            <a href="/2018/08/13/resume/" data-toggle="tooltip" data-placement="top" title="Resume">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -302,7 +266,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#HashMap 源码" title="HashMap 源码">HashMap 源码</a>
+                          <a class="tag" href="/tags/#git" title="git">git</a>
                         
                     </div>
                 </section>
@@ -342,8 +306,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "http://pdog18.cn/2018/06/09/hashmap/";
-    var disqus_url = "http://pdog18.cn/2018/06/09/hashmap/";
+    var disqus_identifier = "http://pdog18.cn/2018/08/22/git/";
+    var disqus_url = "http://pdog18.cn/2018/08/22/git/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
