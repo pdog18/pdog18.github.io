@@ -329,7 +329,7 @@ buildscript &#123;     ext &#123;    ......
 
 <div class="post-preview">
 
-    <a href="/2018/05/29/download/">
+    <a href="/2018/05/29/nginx/">
         <h2 class="post-title">
             使用nginx搭建简单的文件下载服务器
         </h2>
@@ -339,7 +339,7 @@ buildscript &#123;     ext &#123;    ......
         <div class="post-content-preview">
             
 在/etc/nginx/conf.d/ 下新建文件file_server.conf
-server &#123;    listen       80;        #端口    server_name  localhost;   #服务名    index  index.html;    charset utf-8; # 避免中文乱码    root    /data/static;  ......
+server &#123;    listen       80;        #端口    server_name  localhost;   #服务名    charset utf-8; # 避免中文乱码    location /download &#123;        alias /data/......
         </div>
     </a>
     <p class="post-meta">
@@ -484,9 +484,9 @@ core， 上面两个都依赖的核心库，里面存放了一些依赖（网络
                     <div class="tags">
                         
                             
-                        
-                            
                             <a href="/tags/#笔记" title="笔记" rel="2">笔记</a>
+                            
+                        
                             
                         
                             

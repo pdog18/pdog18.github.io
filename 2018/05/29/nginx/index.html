@@ -17,7 +17,7 @@
         
     </title>
 
-    <link rel="canonical" href="http://pdog18.cn/2018/05/29/download/">
+    <link rel="canonical" href="http://pdog18.cn/2018/05/29/nginx/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -193,7 +193,7 @@
 
                 <ol>
 <li><p>在<code>/etc/nginx/conf.d/</code> 下新建文件<code>file_server.conf</code></p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span>       <span class="number">80</span>;        <span class="comment">#端口</span></span><br><span class="line">    <span class="attribute">server_name</span>  localhost;   <span class="comment">#服务名</span></span><br><span class="line">    <span class="attribute">index</span>  index.html;</span><br><span class="line">    <span class="attribute">charset</span> utf-<span class="number">8</span>; <span class="comment"># 避免中文乱码</span></span><br><span class="line">    <span class="attribute">root</span>    /data/static;  <span class="comment">#显示的根索引目录，注意这里要改成你自己的，目录要存在</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">autoindex</span> <span class="literal">on</span>;             <span class="comment">#开启索引功能</span></span><br><span class="line">        <span class="attribute">autoindex_exact_size</span> <span class="literal">off</span>; <span class="comment"># 关闭计算文件确切大小（单位bytes），只显示大概大小（单位kb、mb、gb）</span></span><br><span class="line">        <span class="attribute">autoindex_localtime</span> <span class="literal">on</span>;   <span class="comment"># 显示本机时间而非 GMT 时间</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span>       <span class="number">80</span>;        <span class="comment">#端口</span></span><br><span class="line">    <span class="attribute">server_name</span>  localhost;   <span class="comment">#服务名</span></span><br><span class="line">    <span class="attribute">charset</span> utf-<span class="number">8</span>; <span class="comment"># 避免中文乱码</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> /download &#123;</span><br><span class="line">        <span class="attribute">alias</span> /data/static;   <span class="comment">#显示的根索引目录，注意这里要改成你自己的，目录要存在</span></span><br><span class="line">        <span class="attribute">autoindex</span> <span class="literal">on</span>;             <span class="comment">#开启索引功能</span></span><br><span class="line">        <span class="attribute">autoindex_exact_size</span> <span class="literal">off</span>; <span class="comment"># 关闭计算文件确切大小（单位bytes），只显示大概大小（单位kb、mb、gb）</span></span><br><span class="line">        <span class="attribute">autoindex_localtime</span> <span class="literal">on</span>;   <span class="comment"># 显示本机时间而非 GMT 时间</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><code>sudo rm /etc/nginx/sites-enabled/default</code></p>
 </li>
@@ -206,6 +206,32 @@
 </li>
 </ol>
 <h3 id="让指定路径成为下载目录，而不是域名"><a href="#让指定路径成为下载目录，而不是域名" class="headerlink" title="让指定路径成为下载目录，而不是域名"></a>让指定路径成为下载目录，而不是域名</h3><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span>       <span class="number">80</span>;        <span class="comment">#端口</span></span><br><span class="line">    <span class="attribute">server_name</span>  localhost;   <span class="comment">#服务名</span></span><br><span class="line">    <span class="attribute">charset</span> utf-<span class="number">8</span>; <span class="comment"># 避免中文乱码</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> /download &#123;</span><br><span class="line">        <span class="attribute">alias</span> /data/static;  <span class="comment"># 使用 alias</span></span><br><span class="line">        <span class="attribute">autoindex</span> <span class="literal">on</span>;             </span><br><span class="line">        <span class="attribute">autoindex_exact_size</span> <span class="literal">off</span>; </span><br><span class="line">        <span class="attribute">autoindex_localtime</span> <span class="literal">on</span>;  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="指定路径为访问页面"><a href="#指定路径为访问页面" class="headerlink" title="指定路径为访问页面"></a>指定路径为访问页面</h3><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span>       <span class="number">80</span>;        <span class="comment">#端口</span></span><br><span class="line">    <span class="attribute">server_name</span>  localhost;   <span class="comment">#服务名</span></span><br><span class="line">    <span class="attribute">charset</span> utf-<span class="number">8</span>; <span class="comment"># 避免中文乱码</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> /git &#123;</span><br><span class="line">        <span class="attribute">index</span>  index.html;</span><br><span class="line">        <span class="attribute">alias</span>  /data/learnGitBranching/;</span><br><span class="line">        <span class="attribute">autoindex</span> <span class="literal">on</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样在访问<code>…/git</code> 的时候就会找到 <code>/data/learnGitBranching/index.html</code></p>
+<h3 id="开启-Gzip-压缩，提高响应速度"><a href="#开启-Gzip-压缩，提高响应速度" class="headerlink" title="开启 Gzip 压缩，提高响应速度"></a>开启 Gzip 压缩，提高响应速度</h3><h4 id="首先你要找到你的nginx配置文件的位置"><a href="#首先你要找到你的nginx配置文件的位置" class="headerlink" title="首先你要找到你的nginx配置文件的位置"></a>首先你要找到你的nginx配置文件的位置</h4><ol>
+<li><p>先找出nginx可执行文件的路径 </p>
+<p>执行 <code>ps -ef | grep nginx</code> </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@VM-73-90-ubuntu:/etc/nginx<span class="comment"># ps -ef | grep nginx</span></span><br><span class="line">root     12142     1  0 09:42 ?        00:00:00 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;</span><br><span class="line">www-data 12284 12142  0 09:44 ?        00:00:00 nginx: worker process</span><br><span class="line">root     12651 11260  0 09:49 pts/0    00:00:00 grep --color=auto nginx</span><br></pre></td></tr></table></figure>
+<p>找到 <code>/usr/sbin/nginx</code> </p>
+<blockquote>
+<p>我用的是 <code>which nginx</code> 命令找到的<code>/usr/sbin/nginx</code> ，不知道是否一样</p>
+<p>⚠️注意， <code>/usr/sbin/nginx</code> 是我的目录地址，你的可能不一样</p>
+</blockquote>
+</li>
+<li><p>找出配置文件路径 </p>
+<p>执行 <code>/usr/sbin/nginx -t</code> </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">root@VM-73-90-ubuntu:/etc/nginx# /usr/sbin/nginx -t</span><br><span class="line">nginx: the configuration file /etc/nginx/nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file /etc/nginx/nginx.conf test is successful</span><br></pre></td></tr></table></figure>
+<p><code>/etc/nginx/nginx.conf</code> 就是对应的配置文件了</p>
+</li>
+</ol>
+<h3 id="开启-Gzip"><a href="#开启-Gzip" class="headerlink" title="开启 Gzip"></a>开启 Gzip</h3><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">	<span class="comment">## ...</span></span><br><span class="line">  </span><br><span class="line">	<span class="comment"># Gzip Settings</span></span><br><span class="line">	<span class="attribute">gzip</span> <span class="literal">on</span>;                                <span class="comment"># 开启gzip</span></span><br><span class="line">    <span class="attribute">gzip_proxied</span> any;                       <span class="comment"># gzip_proxied any – 无条件压缩所有结果数据</span></span><br><span class="line">    <span class="comment"># 设置需要压缩的MIME类型,如果不在设置类型范围内的请求不进行压缩</span></span><br><span class="line">  	<span class="attribute">gzip_types</span> text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Virtual Host Configs</span></span><br><span class="line">	<span class="attribute">include</span> /etc/nginx/conf.d/<span class="regexp">*.conf</span>;</span><br><span class="line">	<span class="attribute">include</span> /etc/nginx/sites-enabled/*;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对比开启/关闭 <code>Gzip</code> 的响应速度</p>
+<ul>
+<li><p>Gzip 开启<br><img src="gzip-on.png" alt="gzip-on"></p>
+</li>
+<li><p>Gzip 未开启<br><img src="gzip-off.png" alt="gzip-off"></p>
+</li>
+</ul>
 
 
                 <hr>
@@ -293,8 +319,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "http://pdog18.cn/2018/05/29/download/";
-    var disqus_url = "http://pdog18.cn/2018/05/29/download/";
+    var disqus_identifier = "http://pdog18.cn/2018/05/29/nginx/";
+    var disqus_url = "http://pdog18.cn/2018/05/29/nginx/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
