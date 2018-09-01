@@ -309,14 +309,15 @@ fun minusPoint(p1: PointF, p2: PointF): PointF &#123;    val dx = p1.x - p2.x   
             
         </h3>
         <div class="post-content-preview">
-            定义一个是否合并其他module的变量
+            查看依赖
+终端执行
+./gradlew app:dependencies或  gradle app:dependencies
+
+./gradlew 用的是 wrapper，app 是moduleName
+定义一个是否合并其他module的变量
 rootProject/gradle.properties
 
-# false-&gt; 多个module 独立编译# true -&gt; 多个module 成为library被app引用module_merge=false
-
-rootProject/build.gradle
-
-buildscript &#123;     ext &#123;    ......
+# false-&gt; 多个module 独立编译# true -&gt; 多个mod......
         </div>
     </a>
     <p class="post-meta">
@@ -486,9 +487,11 @@ core， 上面两个都依赖的核心库，里面存放了一些依赖（网络
                             
                         
                             
+                            <a href="/tags/#笔记" title="笔记" rel="2">笔记</a>
+                            
                         
                             
-                            <a href="/tags/#笔记" title="笔记" rel="2">笔记</a>
+                        
                             
                         
                             

@@ -191,7 +191,12 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3 id="定义一个是否合并其他module的变量"><a href="#定义一个是否合并其他module的变量" class="headerlink" title="定义一个是否合并其他module的变量"></a>定义一个是否合并其他module的变量</h3><blockquote>
+                <h3 id="查看依赖"><a href="#查看依赖" class="headerlink" title="查看依赖"></a>查看依赖</h3><blockquote>
+<p>终端执行</p>
+<p><code>./gradlew app:dependencies</code><br>或  <code>gradle app:dependencies</code></p>
+</blockquote>
+<p><code>./gradlew</code> 用的是 <code>wrapper</code>，<code>app</code> 是<code>moduleName</code></p>
+<h3 id="定义一个是否合并其他module的变量"><a href="#定义一个是否合并其他module的变量" class="headerlink" title="定义一个是否合并其他module的变量"></a>定义一个是否合并其他module的变量</h3><blockquote>
 <p><code>rootProject/gradle.properties</code></p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># false-&gt; 多个module 独立编译</span><br><span class="line"># true -&gt; 多个module 成为library被app引用</span><br><span class="line">module_merge=false</span><br></pre></td></tr></table></figure>
@@ -218,6 +223,22 @@
 <figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//带有时间的</span></span><br><span class="line"><span class="comment">//[06-09_17:36_v1.0.apk]</span></span><br><span class="line">outputFileName = <span class="string">"$&#123;releaseTime()&#125;_v$&#123;variant.versionName&#125;.apk"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> releaseTime() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> SimpleDateFormat(<span class="string">"MM-dd_HH:mm"</span>).format(<span class="keyword">new</span> Date())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="VersionCode-跟随git-commit次数"><a href="#VersionCode-跟随git-commit次数" class="headerlink" title="VersionCode 跟随git commit次数"></a>VersionCode 跟随git commit次数</h3><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> cmd = <span class="string">'git rev-list HEAD --first-parent --count'</span></span><br><span class="line"><span class="keyword">def</span> gitVersion = cmd.execute().text.trim().toInteger()</span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">  defaultConfig &#123;</span><br><span class="line">    versionCode gitVersion</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="统一依赖的三方库版本"><a href="#统一依赖的三方库版本" class="headerlink" title="统一依赖的三方库版本"></a>统一依赖的三方库版本</h3><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//修改com.android.support 的版本</span></span><br><span class="line">configurations.all &#123;</span><br><span class="line">  resolutionStrategy &#123;</span><br><span class="line">    eachDependency &#123; details -&gt;</span><br><span class="line">      <span class="comment">// Force all of the primary support libraries to use the same version.</span></span><br><span class="line">      <span class="keyword">if</span> (details.requested.group == <span class="string">'com.android.support'</span>) &#123;</span><br><span class="line">        details.useVersion versions.supportLibrary</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Gradle生命周期"><a href="#Gradle生命周期" class="headerlink" title="Gradle生命周期"></a>Gradle生命周期</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">setting=&gt;start: settings</span><br><span class="line">op=&gt;start: rootProject</span><br><span class="line">cond=&gt;start: rootProject:app</span><br><span class="line">e=&gt;end: project.afterEvaluate</span><br><span class="line"></span><br><span class="line">setting-&gt;op-&gt;cond-&gt;e</span><br></pre></td></tr></table></figure>
+<p>自定义插件三种方式</p>
+<ul>
+<li>直接写在 <code>build.gradle</code></li>
+<li>写在<code>buildSrc</code></li>
+<li><code>apply plugin</code> </li>
+</ul>
+<p><code>buildSrc</code> 优先级大于 <code>apply plugin</code></p>
+<p>如果 <code>apply plugin</code> 和 <code>buildSrc</code> 里面都有，那么 <code>buildSrc</code>优先 ，<code>apply plugin</code>会从<code>classpath</code>里面获取</p>
+<p>Android 构建示例 </p>
+<p>hook task</p>
+<p><code>./gradlew assemDebug  --debug</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">classpath &quot;com.android.tools.build:gradle:$gradle_build_tools_version&quot;</span><br></pre></td></tr></table></figure>
+<p>这个classpath 确定了下面这个两个<code>plugin</code> 的来源</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apply plugin: &apos;com.android.application&apos;</span><br><span class="line">apply plugin: &apos;com.android.library&apos;</span><br></pre></td></tr></table></figure>
+<p>而 </p>
 
 
                 <hr>
