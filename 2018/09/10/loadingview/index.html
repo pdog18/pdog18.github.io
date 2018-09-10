@@ -13,7 +13,7 @@
 
     <title>
         
-          loadingview - Pdog的博客 | Pdog&#39;s Blog
+          半行代码实现LoadingView - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -168,7 +168,7 @@
                           <a class="tag" href="/tags/#loading view" title="loading view">loading view</a>
                         
                     </div>
-                    <h1>loadingview</h1>
+                    <h1>半行代码实现LoadingView</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Pdog on
@@ -191,7 +191,7 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="LoadingView"><a href="#LoadingView" class="headerlink" title="LoadingView"></a>LoadingView</h1><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>实现<code>LoadingView</code> 接口，</p>
+                <h1 id="半行代码实现LoadingView"><a href="#半行代码实现LoadingView" class="headerlink" title="半行代码实现LoadingView"></a>半行代码实现LoadingView</h1><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>实现<code>LoadingView</code> 接口，</p>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">Activity</span></span>(), LoadingView &#123;&#125;</span><br></pre></td></tr></table></figure>
 <p>然后就可以调用<code>loadingFinish()</code>等方法</p>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">startLoading</span><span class="params">()</span></span> </span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">loadingFinish</span><span class="params">()</span></span> </span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">loadingEmpty</span><span class="params">()</span></span> </span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">loadingError</span><span class="params">(exception: <span class="type">RuntimeException</span>)</span></span></span><br></pre></td></tr></table></figure>
