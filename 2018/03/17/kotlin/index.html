@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -191,7 +191,10 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="Kotlin"><a href="#Kotlin" class="headerlink" title="Kotlin"></a>Kotlin</h1><h2 id="Kotlin语法"><a href="#Kotlin语法" class="headerlink" title="Kotlin语法"></a>Kotlin语法</h2><ul>
+                <h1 id="Kotlin"><a href="#Kotlin" class="headerlink" title="Kotlin"></a>Kotlin</h1><h3 id="Kotlin-接口中的字段与方法实现"><a href="#Kotlin-接口中的字段与方法实现" class="headerlink" title="Kotlin 接口中的字段与方法实现"></a>Kotlin 接口中的字段与方法实现</h3><p><img src="kotlin1.jpeg" alt="kotlin funcion in interface"></p>
+<p><img src="kotlin2.jpeg" alt="kotlin field in interface"></p>
+<p><img src="kotlin3.jpeg" alt="kotlin field in interface"></p>
+<h2 id="Kotlin语法"><a href="#Kotlin语法" class="headerlink" title="Kotlin语法"></a>Kotlin语法</h2><ul>
 <li><p>字节码参数</p>
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">Gank::<span class="class"><span class="keyword">class</span>.<span class="title">java</span></span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">val</span> gank = Gank() </span><br><span class="line"> <span class="keyword">val</span> clazz2 = gank.javaClass</span><br></pre></td></tr></table></figure>
 </li>
@@ -242,8 +245,6 @@
 </ul>
 <h4 id="Kotlin的”接口回调”"><a href="#Kotlin的”接口回调”" class="headerlink" title="Kotlin的”接口回调”"></a>Kotlin的”接口回调”</h4><figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> listener: (() -&gt; <span class="built_in">Unit</span>)? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">setListener</span><span class="params">(block: (()</span></span> -&gt; <span class="built_in">Unit</span>)?) &#123;</span><br><span class="line">  <span class="keyword">this</span>.listener = block</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">tv.setListener &#123;</span><br><span class="line">  toast(<span class="string">"launch rocket success !"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="Kotlin-为函数”绑定对象“"><a href="#Kotlin-为函数”绑定对象“" class="headerlink" title="Kotlin 为函数”绑定对象“"></a>Kotlin 为函数”绑定对象“</h3><figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> Canvas.<span class="title">bindPaint</span><span class="params">(paint: <span class="type">Paint</span>)</span></span>: (Path) -&gt; <span class="built_in">Unit</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;  <span class="keyword">this</span>.drawPath(it, paint) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//use </span></span><br><span class="line">canvas.bindPaintThenDraw(paint)(path)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//未完成中的理想中实现</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> Canvas.<span class="title">bindPaintThenDraw</span><span class="params">(paint: <span class="type">Paint</span>)</span></span>: (Any) -&gt; <span class="built_in">Unit</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="keyword">when</span> (it) &#123;</span><br><span class="line">      <span class="keyword">is</span> Path -&gt; <span class="keyword">this</span>.drawPath(it, paint)</span><br><span class="line">      <span class="keyword">else</span> -&gt; &#123;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Kotlin-接口中的字段与方法实现"><a href="#Kotlin-接口中的字段与方法实现" class="headerlink" title="Kotlin 接口中的字段与方法实现"></a>Kotlin 接口中的字段与方法实现</h3><p><img src="kotlin1.jpeg" alt="kotlin funcion in interface"></p>
-<p><img src="kotlin2.jpeg" alt="kotlin field in interface"></p>
 
 
                 <hr>
