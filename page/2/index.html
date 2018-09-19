@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -181,6 +181,55 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/2018/05/13/fromzero/">
+        <h2 class="post-title">
+            《从零开始》 学习笔记
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            zhaiyifan 《从零开始》 笔记好像在看插件化还是组件化的资料的时候发现了zhaiyifan的博客，博客中有一个从零开始的系列。看了其中两篇都觉得很有干货，虽然已经是2年前（2016年）的东西了，但是我觉得应该值得一看，顺便自己做一个笔记记录下一些新学到的东西。
+
+Todo: 如果有精力的话，我应该根据《从零开始》建立一个自己的github项目（without mvvm，dagger2......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Pdog on
+        2018-05-13
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/04/19/component/">
+        <h2 class="post-title">
+            将你的项目改成组件化
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            将你的项目改成组件化首先，你有一个业务模块假设这个业务模块是gank，它存在于gank module。
+你将你所有的逻辑都写在这一个module中，现在要将他们用组件化的方式来拆分
+建立三个module
+app ，所有业务module的根源，app壳
+gank，原本的业务模块gank
+core， 上面两个都依赖的核心库，里面存放了一些依赖（网络、图片、日志、调试等基础库）已经一些BaseAc......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Pdog on
+        2018-04-19
+    </p>
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -406,56 +455,6 @@ Help -&gt; Edit Custom VM Options -&gt;
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/06/07/rxjava2/">
-        <h2 class="post-title">
-            RxJava2学习笔记
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            RxJava 笔记
-注意：这只是学习的过程，为了学习rxjava是怎么由callback嵌套转换而来，其中的map和flatMap 都只是精简过后的一个概念，不是真正的样子
-
-感谢
-
- W_BinaryTree2楼 · 2017.05.12 01:07flatMap不仅仅是把item封装成observable。 还有个merge的过程。
-
-同步时Response newsList = net......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2017-06-07
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2017/03/07/hello-world/">
-        <h2 class="post-title">
-            Hello World
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Qu......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2017-03-07
-    </p>
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -466,6 +465,10 @@ Qu......
             <a href="/">&larr; Newer Posts</a>
         </li>
     
+    
+        <li class="next">
+            <a href="/page/3/">Older Posts &rarr;</a>
+        </li>
     
 </ul>
 
@@ -495,9 +498,9 @@ Qu......
                             
                         
                             
-                            <a href="/tags/#笔记" title="笔记" rel="2">笔记</a>
-                            
                         
+                            
+                            <a href="/tags/#笔记" title="笔记" rel="2">笔记</a>
                             
                         
                             

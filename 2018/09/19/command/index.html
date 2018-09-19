@@ -13,11 +13,11 @@
 
     <title>
         
-          当我们聊HashMap时能聊点什么？ - Pdog的博客 | Pdog&#39;s Blog
+          一些有用的简单命令 - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://pdog18.cn/2018/06/09/hashmap/">
+    <link rel="canonical" href="http://pdog18.cn/2018/09/19/command/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -165,14 +165,12 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#HashMap 源码" title="HashMap 源码">HashMap 源码</a>
-                        
                     </div>
-                    <h1>当我们聊HashMap时能聊点什么？</h1>
+                    <h1>一些有用的简单命令</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Pdog on
-                        2018-06-09
+                        2018-09-19
                     </span>
                 </div>
             </div>
@@ -191,70 +189,36 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="聊一下"><a href="#聊一下" class="headerlink" title="聊一下"></a>聊一下</h1><p><code>HashMap</code> 可以算是Java中一个非常经典的问题里。</p>
-<p>就着这个问题，其实可以一步一步的深入，简直是<code>循序渐进</code> 的最佳伴侣。</p>
-<ul>
-<li><p>菜鸟 </p>
-<p>说出<code>HashMap</code>和<code>Hashtable</code>的区别，顺带说下HashMap的<code>key</code> 可以为<code>null</code></p>
+                <h3 id="在Mac中如何正确地设置JAVA-HOME"><a href="#在Mac中如何正确地设置JAVA-HOME" class="headerlink" title="在Mac中如何正确地设置JAVA_HOME"></a>在Mac中如何正确地设置JAVA_HOME</h3><h4 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h4><ol>
+<li>下载JDK安装包：在<a href="http://www.oracle.com/technetwork/cn/java/javase/downloads/jdk8-downloads-2133151-zhs.html" target="_blank" rel="noopener">JDK1.8下载</a>中选择Mac的JDK安装包</li>
+<li>安装JDK：这里只要按照安装指引一步一步安装即可</li>
+</ol>
+<h4 id="查找JAVA-HOME"><a href="#查找JAVA-HOME" class="headerlink" title="查找JAVA_HOME"></a>查找JAVA_HOME</h4><ol>
+<li>打开Mac的终端，检查JDK是否安装成功：<code>java -version</code></li>
+<li>查看java指令所在的目录：<code>which java</code>。<br>输出结果：<code>/usr/bin/java</code></li>
+<li>显示java指令文件的属性：<code>ls -l /usr/bin/java</code>。<br>输出结果如下：<br><code>lrwxr-xr-x 1 root wheel 74 12 2 06:44 /usr/bin/java -&gt; /System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands/java</code>，从输出结果可以知道<strong>/usr/bin/java</strong>文件是一个链接文件，实际是指向<strong>/System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands/java</strong>文件的。</li>
+<li>进入实际指令所在的文件夹：<br><code>cd /System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands</code>。但是这个目录并不是JAVA_HOME目录。</li>
+<li>然后就是最重点的地方，在这个目录下面有一个mac的JDK特有的<code>java_home</code>指令可以查看JDK的JAVA_HOME目录。<br>执行指令：<code>./java_home</code><br>执行结果如下：<br><code>/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home</code></li>
+</ol>
+<h4 id="设置JAVA-HOME"><a href="#设置JAVA-HOME" class="headerlink" title="设置JAVA_HOME"></a>设置JAVA_HOME</h4><ol>
+<li>编辑.bash_profile文件：<code>vim ~/.bash_profile</code></li>
+<li>添加以下内容：<br><code>export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home</code><br><code>export PATH=$JAVA_HOME/bin:$PATH</code></li>
+<li>使修改的文件生效：<code>source ~/.bash_profile</code></li>
+</ol>
+<h4 id="如果你需要在-你的Android-Studio-使用这个JAVA-HOME"><a href="#如果你需要在-你的Android-Studio-使用这个JAVA-HOME" class="headerlink" title="如果你需要在 你的Android Studio 使用这个JAVA_HOME"></a>如果你需要在 你的Android Studio 使用这个JAVA_HOME</h4><p>比如你在强制清空 <code>gradle</code> 依赖的缓存的的时候 使用 <code>./gradlew build --refresh-dependencies</code>  命令，遇到了以下提示</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MacBook-Pro-3% ./gradlew build --refresh-dependencies </span><br><span class="line"></span><br><span class="line">ERROR: JAVA_HOME is set to an invalid directory: /Library/Java/Home</span><br><span class="line"></span><br><span class="line">Please set the JAVA_HOME variable in your environment to match the</span><br><span class="line">location of your Java installation.</span><br></pre></td></tr></table></figure>
+<p>那么直接在<code>Android Studio</code> 的命令行输入<code>export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home</code>  ,当然后面的<code>path</code> 是你实际的<code>path</code></p>
+<h3 id="linux-命令"><a href="#linux-命令" class="headerlink" title="linux 命令"></a>linux 命令</h3><ul>
+<li><p>解压多个<code>zip</code> 文件夹</p>
+<p><code>unzip *.zip</code> 会递归调用<code>zip</code> 文件夹内的<code>zip</code> 文件</p>
+<p><code>unzip &#39;*.zip&#39;</code>  避免掉<code>linux</code>  的通配符</p>
 </li>
-<li><p>入门</p>
-<p>理解<code>HashMap</code>的数据结构，<code>put</code>方法做了什么。</p>
-<p>可以说出实现一个有<code>put</code> 和<code>get</code>方法的简化版<code>HashMap</code>的大致思路</p>
-<p>可以说出数组，链表和二叉树的时间复杂度</p>
-</li>
-<li><p>初级</p>
-<p>红黑树的理解（可以说出红黑树的目的）</p>
-<p>可以说出多线程操作<code>HashMap</code>导致死循环的原因，判断链表如何有环</p>
-<p><code>ConcurrentHashMap</code>的实现原理</p>
-<p><code>synchronized</code>关键字原理,<code>volatile</code>关键字用处，java多线程内存模型</p>
-<p>可重入锁，公平锁，悲观锁，乐观锁</p>
-<p>​</p>
+<li><p>遍历删除</p>
+<p>怎样遍历移除项目中的所有 <code>.pyc</code> 文件 ，工程目录为<code>/tmp</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">find /tmp -name &quot;*.pyc&quot; | xargs rm -rf</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><ol>
-<li><p>和Hashtable有什么区别？</p>
-<p>略</p>
-</li>
-<li><p>底层数据结构是怎么样的？java1.8有什么优化</p>
-<p>数组+链表，1.8链表达到阈值后转化为红黑树</p>
-</li>
-<li><p>什么是红黑树？</p>
-<p>红黑树相对二叉树更加平衡，通过旋转节点防止节点层级过深（最坏情况下等于链表）</p>
-</li>
-<li><p>为什么数组长度要2的n次幂？</p>
-<p><code>&amp;</code> 运算比<code>%</code> 要快，同时在进行<code>hash</code>的时候会对<code>hashCode</code>进行右移，减少<code>hash</code>冲突</p>
-</li>
-<li><p>HashMap 是同步的吗？需要确保线程安全应该怎么办？</p>
-<p>可以通过<code>Collections.synchronizedCollection</code>来返回一个线程安全的<code>Map</code> ，或者使用<code>ConcurrentHashMap</code></p>
-</li>
-<li><p>多线程操作HashMap会发生什么？</p>
-<p>在扩容时，链表上成为了有环链表，导致死循环</p>
-</li>
-<li><p>如何判断链表是否有环？如何知道环的长度？如何找到环的起点？</p>
-<p>使用追赶的方法，让两个指针<code>slow</code>,<code>fast</code>同时指向链表起点，每次分别前进1步，2步，如两者相遇，则链表有环。</p>
-<p>记录两个指针的相遇点，两个指针从相遇点出发，再次相遇<code>slow</code>经过的节点数就是环的长度。</p>
-<p>当两个指针相遇时，将<code>fast</code>重新指向链表起点，每次前进1步。两个节点再次相遇的所在位置就是环的节点处。</p>
-<p>​</p>
-</li>
-</ol>
-<h3 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h3><ol>
-<li><p>和Hashtable有什么区别</p>
-<p>Hashtable是一个单独的锁，任何对这个数据结构进行的操作都需要获取锁，在<code>put</code>的同时，另外一个线程调用<code>get</code>会被阻塞。</p>
-<p>而ConcurrentHashMap使用了锁分段，将锁设置在若干个<code>segment</code>上，同时通过<code>volatile</code>关键字，在<code>put</code>时直接将值写入主存，这样<code>get</code>可以同步获取</p>
-</li>
-<li><p>1.7 和1.8的实现</p>
-</li>
-<li><p>可重入锁，公平锁</p>
-</li>
-<li><p>volatile 原理</p>
-</li>
-<li><p>java多线程内存模型</p>
-<p>​</p>
-</li>
-<li><p>synchronized原理</p>
-</li>
-</ol>
-<h3 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h3><p>为所有提问添加完整的回答。</p>
+<h3 id="删除-github-上的分支"><a href="#删除-github-上的分支" class="headerlink" title="删除 github 上的分支"></a>删除 github 上的分支</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># delete local tag &apos;12345&apos;</span><br><span class="line">git tag -d 12345</span><br><span class="line"># delete remote tag &apos;12345&apos; (eg, GitHub version too)</span><br><span class="line">git push origin :refs/tags/12345</span><br><span class="line"># alternative approach</span><br><span class="line">git push --delete origin tagName</span><br><span class="line">git tag -d tagName</span><br></pre></td></tr></table></figure>
 
 
                 <hr>
@@ -264,12 +228,12 @@
                 <ul class="pager">
                     
                         <li class="previous">
-                            <a href="/2018/07/06/kotlinoperator/" data-toggle="tooltip" data-placement="top" title="一个减法的故事：Kotlin 扩展函数 ，Operator 和 性能优化">&larr; Previous Post</a>
+                            <a href="/2018/09/19/current-application-util/" data-toggle="tooltip" data-placement="top" title="不许继承Application随时获取Android 的Context">&larr; Previous Post</a>
                         </li>
                     
                     
                         <li class="next">
-                            <a href="/2018/06/08/gradle/" data-toggle="tooltip" data-placement="top" title="「术」Gradle">Next Post &rarr;</a>
+                            <a href="/2018/09/10/loadingview/" data-toggle="tooltip" data-placement="top" title="半行代码实现LoadingView">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -302,8 +266,6 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#HashMap 源码" title="HashMap 源码">HashMap 源码</a>
-                        
                     </div>
                 </section>
                 
@@ -342,8 +304,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "http://pdog18.cn/2018/06/09/hashmap/";
-    var disqus_url = "http://pdog18.cn/2018/06/09/hashmap/";
+    var disqus_identifier = "http://pdog18.cn/2018/09/19/command/";
+    var disqus_url = "http://pdog18.cn/2018/09/19/command/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -184,6 +184,56 @@
 
 <div class="post-preview">
 
+    <a href="/2018/09/19/current-application-util/">
+        <h2 class="post-title">
+            不许继承Application随时获取Android 的Context
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            不需要在Application#onCreate中初始化的Context获取工具类相信 99% 的 Android  开发都遇到过，没有在Manifest.xml 声明指定的Application ，而导致一些需要在Application#onCreate  初始化传入 Context 的工具类发生空指针。
+现在有一种方法只要声明依赖，然后在需要用到上下文的地方直接使用依赖中的工具类就可以获......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Pdog on
+        2018-09-19
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2018/09/19/command/">
+        <h2 class="post-title">
+            一些有用的简单命令
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            在Mac中如何正确地设置JAVA_HOME前期准备
+下载JDK安装包：在JDK1.8下载中选择Mac的JDK安装包
+安装JDK：这里只要按照安装指引一步一步安装即可
+
+查找JAVA_HOME
+打开Mac的终端，检查JDK是否安装成功：java -version
+查看java指令所在的目录：which java。输出结果：/usr/bin/java
+显示java指令文件的属性：ls -l /u......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Pdog on
+        2018-09-19
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2018/09/10/loadingview/">
         <h2 class="post-title">
             半行代码实现LoadingView
@@ -239,7 +289,7 @@ fun startLoading() fun loadingFinish() fun loadingEmpty() fun loadingError(e....
         </h3>
         <div class="post-content-preview">
             高杰15355706512
-email : &#112;&#x64;&#111;&#103;&#x40;&#113;&#x71;&#46;&#x63;&#111;&#x6d;
+email : &#112;&#x64;&#x6f;&#103;&#64;&#113;&#113;&#46;&#99;&#x6f;&#x6d;
 github : https://github.com/pdog18
 blog : http://pdog18.cn/
 
@@ -248,7 +298,7 @@ HTTP工作模型
 Base64原理
 压缩与解压缩
 Cookie的工作机制
-......
+Au......
         </div>
     </a>
     <p class="post-meta">
@@ -391,55 +441,6 @@ dip 不知道问这个意义是什么 这个已经被dp替代了，2018年不应
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/05/13/fromzero/">
-        <h2 class="post-title">
-            《从零开始》 学习笔记
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            zhaiyifan 《从零开始》 笔记好像在看插件化还是组件化的资料的时候发现了zhaiyifan的博客，博客中有一个从零开始的系列。看了其中两篇都觉得很有干货，虽然已经是2年前（2016年）的东西了，但是我觉得应该值得一看，顺便自己做一个笔记记录下一些新学到的东西。
-
-Todo: 如果有精力的话，我应该根据《从零开始》建立一个自己的github项目（without mvvm，dagger2......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-05-13
-    </p>
-
-</div>
-<hr>
-
-<div class="post-preview">
-
-    <a href="/2018/04/19/component/">
-        <h2 class="post-title">
-            将你的项目改成组件化
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            将你的项目改成组件化首先，你有一个业务模块假设这个业务模块是gank，它存在于gank module。
-你将你所有的逻辑都写在这一个module中，现在要将他们用组件化的方式来拆分
-建立三个module
-app ，所有业务module的根源，app壳
-gank，原本的业务模块gank
-core， 上面两个都依赖的核心库，里面存放了一些依赖（网络、图片、日志、调试等基础库）已经一些BaseAc......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-04-19
-    </p>
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -479,9 +480,9 @@ core， 上面两个都依赖的核心库，里面存放了一些依赖（网络
                             
                         
                             
-                            <a href="/tags/#笔记" title="笔记" rel="2">笔记</a>
-                            
                         
+                            
+                            <a href="/tags/#笔记" title="笔记" rel="2">笔记</a>
                             
                         
                             
