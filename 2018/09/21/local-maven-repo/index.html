@@ -13,11 +13,11 @@
 
     <title>
         
-          「术」Gradle - Pdog的博客 | Pdog&#39;s Blog
+          本地Maven仓库遇到的一个问题 - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://pdog18.cn/2018/06/08/gradle/">
+    <link rel="canonical" href="http://pdog18.cn/2018/09/21/local-maven-repo/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -168,11 +168,11 @@
                           <a class="tag" href="/tags/#gradle" title="gradle">gradle</a>
                         
                     </div>
-                    <h1>「术」Gradle</h1>
+                    <h1>本地Maven仓库遇到的一个问题</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Pdog on
-                        2018-06-08
+                        2018-09-21
                     </span>
                 </div>
             </div>
@@ -191,54 +191,25 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3 id="查看依赖"><a href="#查看依赖" class="headerlink" title="查看依赖"></a>查看依赖</h3><blockquote>
-<p>终端执行</p>
-<p><code>./gradlew app:dependencies</code><br>或  <code>gradle app:dependencies</code></p>
-</blockquote>
-<p><code>./gradlew</code> 用的是 <code>wrapper</code>，<code>app</code> 是<code>moduleName</code></p>
-<h3 id="定义一个是否合并其他module的变量"><a href="#定义一个是否合并其他module的变量" class="headerlink" title="定义一个是否合并其他module的变量"></a>定义一个是否合并其他module的变量</h3><blockquote>
-<p><code>rootProject/gradle.properties</code></p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># false-&gt; 多个module 独立编译</span><br><span class="line"># true -&gt; 多个module 成为library被app引用</span><br><span class="line">module_merge=false</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><code>rootProject/build.gradle</code></p>
-</blockquote>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">     ext &#123;</span><br><span class="line">        config = <span class="string">"$&#123;rootDir&#125;/config.gradle"</span></span><br><span class="line">        versions = <span class="string">"$&#123;rootDir&#125;/versions.gradle"</span></span><br><span class="line"></span><br><span class="line">        merge = module_merge.toBoolean()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在其他地方可以使用</p>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(merge)&#123;</span><br><span class="line">  println(“合并模式“)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="通过module名字判断是否是独立module"><a href="#通过module名字判断是否是独立module" class="headerlink" title="通过module名字判断是否是独立module"></a>通过module名字判断是否是独立module</h3><blockquote>
-<p><code>rootProject/config.gradle</code>  当然这里可以是你自定义的 <code>.gradle</code> 文件</p>
-<p><code>&quot;app&quot;</code> 这个是你的壳module的名字</p>
-</blockquote>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 判断一个module 是不是可独立编译的项目</span></span><br><span class="line"><span class="comment"> * 1. 如果名字是 [app]，那么总是 application 类型</span></span><br><span class="line"><span class="comment"> * 2. 如果非merge模式/moduleName 不为[m_]开头，那么总是 library 类型</span></span><br><span class="line"><span class="comment"> * 3. 如果走到这里，说明是merge 模式，并moduleName是[m_]开头</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">def</span> isApplication() &#123;</span><br><span class="line">    <span class="keyword">switch</span> (<span class="keyword">this</span>.name) &#123;</span><br><span class="line">    <span class="comment">/*1*/</span> <span class="keyword">case</span> <span class="string">"app"</span>: <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment">/*2*/</span> <span class="keyword">case</span> &#123; merge || !it.startsWith(<span class="string">"m_"</span>) &#125;: <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    <span class="comment">/*3*/</span> <span class="string">default:</span> <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="整合编译时，依赖各个分模块"><a href="#整合编译时，依赖各个分模块" class="headerlink" title="整合编译时，依赖各个分模块"></a>整合编译时，依赖各个分模块</h3><blockquote>
-<p><code>app/build.gradle</code> 同上，这里的<code>app</code>只是壳的<code>project</code>的名字</p>
-<p>这里通过<code>rootProject.subprojects</code> 方法获得了<code>rootProject</code>的所有<code>subprojects</code>，然后通过调用<code>app#getDependencies()</code> 依赖了各个<code>project</code> (也就是原来独立编译的module)</p>
-</blockquote>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  合体</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> [isModule] 返回true 代表是需要被添加的module</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">def</span> mergeModule(isModule) &#123;</span><br><span class="line">    rootProject.subprojects.forEach &#123;</span><br><span class="line">        <span class="keyword">if</span> (isModule(it)) &#123;</span><br><span class="line">            println(<span class="string">" $&#123;project.name&#125;.dependencies.implementation (module [$&#123;it.name&#125;])"</span>)</span><br><span class="line">            project.dependencies.implementation it</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            println(<span class="string">"not submodule -&gt; $&#123;it.name&#125;"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><code>app/build.gradle</code><br><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">mergeModule &#123; <span class="comment">//合体</span></span><br><span class="line">    merge &amp;&amp; it.name.contains(<span class="string">"m_"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h3 id="修改gradle生成的-apk文件名"><a href="#修改gradle生成的-apk文件名" class="headerlink" title="修改gradle生成的.apk文件名"></a>修改gradle生成的.apk文件名</h3><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">  <span class="comment">//..</span></span><br><span class="line">     android.applicationVariants.all &#123; variant -&gt;</span><br><span class="line">        variant.outputs.all &#123;</span><br><span class="line">          <span class="comment">// outputs/apk/debug -&gt; [app_v1.0.apk]</span></span><br><span class="line">            outputFileName = <span class="string">"$&#123;this.name&#125;_v$&#123;variant.versionName&#125;.apk"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//带有时间的</span></span><br><span class="line"><span class="comment">//[06-09_17:36_v1.0.apk]</span></span><br><span class="line">outputFileName = <span class="string">"$&#123;releaseTime()&#125;_v$&#123;variant.versionName&#125;.apk"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> releaseTime() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> SimpleDateFormat(<span class="string">"MM-dd_HH:mm"</span>).format(<span class="keyword">new</span> Date())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="VersionCode-跟随git-commit次数"><a href="#VersionCode-跟随git-commit次数" class="headerlink" title="VersionCode 跟随git commit次数"></a>VersionCode 跟随git commit次数</h3><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> cmd = <span class="string">'git rev-list HEAD --first-parent --count'</span></span><br><span class="line"><span class="keyword">def</span> gitVersion = cmd.execute().text.trim().toInteger()</span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">  defaultConfig &#123;</span><br><span class="line">    versionCode gitVersion</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="统一依赖的三方库版本"><a href="#统一依赖的三方库版本" class="headerlink" title="统一依赖的三方库版本"></a>统一依赖的三方库版本</h3><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="comment">//修改com.android.support 的版本</span></span><br><span class="line">configurations.all &#123;</span><br><span class="line">  resolutionStrategy &#123;</span><br><span class="line">    eachDependency &#123; details -&gt;</span><br><span class="line">      <span class="comment">// Force all of the primary support libraries to use the same version.</span></span><br><span class="line">      <span class="keyword">if</span> (details.requested.group == <span class="string">'com.android.support'</span>) &#123;</span><br><span class="line">        details.useVersion versions.supportLibrary</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Gradle生命周期"><a href="#Gradle生命周期" class="headerlink" title="Gradle生命周期"></a>Gradle生命周期</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">setting=&gt;start: settings</span><br><span class="line">op=&gt;start: rootProject</span><br><span class="line">cond=&gt;start: rootProject:app</span><br><span class="line">e=&gt;end: project.afterEvaluate</span><br><span class="line"></span><br><span class="line">setting-&gt;op-&gt;cond-&gt;e</span><br></pre></td></tr></table></figure>
-<p>自定义插件三种方式</p>
-<ul>
-<li>直接写在 <code>build.gradle</code></li>
-<li>写在<code>buildSrc</code></li>
-<li><code>apply plugin</code> </li>
-</ul>
-<p><code>buildSrc</code> 优先级大于 <code>apply plugin</code></p>
-<p>如果 <code>apply plugin</code> 和 <code>buildSrc</code> 里面都有，那么 <code>buildSrc</code>优先 ，<code>apply plugin</code>会从<code>classpath</code>里面获取</p>
-<p>Android 构建示例 </p>
-<p>hook task</p>
-<p><code>./gradlew assemDebug  --debug</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">classpath &quot;com.android.tools.build:gradle:$gradle_build_tools_version&quot;</span><br></pre></td></tr></table></figure>
-<p>这个classpath 确定了下面这个两个<code>plugin</code> 的来源</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apply plugin: &apos;com.android.application&apos;</span><br><span class="line">apply plugin: &apos;com.android.library&apos;</span><br></pre></td></tr></table></figure>
-<p>而 </p>
+                <h1 id="IDEA-太智能引发的惨案"><a href="#IDEA-太智能引发的惨案" class="headerlink" title="IDEA 太智能引发的惨案"></a>IDEA 太智能引发的惨案</h1><h3 id="Error-4-0-Unable-to-load-class-‘com-pdog18-plugin-MyPlugin’"><a href="#Error-4-0-Unable-to-load-class-‘com-pdog18-plugin-MyPlugin’" class="headerlink" title="Error:(4, 0) Unable to load class ‘com.pdog18.plugin.MyPlugin’."></a>Error:(4, 0) Unable to load class ‘com.pdog18.plugin.MyPlugin’.</h3><h2 id="事情的起源"><a href="#事情的起源" class="headerlink" title="事情的起源"></a>事情的起源</h2><p>今天下午在做一件事</p>
+<ol>
+<li>写一个<code>Gralde Plugin</code> ，（不在<code>buildSrc</code> 中）</li>
+<li>将该<code>Gradle Plugin</code> 发布到本地<code>maven repo</code> </li>
+<li>指定<code>Project</code> 从本地依赖<code>Gradle Plugin</code></li>
+</ol>
+<p>在最后一步遇到了下面这个问题</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Error:(5, 0) Unable to load class &apos;com.pdog18.plugin.MyPlugin&apos;.</span><br><span class="line">Possible causes for this unexpected error include:&lt;ul&gt;&lt;li&gt;Gradle&apos;s dependency cache may be corrupt (this sometimes occurs after a network connection timeout.)</span><br><span class="line">&lt;a href=&quot;syncProject&quot;&gt;Re-download dependencies and sync project (requires network)&lt;/a&gt;&lt;/li&gt;&lt;li&gt;The state of a Gradle build process (daemon) may be corrupt. Stopping all Gradle daemons may solve this problem.</span><br><span class="line">&lt;a href=&quot;stopGradleDaemons&quot;&gt;Stop Gradle build processes (requires restart)&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Your project may be using a third-party plugin which is not compatible with the other plugins in the project or the version of Gradle requested by the project.&lt;/li&gt;&lt;/ul&gt;In the case of corrupt Gradle processes, you can also try closing the IDE and then killing all Java processes.</span><br></pre></td></tr></table></figure>
+<p><img src="img_2.jpg" alt="依赖时报错"></p>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>使用 <code>./gradlew build --stacktrace</code> 看看问题原因</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* Where:</span><br><span class="line">Build file &apos;/Users/pdog/Desktop/githubsample/PdogPlugin/app/build.gradle&apos; line: 5</span><br><span class="line"></span><br><span class="line">* What went wrong:</span><br><span class="line">A problem occurred evaluating project &apos;:app&apos;.</span><br><span class="line">&gt; Could not find implementation class &apos;com.pdog18.plugin.MyPlugin&apos; for plugin &apos;pdog&apos; specified in jar:file:/Users/pdog/.gradle/caches/jars-3/cc06bb1b223c4c7cb10cd159ec4ea809/pdog-gradle-1.0.1.jar!/META-INF/gradle-plugins/pdog.properties.</span><br><span class="line"></span><br><span class="line">* Try:</span><br><span class="line">Run with --info or --debug option to get more log output.</span><br></pre></td></tr></table></figure>
+<p><img src="img_2.jpg" alt="stacktrace执行结果"></p>
+<p>报错提示<code>Plugin</code> 中找不到声明的<code>class</code></p>
+<p>找到我的声明文件<code>pdog.properties</code> ，内容如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">implementation-class=com.pdog18.plugin.MyPlugin</span><br></pre></td></tr></table></figure>
+<p>在<code>Android Studio</code> 中点击<code>MyPlugin</code> 可以直接跳转到文件</p>
+<p>最后发现其实因为我的文件类型是<code>groovy</code> ，而文件却放在<code>src/main/java</code>文件夹下，同时因为<code>groovy</code>语法和<code>kotlin</code> 很像，我第一时间没有发现，所以排查了很久。</p>
+<p>找到问题所在后，重新建立一个<code>kotlin</code> 文件，然后将<code>groovy</code> 文件删除，重新执行上传、依赖，问题解决。</p>
+<p>因为IDE太过智能，（IDE可以直接跳转到<code>java</code> 文件夹内的<code>groovy</code> 文件）所以一直没有找到该问题所在。下次需要注意。</p>
 
 
                 <hr>
@@ -247,13 +218,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2018/06/09/hashmap/" data-toggle="tooltip" data-placement="top" title="当我们聊HashMap时能聊点什么？">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2018/05/29/nginx/" data-toggle="tooltip" data-placement="top" title="使用nginx搭建简单的文件下载服务器">Next Post &rarr;</a>
+                            <a href="/2018/09/19/current-application-util/" data-toggle="tooltip" data-placement="top" title="Context获取工具类">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -326,8 +293,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "http://pdog18.cn/2018/06/08/gradle/";
-    var disqus_url = "http://pdog18.cn/2018/06/08/gradle/";
+    var disqus_identifier = "http://pdog18.cn/2018/09/21/local-maven-repo/";
+    var disqus_url = "http://pdog18.cn/2018/09/21/local-maven-repo/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

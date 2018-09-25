@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -184,9 +184,36 @@
 
 <div class="post-preview">
 
+    <a href="/2018/09/21/local-maven-repo/">
+        <h2 class="post-title">
+            本地Maven仓库遇到的一个问题
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            IDEA 太智能引发的惨案Error:(4, 0) Unable to load class ‘com.pdog18.plugin.MyPlugin’.事情的起源今天下午在做一件事
+
+写一个Gralde Plugin ，（不在buildSrc 中）
+将该Gradle Plugin 发布到本地maven repo 
+指定Project 从本地依赖Gradle Plugin
+
+在最后一步遇到了下......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Pdog on
+        2018-09-21
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2018/09/19/current-application-util/">
         <h2 class="post-title">
-            不许继承Application随时获取Android 的Context
+            Context获取工具类
         </h2>
         <h3 class="post-subtitle">
             
@@ -289,7 +316,7 @@ fun startLoading() fun loadingFinish() fun loadingEmpty() fun loadingError(e....
         </h3>
         <div class="post-content-preview">
             高杰15355706512
-email : &#112;&#x64;&#x6f;&#103;&#64;&#113;&#113;&#46;&#99;&#x6f;&#x6d;
+email : &#112;&#100;&#x6f;&#x67;&#x40;&#x71;&#x71;&#46;&#x63;&#x6f;&#x6d;
 github : https://github.com/pdog18
 blog : http://pdog18.cn/
 
@@ -298,7 +325,7 @@ HTTP工作模型
 Base64原理
 压缩与解压缩
 Cookie的工作机制
-Au......
+......
         </div>
     </a>
     <p class="post-meta">
@@ -415,32 +442,6 @@ server &#123;    listen       80;        #端口    server_name  localhost;   #�
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/05/14/my-answer/">
-        <h2 class="post-title">
-            《阿里春招面经》简答
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            鸿洋推送的《阿里春招面经》简答今天早上群里就在说这个推送，大家说很难，我就点开看了下，发现的确有些地方不是很了解就此整理一下。
-虽然也有很简单的，但是我也简单答了。
-一面android中的dp、px、dip相关概念
-dp 根据屏幕密度来决定，容易适配
-px 就是像素值，dp最后也是通过转换为对应px来绘制等的
-dip 不知道问这个意义是什么 这个已经被dp替代了，2018年不应该关心这种东西......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-05-14
-    </p>
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -478,11 +479,13 @@ dip 不知道问这个意义是什么 这个已经被dp替代了，2018年不应
                             
                         
                             
-                        
-                            
-                        
-                            
                             <a href="/tags/#笔记" title="笔记" rel="2">笔记</a>
+                            
+                        
+                            
+                            <a href="/tags/#gradle" title="gradle" rel="2">gradle</a>
+                            
+                        
                             
                         
                             
