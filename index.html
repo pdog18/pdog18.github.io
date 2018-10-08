@@ -184,6 +184,33 @@
 
 <div class="post-preview">
 
+    <a href="/2018/10/08/default-manifest-attributes/">
+        <h2 class="post-title">
+            Android 禁止屏幕旋转
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Android 开发中禁止屏幕旋转我们通常有两种方案
+
+方案一 在AndroidManifest.xml 中设置activity 中的android:screenOrientation 属性值
+方案二在Activity 中调用setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
+
+他们各自都存在些小问题：
+方案一......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Pdog on
+        2018-10-08
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2018/09/21/local-maven-repo/">
         <h2 class="post-title">
             本地Maven仓库遇到的一个问题
@@ -316,7 +343,7 @@ fun startLoading() fun loadingFinish() fun loadingEmpty() fun loadingError(e....
         </h3>
         <div class="post-content-preview">
             高杰15355706512
-email : &#112;&#100;&#x6f;&#x67;&#x40;&#x71;&#x71;&#46;&#x63;&#x6f;&#x6d;
+email : &#x70;&#x64;&#111;&#103;&#x40;&#x71;&#x71;&#x2e;&#99;&#x6f;&#109;
 github : https://github.com/pdog18
 blog : http://pdog18.cn/
 
@@ -419,29 +446,6 @@ rootProject/gradle.properties
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2018/05/29/nginx/">
-        <h2 class="post-title">
-            使用nginx搭建简单的文件下载服务器
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            
-在/etc/nginx/conf.d/ 下新建文件file_server.conf
-server &#123;    listen       80;        #端口    server_name  localhost;   #服务名    charset utf-8; # 避免中文乱码    location /download &#123;        alias /data/......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2018-05-29
-    </p>
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -479,13 +483,15 @@ server &#123;    listen       80;        #端口    server_name  localhost;   #�
                             
                         
                             
+                        
+                            
                             <a href="/tags/#笔记" title="笔记" rel="2">笔记</a>
                             
                         
                             
-                            <a href="/tags/#gradle" title="gradle" rel="2">gradle</a>
-                            
                         
+                            
+                            <a href="/tags/#gradle" title="gradle" rel="2">gradle</a>
                             
                         
                             

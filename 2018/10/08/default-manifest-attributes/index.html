@@ -13,11 +13,11 @@
 
     <title>
         
-          本地Maven仓库遇到的一个问题 - Pdog的博客 | Pdog&#39;s Blog
+          Android 禁止屏幕旋转 - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://pdog18.cn/2018/09/21/local-maven-repo/">
+    <link rel="canonical" href="http://pdog18.cn/2018/10/08/default-manifest-attributes/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -165,14 +165,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#gradle" title="gradle">gradle</a>
+                          <a class="tag" href="/tags/#gradle plugin" title="gradle plugin">gradle plugin</a>
                         
                     </div>
-                    <h1>本地Maven仓库遇到的一个问题</h1>
+                    <h1>Android 禁止屏幕旋转</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Pdog on
-                        2018-09-21
+                        2018-10-08
                     </span>
                 </div>
             </div>
@@ -191,25 +191,26 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="IDEA-太智能引发的惨案"><a href="#IDEA-太智能引发的惨案" class="headerlink" title="IDEA 太智能引发的惨案"></a>IDEA 太智能引发的惨案</h1><h3 id="Error-4-0-Unable-to-load-class-‘com-pdog18-plugin-MyPlugin’"><a href="#Error-4-0-Unable-to-load-class-‘com-pdog18-plugin-MyPlugin’" class="headerlink" title="Error:(4, 0) Unable to load class ‘com.pdog18.plugin.MyPlugin’."></a>Error:(4, 0) Unable to load class ‘com.pdog18.plugin.MyPlugin’.</h3><h2 id="事情的起源"><a href="#事情的起源" class="headerlink" title="事情的起源"></a>事情的起源</h2><p>今天下午在做一件事</p>
-<ol>
-<li>写一个<code>Gralde Plugin</code> ，（不在<code>buildSrc</code> 中）</li>
-<li>将该<code>Gradle Plugin</code> 发布到本地<code>maven repo</code> </li>
-<li>指定<code>Project</code> 从本地依赖<code>Gradle Plugin</code></li>
-</ol>
-<p>在最后一步遇到了下面这个问题</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Error:(5, 0) Unable to load class &apos;com.pdog18.plugin.MyPlugin&apos;.</span><br><span class="line">Possible causes for this unexpected error include:&lt;ul&gt;&lt;li&gt;Gradle&apos;s dependency cache may be corrupt (this sometimes occurs after a network connection timeout.)</span><br><span class="line">&lt;a href=&quot;syncProject&quot;&gt;Re-download dependencies and sync project (requires network)&lt;/a&gt;&lt;/li&gt;&lt;li&gt;The state of a Gradle build process (daemon) may be corrupt. Stopping all Gradle daemons may solve this problem.</span><br><span class="line">&lt;a href=&quot;stopGradleDaemons&quot;&gt;Stop Gradle build processes (requires restart)&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Your project may be using a third-party plugin which is not compatible with the other plugins in the project or the version of Gradle requested by the project.&lt;/li&gt;&lt;/ul&gt;In the case of corrupt Gradle processes, you can also try closing the IDE and then killing all Java processes.</span><br></pre></td></tr></table></figure>
-<p><img src="img_2.jpg" alt="依赖时报错"></p>
-<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>使用 <code>./gradlew build --stacktrace</code> 看看问题原因</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* Where:</span><br><span class="line">Build file &apos;/Users/pdog/Desktop/githubsample/PdogPlugin/app/build.gradle&apos; line: 5</span><br><span class="line"></span><br><span class="line">* What went wrong:</span><br><span class="line">A problem occurred evaluating project &apos;:app&apos;.</span><br><span class="line">&gt; Could not find implementation class &apos;com.pdog18.plugin.MyPlugin&apos; for plugin &apos;pdog&apos; specified in jar:file:/Users/pdog/.gradle/caches/jars-3/cc06bb1b223c4c7cb10cd159ec4ea809/pdog-gradle-1.0.1.jar!/META-INF/gradle-plugins/pdog.properties.</span><br><span class="line"></span><br><span class="line">* Try:</span><br><span class="line">Run with --info or --debug option to get more log output.</span><br></pre></td></tr></table></figure>
-<p><img src="img_2.jpg" alt="stacktrace执行结果"></p>
-<p>报错提示<code>Plugin</code> 中找不到声明的<code>class</code></p>
-<p>找到我的声明文件<code>pdog.properties</code> ，内容如下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">implementation-class=com.pdog18.plugin.MyPlugin</span><br></pre></td></tr></table></figure>
-<p>在<code>Android Studio</code> 中点击<code>MyPlugin</code> 可以直接跳转到文件</p>
-<p>最后发现其实因为我的文件类型是<code>groovy</code> ，而文件却放在<code>src/main/java</code>文件夹下，同时因为<code>groovy</code>语法和<code>kotlin</code> 很像，我第一时间没有发现，所以排查了很久。</p>
-<p>找到问题所在后，重新建立一个<code>kotlin</code> 文件，然后将<code>groovy</code> 文件删除，重新执行上传、依赖，问题解决。</p>
-<p>因为IDE太过智能，（IDE可以直接跳转到<code>java</code> 文件夹内的<code>groovy</code> 文件）所以一直没有找到该问题所在。下次需要注意。</p>
+                <h3 id="Android-开发中禁止屏幕旋转"><a href="#Android-开发中禁止屏幕旋转" class="headerlink" title="Android 开发中禁止屏幕旋转"></a>Android 开发中禁止屏幕旋转</h3><p>我们通常有两种方案</p>
+<ul>
+<li>方案一<br> 在<code>AndroidManifest.xml</code> 中设置<code>activity</code> 中的<code>android:screenOrientation</code> 属性值</li>
+<li>方案二<br>在<code>Activity</code> 中调用<code>setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)</code></li>
+</ul>
+<p>他们各自都存在些小问题：</p>
+<p>方案一中，需要为清单文件每个<code>activity</code>手动添加属性，每次增加新的<code>activity</code> 都需要重新设置，如果是组件化的情况简直就是灾难，更不要说特定的<code>android:screenOrientation</code> 的<code>activity</code>了。<br>在<code>application</code>中的<code>theme</code>似乎可以设置整个<code>application</code>的<code>android:screenOrientation</code> 但是实验结果是没有效果。</p>
+<p>方案二中，似乎很完美，只需要在<code>BaseActivity</code> 中写一行代码就好了。但是它有一个严重的问题就是：<br>当<code>activity</code> 切换时，上一个<code>activity</code> 如果是横屏状态，此时切换对应的<code>Activity</code> 它会首先是横屏状态，然后自动切换为竖直的情况。引出的额外问题不做延伸，仅仅是 UI 效果也不能太让人满意，我发现微信 android 端也有这个情况。（在朋友圈点击查看大图，横屏后在横屏状态返回，此时朋友圈界面会进行一次上面描述的旋转）</p>
+<blockquote>
+<p>所以，如果评审不能通过，那么方案二就不能使用。</p>
+</blockquote>
+<h3 id="那么有什么办法可以统一处理呢？"><a href="#那么有什么办法可以统一处理呢？" class="headerlink" title="那么有什么办法可以统一处理呢？"></a>那么有什么办法可以统一处理呢？</h3><p>也有两个方法</p>
+<ul>
+<li><p>一是修改类似<code>ActivityThread#handleLaunchActivity()</code>中<code>ActivityClientRecord</code> 或者其他对应方法中的<code>ActivityInfo</code>具体需要查看系统启动的源码。<br>这似乎有点超出我目前的能力范围了。</p>
+</li>
+<li><p>二就是很简单的在打包过程中修改<code>AndroidManifest.xml</code>直接为没有设置过<code>android:screenOrientation</code> 的<code>activity</code> 添加上一个默认的值了。</p>
+</li>
+</ul>
+<p>方案二的话显然简单的多。这里有我的一个实现方案，有兴趣的朋友可以过目一下。</p>
+<p><a href="https://github.com/pdog18/PdogPlugin" target="_blank" rel="noopener">pdog github :default-manifest-attributes</a></p>
 
 
                 <hr>
@@ -218,13 +219,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2018/10/08/default-manifest-attributes/" data-toggle="tooltip" data-placement="top" title="Android 禁止屏幕旋转">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2018/09/19/current-application-util/" data-toggle="tooltip" data-placement="top" title="Context获取工具类">Next Post &rarr;</a>
+                            <a href="/2018/09/21/local-maven-repo/" data-toggle="tooltip" data-placement="top" title="本地Maven仓库遇到的一个问题">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -257,7 +254,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#gradle" title="gradle">gradle</a>
+                          <a class="tag" href="/tags/#gradle plugin" title="gradle plugin">gradle plugin</a>
                         
                     </div>
                 </section>
@@ -297,8 +294,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "http://pdog18.cn/2018/09/21/local-maven-repo/";
-    var disqus_url = "http://pdog18.cn/2018/09/21/local-maven-repo/";
+    var disqus_identifier = "http://pdog18.cn/2018/10/08/default-manifest-attributes/";
+    var disqus_url = "http://pdog18.cn/2018/10/08/default-manifest-attributes/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

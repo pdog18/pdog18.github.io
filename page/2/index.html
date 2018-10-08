@@ -184,6 +184,29 @@
 
 <div class="post-preview">
 
+    <a href="/2018/05/29/nginx/">
+        <h2 class="post-title">
+            使用nginx搭建简单的文件下载服务器
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            
+在/etc/nginx/conf.d/ 下新建文件file_server.conf
+server &#123;    listen       80;        #端口    server_name  localhost;   #服务名    charset utf-8; # 避免中文乱码    location /download &#123;        alias /data/......
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Pdog on
+        2018-05-29
+    </p>
+
+</div>
+<hr>
+
+<div class="post-preview">
+
     <a href="/2018/05/14/my-answer/">
         <h2 class="post-title">
             《阿里春招面经》简答
@@ -426,36 +449,6 @@ class BaseResponse&lt;out T&gt;(        val error: Boolean?,        val results:
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/11/13/todo/">
-        <h2 class="post-title">
-            TodoList
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            TodoList
-DataBinding MVVM
-kotlin  `@2018.02`
-JVM虚拟机
-AMS PMS 源码学习
-两种热修复方案复习整理 `@2017.12`
-类加载机制 `@2017.12`
-
-ButterKnife学习
-通过注解框架 AbstractProcessor 在编译期生成Target_ViewBinding的帮助类(后面简称ViewBinding)，ViewBi......
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Pdog on
-        2017-11-13
-    </p>
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
@@ -497,13 +490,15 @@ ButterKnife学习
                             
                         
                             
+                        
+                            
                             <a href="/tags/#笔记" title="笔记" rel="2">笔记</a>
                             
                         
                             
-                            <a href="/tags/#gradle" title="gradle" rel="2">gradle</a>
-                            
                         
+                            
+                            <a href="/tags/#gradle" title="gradle" rel="2">gradle</a>
                             
                         
                             
