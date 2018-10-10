@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -199,10 +199,10 @@
 </ol>
 <p>在最后一步遇到了下面这个问题</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Error:(5, 0) Unable to load class &apos;com.pdog18.plugin.MyPlugin&apos;.</span><br><span class="line">Possible causes for this unexpected error include:&lt;ul&gt;&lt;li&gt;Gradle&apos;s dependency cache may be corrupt (this sometimes occurs after a network connection timeout.)</span><br><span class="line">&lt;a href=&quot;syncProject&quot;&gt;Re-download dependencies and sync project (requires network)&lt;/a&gt;&lt;/li&gt;&lt;li&gt;The state of a Gradle build process (daemon) may be corrupt. Stopping all Gradle daemons may solve this problem.</span><br><span class="line">&lt;a href=&quot;stopGradleDaemons&quot;&gt;Stop Gradle build processes (requires restart)&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Your project may be using a third-party plugin which is not compatible with the other plugins in the project or the version of Gradle requested by the project.&lt;/li&gt;&lt;/ul&gt;In the case of corrupt Gradle processes, you can also try closing the IDE and then killing all Java processes.</span><br></pre></td></tr></table></figure>
-<p><img src="img_2.jpg" alt="依赖时报错"></p>
+<p><img src="img_2.jpeg" alt="依赖时报错"></p>
 <h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>使用 <code>./gradlew build --stacktrace</code> 看看问题原因</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* Where:</span><br><span class="line">Build file &apos;/Users/pdog/Desktop/githubsample/PdogPlugin/app/build.gradle&apos; line: 5</span><br><span class="line"></span><br><span class="line">* What went wrong:</span><br><span class="line">A problem occurred evaluating project &apos;:app&apos;.</span><br><span class="line">&gt; Could not find implementation class &apos;com.pdog18.plugin.MyPlugin&apos; for plugin &apos;pdog&apos; specified in jar:file:/Users/pdog/.gradle/caches/jars-3/cc06bb1b223c4c7cb10cd159ec4ea809/pdog-gradle-1.0.1.jar!/META-INF/gradle-plugins/pdog.properties.</span><br><span class="line"></span><br><span class="line">* Try:</span><br><span class="line">Run with --info or --debug option to get more log output.</span><br></pre></td></tr></table></figure>
-<p><img src="img_2.jpg" alt="stacktrace执行结果"></p>
+<p><img src="img_2.jpeg" alt="stacktrace执行结果"></p>
 <p>报错提示<code>Plugin</code> 中找不到声明的<code>class</code></p>
 <p>找到我的声明文件<code>pdog.properties</code> ，内容如下</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">implementation-class=com.pdog18.plugin.MyPlugin</span><br></pre></td></tr></table></figure>

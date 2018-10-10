@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
@@ -204,7 +204,7 @@
 </blockquote>
 <h3 id="那么有什么办法可以统一处理呢？"><a href="#那么有什么办法可以统一处理呢？" class="headerlink" title="那么有什么办法可以统一处理呢？"></a>那么有什么办法可以统一处理呢？</h3><p>也有两个方法</p>
 <ul>
-<li><p>一是修改类似<code>ActivityThread#handleLaunchActivity()</code>中<code>ActivityClientRecord</code> 或者其他对应方法中的<code>ActivityInfo</code>具体需要查看系统启动的源码。<br>这似乎有点超出我目前的能力范围了。</p>
+<li><p>一是修改类似<code>ActivityThread#handleLaunchActivity()</code>中<code>ActivityClientRecord</code> 或者其他对应方法中的<code>ActivityInfo</code>具体需要查看<code>Activity</code> 启动的源码。<br>这似乎有点超出我目前的能力范围了。</p>
 </li>
 <li><p>二就是很简单的在打包过程中修改<code>AndroidManifest.xml</code>直接为没有设置过<code>android:screenOrientation</code> 的<code>activity</code> 添加上一个默认的值了。</p>
 </li>
