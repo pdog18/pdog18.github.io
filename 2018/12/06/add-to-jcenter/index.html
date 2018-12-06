@@ -13,11 +13,11 @@
 
     <title>
         
-          TodoList - Pdog的博客 | Pdog&#39;s Blog
+          上传项目到JCenter - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
-    <link rel="canonical" href="http://pdog18.cn/2017/11/13/todo/">
+    <link rel="canonical" href="http://pdog18.cn/2018/12/06/add-to-jcenter/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -165,14 +165,14 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                          <a class="tag" href="/tags/#TodoList" title="TodoList">TodoList</a>
+                          <a class="tag" href="/tags/#JCenter" title="JCenter">JCenter</a>
                         
                     </div>
-                    <h1>TodoList</h1>
+                    <h1>上传项目到JCenter</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Pdog on
-                        2017-11-13
+                        2018-12-06
                     </span>
                 </div>
             </div>
@@ -191,42 +191,48 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="TodoList"><a href="#TodoList" class="headerlink" title="TodoList"></a>TodoList</h1><ul>
-<li>DataBinding MVVM</li>
-<li><del>kotlin</del>  <a href="mailto:`@2018.02" target="_blank" rel="noopener">`@2018.02</a>`</li>
-<li>JVM虚拟机</li>
-<li>AMS PMS 源码学习</li>
-<li><del>两种热修复方案复习整理</del> <a href="mailto:`@2017.12" target="_blank" rel="noopener">`@2017.12</a>`</li>
-<li><del>类加载机制</del> <a href="mailto:`@2017.12" target="_blank" rel="noopener">`@2017.12</a>`</li>
+                <blockquote>
+<p> 感谢<br>  <a href="http://blog.csdn.net/lmj623565791/article/details/51148825" target="_blank" rel="noopener">Android 快速发布开源项目到jcenter</a><br>  <a href="http://www.jianshu.com/p/9db20aaf932c" target="_blank" rel="noopener">如何让别人在gradle中直接compile你的开源库</a></p>
+</blockquote>
+<h3 id="工具版本"><a href="#工具版本" class="headerlink" title="工具版本"></a>工具版本</h3><ul>
+<li>Android Studio 3.2</li>
+<li>Gradle 4.6</li>
+<li>bintray-release 0.9</li>
 </ul>
-<h2 id="ButterKnife学习"><a href="#ButterKnife学习" class="headerlink" title="ButterKnife学习"></a>ButterKnife学习</h2><ol>
-<li>通过注解框架 <code>AbstractProcessor</code> 在编译期生成<code>Target_ViewBinding</code>的帮助类(后面简称<code>ViewBinding</code>)，<code>ViewBinding</code> 由传入的<code>target</code>找到所有需要注解的成员变量的名称及类型等信息直接生成。</li>
-<li>在<code>target</code>执行到<code>ButterKnife.bind(target)</code>的时候，会通过传入的目标的类名通过反射找到<code>ViewBinding</code>的构造器，同时将构造器，使用<code>Map</code>存储，减少使用反射的性能消耗</li>
-<li><code>ViewBinding</code>的构造器需要传入两个对象，<code>target</code>和<code>target</code>对应的<code>View</code>，在构造方法中直接对<code>target</code>的成员变量进行赋值。</li>
+<hr>
+<h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><ol>
+<li><p>创建<code>Project</code>，创建<code>android library</code></p>
+</li>
+<li><p>注册<code>bintray.com</code> 获得<code>API Key</code></p>
+</li>
+<li><p>在你的项目中</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.android.library'</span></span><br><span class="line"><span class="comment">// 「注意」这行 apply 必须在 `com.android.library` 之后</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.novoda.bintray-release'</span></span><br><span class="line"><span class="comment">// apply plugin: ...</span></span><br><span class="line"></span><br><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        jcenter()</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath <span class="string">'com.novoda:bintray-release:0.9'</span>	<span class="comment">// 0.9, 不是0.9.0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">publish &#123;</span><br><span class="line">    userOrg = <span class="string">'pdog18'</span>    <span class="comment">//bintray.com用户名</span></span><br><span class="line">    groupId = <span class="string">'com.pdog.shake'</span>    <span class="comment">//jcenter上的路径</span></span><br><span class="line">    artifactId = <span class="string">'shake'</span>    <span class="comment">//自己的maven上添加的包名</span></span><br><span class="line">    publishVersion = <span class="string">'0.0.1'</span>    <span class="comment">//版本号</span></span><br><span class="line">    desc = <span class="string">'desc...'</span>    <span class="comment">//描述</span></span><br><span class="line">    website = <span class="string">'https://github.com/pdog18'</span>    <span class="comment">//网站，不重要；</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    <span class="comment">//..</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>命令行输入</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./gradlew clean build bintrayUpload -PbintrayUser=username -PbintrayKey=APIKey -PdryRun=falseMac</span><br></pre></td></tr></table></figure>
+<pre><code>将命令行中的`username` 换成你的用户名，`APIKey`换成第二步获得的`key`
+</code></pre></li>
+<li><p>在<code>bintray</code> <code>Add to JCenter</code> </p>
+</li>
 </ol>
-<h2 id="ConcurrentHashMap学习"><a href="#ConcurrentHashMap学习" class="headerlink" title="ConcurrentHashMap学习"></a>ConcurrentHashMap学习</h2><h3 id="HashMap线程不安全"><a href="#HashMap线程不安全" class="headerlink" title="HashMap线程不安全"></a>HashMap线程不安全</h3><p>HashMap在多线程操作的时候会引起死循环（Java1.8已经不会了）</p>
-<h3 id="Hashtable-效率低下"><a href="#Hashtable-效率低下" class="headerlink" title="Hashtable 效率低下"></a>Hashtable 效率低下</h3><p>Hashtable容器使用synchronized来保证线程安全。但在县城竞争激烈的情况下Hashtable的效率非常低下。因为当一个线程访问Hashtable的同步方法时，其他线程访问Hashtable的同步方法时，可能会进入阻塞或轮询状态。如线程1使用put进行添加元素，线程2不但不能使用put方法添加元素，并且也不能使用get方法来获取元素，所以竞争越激烈效率越低。</p>
-<h3 id="锁分段技术"><a href="#锁分段技术" class="headerlink" title="锁分段技术"></a>锁分段技术</h3><p>Hashtable容器在竞争激烈的并发环境下表现出效率低下的原因是所有访问Hashtable的线程都必须竞争同一把锁，那假如容器里有多把锁，每一把锁用于锁容器其中一部分数据，那么当多线程访问容器里不同数据段的数据时，线程间就不会存在锁竞争，从而可以有效的提高并发访问效率，这就是ConcurrentHashMap所使用的锁分段技术，首先将数据分成一段一段的存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一个段数据的时候，其他段的数据也能被其他线程访问。</p>
-<h3 id="ConcurrentHashMap的结构-（1-7）"><a href="#ConcurrentHashMap的结构-（1-7）" class="headerlink" title="ConcurrentHashMap的结构 （1.7）"></a>ConcurrentHashMap的结构 （1.7）</h3><p>ConcurrentHashMap时由Segment数组结构和HashEntry数组结构组成。Segment是一种可重入锁ReentrantLock，在ConcurrentHashMap里扮演锁的角色，HashEntry则用于存储键值对数据。一个ConcurrentHashMap里包含一个Segment数组，每个HashEntry是一个链表结构的元素，每个Segment守护着一个HashEntry数组里的元素，当对HashEntry数组的数据进行修改时，必须首先获得它对应的Segment锁。</p>
-<blockquote>
-<p><a href="http://blog.csdn.net/yanyan19880509/article/details/52345422" target="_blank" rel="noopener">可重入锁</a></p>
-</blockquote>
-<p><img src="/Users/pdog/Desktop/2184951-af57d9d50ae9f547.png" alt="2184951-af57d9d50ae9f547"></p>
-<h3 id="ConcurrentHashMap的初始化"><a href="#ConcurrentHashMap的初始化" class="headerlink" title="ConcurrentHashMap的初始化"></a>ConcurrentHashMap的初始化</h3><p>ConcurrentHashMap初始化方法是通过initialCapacity，loadFactor，concurrencyLevel几个参数来初始化segments数组，段偏移量segmentShift，段掩码segmentMask和每个segment里的HashEntry数组。</p>
-<h3 id="ConcurrentHashMap的get操作"><a href="#ConcurrentHashMap的get操作" class="headerlink" title="ConcurrentHashMap的get操作"></a>ConcurrentHashMap的get操作</h3><p>为get方法里将要使用的共享变量都定义成volatile（如统计当前Segment大小的count字段和用于存储值的HashEntry的value），保持了变量的可见性。除非取到空值才会加锁重读。</p>
-<h3 id="ConcurrentHashMap的Put操作"><a href="#ConcurrentHashMap的Put操作" class="headerlink" title="ConcurrentHashMap的Put操作"></a>ConcurrentHashMap的Put操作</h3><p>由于put方法里需要对共享变量进行写入操作，所以为了线程安全，在操作共享变量时必须得加锁。put方法首先定位到Segment，然后在Segment里进行插入操作。插入操作需要经历两个步骤，第一步判断是否需要对Segment里的HashEntry数组进行扩容，第二步定位添加元素的位置然后放在HashEntry数组里。</p>
-<p>是否需要扩容。在插入元素前会先判断Segment里的HashEntry数组是否超过容量（threshold），如果超过阀值，数组进行扩容。值得一提的是，Segment的扩容判断比HashMap更恰当，因为HashMap是在插入元素后判断元素是否已经到达容量的，如果到达了就进行扩容，但是很有可能扩容之后没有新元素插入，这时HashMap就进行了一次无效的扩容。</p>
-<p>如何扩容。扩容的时候首先会创建一个两倍于原容量的数组，然后将原数组里的元素进行再hash后插入到新的数组里。为了高效ConcurrentHashMap不会对整个容器进行扩容，而只对某个segment进行扩容。</p>
-<h3 id="ConcurrentHashMap的size操作"><a href="#ConcurrentHashMap的size操作" class="headerlink" title="ConcurrentHashMap的size操作"></a>ConcurrentHashMap的size操作</h3><p>统计所有Segment里元素的大小后求和。Segment里的变量count是个volatile变量，虽然取到的count是最新的值，但是它们相加的时候可能使用的count发生了变化。ConcurrentHashMap的做法是先尝试2次通过不锁住Segment的方法来统计各个Segment的大小，如果统计的过程中，容器的count发生了变化，则再采用加锁的方式来统计所有segment的大小。</p>
-<p>那么ConcurrentHashMap是如何判断在统计的时候容器是否发生了变化呢？使用modCount变量，在put，remove，clean方法里操作元素前都会将变量modCount进行加1，那么在统计size前后比较modCount是否发生变化，从而得知容器的大小是否发生变化。</p>
-<h3 id="ConcurrentHashMap1-8实现"><a href="#ConcurrentHashMap1-8实现" class="headerlink" title="ConcurrentHashMap1.8实现"></a>ConcurrentHashMap1.8实现</h3><blockquote>
-<p><a href="https://www.jianshu.com/p/e694f1e868ec" target="_blank" rel="noopener">谈谈ConcurrentHashMap1.7和1.8的不同实现</a></p>
-</blockquote>
-<p>1.8中放弃了Segment臃肿的设计，取而代之的是采用Node+CAS+Synchronized来保证并发安全进行实现。</p>
-<p><img src="/Users/pdog/Desktop/2184951-d9933a0302f72d47.png" alt="2184951-d9933a0302f72d47"></p>
-<p>只有在执行第一次put方法时才会调用initTable()初始化Node数组。</p>
-<p>put实现</p>
-<p>当执行put方法插入数据时</p>
+<hr>
+<h3 id="遇到的问题："><a href="#遇到的问题：" class="headerlink" title="遇到的问题："></a>遇到的问题：</h3><ol>
+<li><p>在<code>add to JCenter</code> 的时候提示 <code>Empty packages are not allowed in JCenter.</code>  无法提交项目，<br>原因是文件没有上传成功</p>
+</li>
+<li><p>查看<code>Files</code> 的确是没有任何文件<code>There are no files yet for this package.</code><br>查看命令行： <code>:bintrayUpload: Could not find publication: release.</code> </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">确保 apply plugin: <span class="string">'com.android.library'</span> </span><br><span class="line">在 	apply plugin: <span class="string">'com.novoda.bintray-release'</span>  之前</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>遇到中文注释乱码问题</p>
+<p> 在<code>Project</code>下的<code>build.gradle</code>下添加</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        jcenter()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    allprojects &#123;</span><br><span class="line">        tasks.withType(JavaCompile) &#123;    //设置全局编码</span><br><span class="line">            options.encoding = &quot;UTF-8&quot;</span><br><span class="line">        &#125;</span><br><span class="line">        tasks.withType(Javadoc) &#123;  //设置文档编码</span><br><span class="line">            options &#123;</span><br><span class="line">                encoding &quot;UTF-8&quot;</span><br><span class="line">                charSet &apos;UTF-8&apos;</span><br><span class="line">                links &quot;http://docs.oracle.com/javase/7/docs/api&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>成功<code>add JCenter</code> 但是不能拉取</p>
+<p>需要等待审核通过，以收到<code>bintray</code> 的站内信为准</p>
+</li>
+<li><p>上传文件时提示<code>Operation timed out (Read failed)</code> 没有成功</p>
+<p>怀疑是网络问题</p>
+</li>
+</ol>
 
 
                 <hr>
@@ -235,13 +241,9 @@
 
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/2018/03/12/synchronized/" data-toggle="tooltip" data-placement="top" title="Synchronized关键字">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/2017/09/07/as-options/" data-toggle="tooltip" data-placement="top" title="增加Android Studio 使用的内存">Next Post &rarr;</a>
+                            <a href="/2018/11/28/dp-util/" data-toggle="tooltip" data-placement="top" title="dp px 转换工具类">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -274,7 +276,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#TodoList" title="TodoList">TodoList</a>
+                          <a class="tag" href="/tags/#JCenter" title="JCenter">JCenter</a>
                         
                     </div>
                 </section>
@@ -295,8 +297,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hexo-theme-huxblog";
-    var disqus_identifier = "http://pdog18.cn/2017/11/13/todo/";
-    var disqus_url = "http://pdog18.cn/2017/11/13/todo/";
+    var disqus_identifier = "http://pdog18.cn/2018/12/06/add-to-jcenter/";
+    var disqus_url = "http://pdog18.cn/2018/12/06/add-to-jcenter/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
