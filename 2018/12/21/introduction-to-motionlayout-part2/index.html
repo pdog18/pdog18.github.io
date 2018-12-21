@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          「译」MotionLayout导论 (part II) - Pdog的博客 | Pdog&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://pdog18.cn/2018/12/21/introduction-to-motionlayout-part2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Pdog&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="http://pdog18.cn/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#MotionLayout" title="MotionLayout">MotionLayout</a>
+                        
+                    </div>
+                    <h1>「译」MotionLayout导论 (part II)</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by Pdog on
+                        2018-12-21
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="「译」MotionLayout导论-part-II"><a href="#「译」MotionLayout导论-part-II" class="headerlink" title="「译」MotionLayout导论 (part II)"></a>「译」MotionLayout导论 (part II)</h1><p><a href="https://medium.com/google-developers/introduction-to-motionlayout-part-ii-a31acc084f59" target="_blank" rel="noopener">原文链接: Introduction to MotionLayout (part II)</a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是系列文章「MotionLayout导论」的 <strong>part II</strong>。阅读之前请先查看 <strong><a href="https://medium.com/p/29208674b10d" target="_blank" rel="noopener">part I</a></strong>!  <a href="https://www.jianshu.com/p/5203cf11d943" target="_blank" rel="noopener">(中文点这)</a></p>
+<p>在文本中，我们将继续通过各种示例揭露基本的 MotionLayout 特性，介绍自定义属性 (custom attribute)、图像操作 (image operations) 和关键帧 (keyframes)。</p>
+<h2 id="示例-03-自定义属性-Custom-attribute"><a href="#示例-03-自定义属性-Custom-attribute" class="headerlink" title="示例 03: 自定义属性 (Custom attribute)"></a>示例 03: 自定义属性 (Custom attribute)</h2><p>在part I的最后，我们创建了一个引用<code>MotionScene</code>的<code>MotionLayout</code>（self-contained MotionScene）。我们可以进一步利用它，来实现其他属性的过渡。</p>
+<p><img src="./example-03.png" alt="example-03"></p>
+<p>事实上，最初的<code>ConstraintSet</code>只封装了布局规则；但是为了丰富动画效果，我们经常需要做些别的事（比如背景颜色）。在 ConstraintLayout 2.0，<code>ConstraintSet</code>也可以存储自定义属性状态。查看下方动画，背景颜色跟着移动过程发生了改变。<img src="./example-03-2.gif" alt="example-03-2"></p>
+<p>以前，你不得不在代码中处理此问题。现在，你可以直接通过 XML 指定属性：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Constraint</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/button"</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">CustomAttribute</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:attributeName</span>=<span class="string">"backgroundColor"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:customColorValue</span>=<span class="string">"#D81B60"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Constraint</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这是这个动画修改后的<code>MotionScene</code> 文件</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">MotionScene</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:motion</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Transition</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:constraintSetEnd</span>=<span class="string">"@+id/end"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:constraintSetStart</span>=<span class="string">"@+id/start"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:duration</span>=<span class="string">"1000"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:interpolator</span>=<span class="string">"linear"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">OnSwipe</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:dragDirection</span>=<span class="string">"dragRight"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:touchAnchorId</span>=<span class="string">"@+id/button"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:touchAnchorSide</span>=<span class="string">"right"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Transition</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ConstraintSet</span> <span class="attr">android:id</span>=<span class="string">"@+id/start"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Constraint</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/button"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"64dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"64dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_marginStart</span>=<span class="string">"8dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintStart_toStartOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">CustomAttribute</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:attributeName</span>=<span class="string">"backgroundColor"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:customColorValue</span>=<span class="string">"#D81B60"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Constraint</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ConstraintSet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ConstraintSet</span> <span class="attr">android:id</span>=<span class="string">"@+id/end"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Constraint</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/button"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"64dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"64dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_marginEnd</span>=<span class="string">"8dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintEnd_toEndOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">CustomAttribute</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:attributeName</span>=<span class="string">"backgroundColor"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:customColorValue</span>=<span class="string">"#9999FF"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Constraint</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ConstraintSet</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">MotionScene</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>自定义属性是用属性名字 (attributeName) 来指定的，属性名字需要和对象中的<code>getter/setter</code>方法对应：</p>
+<ul>
+<li><strong>getter</strong>: <code>getName</code> (e.g. getBackgroundColor)</li>
+<li><strong>setter</strong>: <code>setName</code> (e.g. setBackgroundColor)</li>
+</ul>
+<p>另外还需要指定属性值的类型：</p>
+<ul>
+<li><code>customColorValue</code></li>
+<li><code>customIntegerValue</code></li>
+<li><code>customFloatValue</code></li>
+<li><code>customStringValue</code></li>
+<li><code>customDimension</code></li>
+<li><code>customBoolean</code></li>
+</ul>
+<p>最后当我们定义一个自定义属性，你需要同时定义开始 (start) 和结束 (end) 的<code>ConstraintSet</code></p>
+<h2 id="示例-04-图像滤镜-ImageFilterView-1-2"><a href="#示例-04-图像滤镜-ImageFilterView-1-2" class="headerlink" title="示例 04 :  图像滤镜(ImageFilterView)(1/2)"></a>示例 04 :  图像滤镜(ImageFilterView)(1/2)</h2><p>当我们处理复杂的过渡时，常常需要对图像进行一些操作，并且对他们进行动画处理。ConstraintLayout2.0 引入了名为 ImageFilterView （继承与AppCompatImageView）的一个有用的工具类来轻松实现这一点。</p>
+<p>下面是我们在两张图片之间做的淡入淡出 (cross-fade) 效果：</p>
+<p><img src="./example-04-1.gif" alt="example-04-1"></p>
+<p>首先我们需要创建一个包含 ImageFilterView 的 MotionLayout 文件。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">android.support.constraint.motion.MotionLayout</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/motionLayout"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layoutDescription</span>=<span class="string">"@xml/scene_04"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">android.support.constraint.utils.ImageFilterView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/image"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:background</span>=<span class="string">"@color/colorAccent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:src</span>=<span class="string">"@drawable/roard"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">app:altSrc</span>=<span class="string">"@drawable/hoford"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"64dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"64dp"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">android.support.constraint.motion.MotionLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>它与 ImageView 的主要区别在于<code>altSrc</code> 属性</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">android.support.constraint.image.ImageFilterView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/image"</span></span></span><br><span class="line"><span class="tag"><span class="attr">...</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:src</span>=<span class="string">"@drawable/roard"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:altSrc</span>=<span class="string">"@drawable/hoford"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在MotionScene 文件中使用对应的淡入淡出属性（<code>crossfade</code>）</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">MotionScene</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:motion</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Transition</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:constraintSetEnd</span>=<span class="string">"@+id/end"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:constraintSetStart</span>=<span class="string">"@+id/start"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:duration</span>=<span class="string">"1000"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:interpolator</span>=<span class="string">"linear"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">OnSwipe</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:dragDirection</span>=<span class="string">"dragRight"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:touchAnchorId</span>=<span class="string">"@+id/image"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:touchAnchorSide</span>=<span class="string">"right"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Transition</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ConstraintSet</span> <span class="attr">android:id</span>=<span class="string">"@+id/start"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Constraint</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/image"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"100dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"100dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_marginStart</span>=<span class="string">"8dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintStart_toStartOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">CustomAttribute</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:attributeName</span>=<span class="string">"crossfade"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:customFloatValue</span>=<span class="string">"0"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Constraint</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ConstraintSet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ConstraintSet</span> <span class="attr">android:id</span>=<span class="string">"@+id/end"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Constraint</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/image"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"100dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"100dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_marginEnd</span>=<span class="string">"8dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintEnd_toEndOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">CustomAttribute</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:attributeName</span>=<span class="string">"crossfade"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:customFloatValue</span>=<span class="string">"1"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Constraint</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ConstraintSet</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">MotionScene</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="示例-05-图像滤镜-ImageFilterView-1-2"><a href="#示例-05-图像滤镜-ImageFilterView-1-2" class="headerlink" title="示例 05 :  图像滤镜(ImageFilterView)(1/2)"></a>示例 05 :  图像滤镜(ImageFilterView)(1/2)</h2><p>ImageFilterView 也提供了更多的功能:</p>
+<blockquote>
+<p><strong>饱和度     saturation</strong> : 0 = grayscale, 1 = original, 2 = hyper saturated<br><strong>对比度    contrast</strong> : 1 = unchanged, 0 = gray, 2 = high contrast<br><strong>色温       warmth</strong> : 1 = neutral, 2 = warm (red tint), 0.5 = cold (blue tint)<br><strong>淡入淡出   crossfade</strong> (with <code>app:altSrc</code>)</p>
+</blockquote>
+<p>这里有另外一个例子显示怎么使用滤镜饱和度：</p>
+<p><img src="./example-05-1.gif" alt="example-05-1"></p>
+<p>简单的指定自定义属性就可以操作饱和度：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">CustomAttribute</span></span></span><br><span class="line"><span class="tag">    <span class="attr">motion:attributeName</span>=<span class="string">"saturation"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">motion:customFloatValue</span>=<span class="string">"1"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里是这个例子使用的 MotionLayout 文件：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">android.support.constraint.motion.MotionLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/motionLayout"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layoutDescription</span>=<span class="string">"@xml/scene_05"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">android.support.constraint.utils.ImageFilterView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/image"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:src</span>=<span class="string">"@drawable/sunset2"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:scaleType</span>=<span class="string">"centerCrop"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"300dp"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">android.support.constraint.motion.MotionLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里是对应的场景（Scene）文件：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">MotionScene</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:motion</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Transition</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:constraintSetStart</span>=<span class="string">"@+id/start"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:constraintSetEnd</span>=<span class="string">"@+id/end"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:duration</span>=<span class="string">"1000"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">OnSwipe</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:touchAnchorId</span>=<span class="string">"@+id/image"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:touchAnchorSide</span>=<span class="string">"top"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:dragDirection</span>=<span class="string">"dragUp"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Transition</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ConstraintSet</span> <span class="attr">android:id</span>=<span class="string">"@+id/start"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Constraint</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/image"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"300dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintStart_toStartOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">CustomAttribute</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:attributeName</span>=<span class="string">"saturation"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:customFloatValue</span>=<span class="string">"1"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Constraint</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ConstraintSet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ConstraintSet</span> <span class="attr">android:id</span>=<span class="string">"@+id/end"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Constraint</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/image"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"300dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintEnd_toEndOf</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">CustomAttribute</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:attributeName</span>=<span class="string">"saturation"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:customFloatValue</span>=<span class="string">"0"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Constraint</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ConstraintSet</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">MotionScene</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="关键帧-Keyframes"><a href="#关键帧-Keyframes" class="headerlink" title="关键帧(Keyframes)"></a>关键帧(Keyframes)</h2><p>大多数情况下，MotionLayout 是使用“静止状态” (resting states) 的 ConstraintSets 实现的。这种方式下，我们知道最终的布局结果将适应不同的屏幕尺寸：从本质上来说，MotionLayout的表现像一个典型的 ConstraintLayout。</p>
+<p><code>原文：The general idea for MotionLayout is that “resting states” are implemented as ConstraintSets. This way, we know that the resulting layouts will correctly adapt to different screen sizes: essentially, MotionLayout will behave like a typical ConstraintLayout.</code></p>
+<p>在某些情况，你可能希望有一个中间状态——一个要经过的状态(a state to go through)，而不是要停留的状态(not a state to stay in)。当然你可以指定两个以上的 ConstraintSets 来解决，但是更好的做法是使用 Keyframes。</p>
+<blockquote>
+<p>关键帧可以应用于位置或属性值。它们主要让你在转换期间指定一个时间节点上的改变。</p>
+</blockquote>
+<p>举个栗子，你可能想让一个控件在过渡进行到 25% 的时候转换变成红色。或者在过渡中的 50% 时，改为向上移动。</p>
+<h2 id="示例-06-关键帧-1-2-坐标-postion"><a href="#示例-06-关键帧-1-2-坐标-postion" class="headerlink" title="示例 06 : 关键帧  (1/2), 坐标(postion)"></a>示例 06 : 关键帧  (1/2), 坐标(postion)</h2><p>有多种设置位置关键帧 (KeyPosition) 的方法 (pathRelative、deltaRelative、parentRelative)，我们将在本系列的第4部分详细介绍。</p>
+<p><img src="./example-06-1.png" alt="example-06-1"></p>
+<p>简单介绍位置关键帧 (position keyframes)，这里指定了在过渡进行到 50% 的时候，位置在屏幕高度的 25%处。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Transition</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">KeyFrameSet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">KeyPosition</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:keyPositionType</span>=<span class="string">"parentRelative"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:percentY</span>=<span class="string">"0.25"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:framePosition</span>=<span class="string">"50"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:target</span>=<span class="string">"@+id/button"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">KeyFrameSet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Transition</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>最终的效果如下：</p>
+<p><img src="./example-06-2.gif" alt="example-06-2"></p>
+<p>和以往一样，MotionLayout 文件仍然非常简单：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">android.support.constraint.motion.MotionLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/motionLayout"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:layoutDescription</span>=<span class="string">"@xml/scene_06"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">View</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/button"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:background</span>=<span class="string">"@color/colorAccent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"64dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"64dp"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">android.support.constraint.motion.MotionLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>MotionScene 文件与我们之前看到的非常相似，只是添加了一个<code>KeyPosition</code> 元素:</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">MotionScene</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:motion</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Transition</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:constraintSetStart</span>=<span class="string">"@+id/start"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:constraintSetEnd</span>=<span class="string">"@+id/end"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:duration</span>=<span class="string">"1000"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:interpolator</span>=<span class="string">"linear"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">OnSwipe</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:touchAnchorId</span>=<span class="string">"@+id/button"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:touchAnchorSide</span>=<span class="string">"right"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:dragDirection</span>=<span class="string">"dragRight"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">KeyFrameSet</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">KeyPosition</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:keyPositionType</span>=<span class="string">"parentRelative"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:percentY</span>=<span class="string">"0.25"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:framePosition</span>=<span class="string">"50"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:target</span>=<span class="string">"@+id/button"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">KeyFrameSet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Transition</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ConstraintSet</span> <span class="attr">android:id</span>=<span class="string">"@+id/start"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Constraint</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/button"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"64dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"64dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_marginStart</span>=<span class="string">"8dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintStart_toStartOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">CustomAttribute</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:attributeName</span>=<span class="string">"backgroundColor"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:customColorValue</span>=<span class="string">"#D81B60"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Constraint</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ConstraintSet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ConstraintSet</span> <span class="attr">android:id</span>=<span class="string">"@+id/end"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Constraint</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/button"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"64dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"64dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_marginEnd</span>=<span class="string">"8dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintEnd_toEndOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">CustomAttribute</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:attributeName</span>=<span class="string">"backgroundColor"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:customColorValue</span>=<span class="string">"#9999FF"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Constraint</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ConstraintSet</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">MotionScene</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Example-07-关键帧-2-2-属性-attribute"><a href="#Example-07-关键帧-2-2-属性-attribute" class="headerlink" title="Example 07 : 关键帧 (2/2), 属性(attribute)"></a>Example 07 : 关键帧 (2/2), 属性(attribute)</h2><p>类似位置关键帧，你可以在过渡中的特定的指定属性值(使用<code>KeyAttribute</code>)。</p>
+<p><img src="./example-07-1.png" alt="example-07-1"></p>
+<p>例如，我们可能需要操纵对象在 50% 位置的时候，指定执行缩放和旋转，效果如下：</p>
+<p><img src="./example-07-2.gif" alt="example-07-2"></p>
+<p>这可以通过在<code>KeyFrameSet</code>中添加一个<code>KeyAttribute</code> 元素来实现:</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">KeyFrameSet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">KeyAttribute</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:scaleX</span>=<span class="string">"2"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:scaleY</span>=<span class="string">"2"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:rotation</span>=<span class="string">"-45"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:framePosition</span>=<span class="string">"50"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:target</span>=<span class="string">"@id/button"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">KeyFrameSet</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>MotionLayout 文件与前一个例子相同，唯一不同的是 MotionScene 文件中添加了<code>KeyAttribute</code>:</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">MotionScene</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:motion</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Transition</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:constraintSetStart</span>=<span class="string">"@+id/start"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:constraintSetEnd</span>=<span class="string">"@+id/end"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:duration</span>=<span class="string">"1000"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:interpolator</span>=<span class="string">"linear"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">OnSwipe</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:touchAnchorId</span>=<span class="string">"@+id/button"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:touchAnchorSide</span>=<span class="string">"right"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:dragDirection</span>=<span class="string">"dragRight"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">KeyFrameSet</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">KeyAttribute</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:scaleX</span>=<span class="string">"2"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:scaleY</span>=<span class="string">"2"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:rotation</span>=<span class="string">"-45"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:framePosition</span>=<span class="string">"50"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:target</span>=<span class="string">"@id/button"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">KeyPosition</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:keyPositionType</span>=<span class="string">"screenRelative"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:percentY</span>=<span class="string">"0.2"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:framePosition</span>=<span class="string">"50"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:target</span>=<span class="string">"@id/button"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">KeyFrameSet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Transition</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ConstraintSet</span> <span class="attr">android:id</span>=<span class="string">"@+id/start"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Constraint</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/button"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"64dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"64dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_marginStart</span>=<span class="string">"8dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintStart_toStartOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">CustomAttribute</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:attributeName</span>=<span class="string">"backgroundColor"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:customColorValue</span>=<span class="string">"#D81B60"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Constraint</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ConstraintSet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ConstraintSet</span> <span class="attr">android:id</span>=<span class="string">"@+id/end"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Constraint</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/button"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"64dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"64dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_marginEnd</span>=<span class="string">"8dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintEnd_toEndOf</span>=<span class="string">"parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">CustomAttribute</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:attributeName</span>=<span class="string">"backgroundColor"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">motion:customColorValue</span>=<span class="string">"#9999FF"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Constraint</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ConstraintSet</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">MotionScene</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>第二章介绍了 MotionLayout 更高级的功能，给出了如何利用自定义属性和关键帧创建更引入注目的动画示例。</p>
+<p>你可以在<a href="https://github.com/googlesamples/android-ConstraintLayoutExamples" target="_blank" rel="noopener">ConstraintLayout examples github repository</a>查看这些示例的源码。</p>
+<p>在本系列文章中还有更多内容:</p>
+<ul>
+<li>Introduction to MotionLayout (<a href="https://medium.com/p/29208674b10d" target="_blank" rel="noopener"><strong>part I</strong></a>)</li>
+<li>Custom attributes, image transitions, keyframes (<a href="https://medium.com/p/a31acc084f59" target="_blank" rel="noopener"><strong>part II</strong></a>)</li>
+<li>Taking advantage of MotionLayout in your existing layouts (CoordinatorLayout, DrawerLayout, ViewPager) (<a href="https://medium.com/p/47cd64d51a5" target="_blank" rel="noopener"><strong>part III</strong></a>)</li>
+<li>All about Keyframes! (<a href="https://medium.com/@camaelon/defining-motion-paths-in-motionlayout-6095b874d37" target="_blank" rel="noopener"><strong>part IV</strong></a>)</li>
+<li>MotionLayout as a choreographer of root layout</li>
+<li>Nesting MotionLayout &amp; other Views</li>
+<li>MotionLayout with fragments</li>
+</ul>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/2018/12/06/add-to-jcenter/" data-toggle="tooltip" data-placement="top" title="上传项目到JCenter">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#MotionLayout" title="MotionLayout">MotionLayout</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hexo-theme-huxblog";
+    var disqus_identifier = "http://pdog18.cn/2018/12/21/introduction-to-motionlayout-part2/";
+    var disqus_url = "http://pdog18.cn/2018/12/21/introduction-to-motionlayout-part2/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/pdog">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/pdog18">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Pdog&#39;s Blog 2018 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://pdog18.cn/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'pdog18.cn';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="http://pdog18.cn/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
