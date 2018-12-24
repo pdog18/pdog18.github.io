@@ -13,7 +13,7 @@
 
     <title>
         
-          「译」MotionLayout导论 (part III) - Pdog的博客 | Pdog&#39;s Blog
+          「译」MotionLayout介绍 (part III) - Pdog的博客 | Pdog&#39;s Blog
         
     </title>
 
@@ -90,14 +90,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archives/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archives/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -168,7 +168,7 @@
                           <a class="tag" href="/tags/#MotionLayout" title="MotionLayout">MotionLayout</a>
                         
                     </div>
-                    <h1>「译」MotionLayout导论 (part III)</h1>
+                    <h1>「译」MotionLayout介绍 (part III)</h1>
                     <h2 class="subheading"></h2>
                     <span class="meta">
                         Posted by Pdog on
@@ -233,7 +233,7 @@
 <figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.google.androidstudio.motionlayoutexample.utils</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.content.Context</span><br><span class="line"><span class="keyword">import</span> android.support.constraint.motion.MotionLayout</span><br><span class="line"><span class="keyword">import</span> android.support.v4.view.ViewPager</span><br><span class="line"><span class="keyword">import</span> android.util.AttributeSet</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewpagerHeader</span> <span class="meta">@JvmOverloads</span> <span class="keyword">constructor</span></span>(</span><br><span class="line">        context: Context, attrs: AttributeSet? = <span class="literal">null</span>, defStyleAttr: <span class="built_in">Int</span> = <span class="number">0</span></span><br><span class="line">) : MotionLayout(context, attrs, defStyleAttr), ViewPager.OnPageChangeListener &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPageScrollStateChanged</span><span class="params">(state: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPageScrolled</span><span class="params">(position: <span class="type">Int</span>, positionOffset: <span class="type">Float</span>, positionOffsetPixels: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">var</span> numPages = <span class="number">3</span></span><br><span class="line">        progress = (position + positionOffset) / (numPages - <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPageSelected</span><span class="params">(position: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>计算非常简单——<code>onPageScrolled()</code>给我们提供了页面的位置索引（我们有三个页面的时候，这里是0，1或2），偏移量（对应偏移位置从0到1）。动画的进度更新我们可以通过下面的公式来得到：</p>
 <p><code>progress = (position + positionOffset) / (numPages-1)</code></p>
-<h2 id="配合-Lottie-使用"><a href="#配合-Lottie-使用" class="headerlink" title="配合 Lottie 使用"></a>配合 Lottie 使用</h2><p>前面的例子用了简单的图片来作为头部。你也可以把 Lottie 集成到你的 MotionLayout中，然后直接设置它的进度从而播放它。</p>
+<h2 id="配合-Lottie-使用"><a href="#配合-Lottie-使用" class="headerlink" title="配合 Lottie 使用"></a>配合 Lottie 使用</h2><p>前面的例子用了简单的图片来作为头部。你也可以 Lottie集成到你的 MotionLayout中，然后直接设置它的进度从而播放它。</p>
 <p>让我们把上一个例子改成 LottieAnimationView：</p>
 <p><img src="./with-lottie-1.gif" alt="with-lottie-1"></p>
 <p>简单起见，我们把基于 MotionLayout 的 ViewPager Header 改成只包含一个 LottieAnimationView 的样式：</p>
@@ -243,7 +243,7 @@
 <p>由于 LottieAnimationView 有一个<code>setProgress()</code> 函数，这将导致 MotionLayout 通过它直接播放 Lottie 的对应进度。</p>
 <p>完整的 MotionScene 文件如下：</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">MotionScene</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:motion</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Transition</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:constraintSetStart</span>=<span class="string">"@+id/start"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">motion:constraintSetEnd</span>=<span class="string">"@+id/end"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Transition</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ConstraintSet</span> <span class="attr">android:id</span>=<span class="string">"@+id/start"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Constraint</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/animation_view"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:progress</span>=<span class="string">"0"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ConstraintSet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ConstraintSet</span> <span class="attr">android:id</span>=<span class="string">"@+id/end"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Constraint</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/animation_view"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">motion:progress</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ConstraintSet</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">MotionScene</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>本篇介绍了如何在现有布局中轻松集成 MotionLayout。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本篇介绍了如何在现有布局中轻松集成 MotionLayout。</p>
 <p>你可以在 <a href="https://github.com/googlesamples/android-ConstraintLayoutExamples" target="_blank" rel="noopener">ConstraintLayout examples github repository</a>找到这些例子的源码。</p>
 <p>本系列文章还有更多内容：</p>
 <ul>
@@ -263,9 +263,13 @@
 
                 <ul class="pager">
                     
+                        <li class="previous">
+                            <a href="/2018/12/22/introduction-to-motionlayout-part-iv/" data-toggle="tooltip" data-placement="top" title="「译」在MotionLayout中定义运动路径">&larr; Previous Post</a>
+                        </li>
+                    
                     
                         <li class="next">
-                            <a href="/2018/12/21/introduction-to-motionlayout-part2/" data-toggle="tooltip" data-placement="top" title="「译」MotionLayout导论 (part II)">Next Post &rarr;</a>
+                            <a href="/2018/12/21/introduction-to-motionlayout-part2/" data-toggle="tooltip" data-placement="top" title="「译」MotionLayout介绍 (part II)">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
