@@ -191,11 +191,11 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="过渡框架的两个缺点"><a href="#过渡框架的两个缺点" class="headerlink" title="过渡框架的两个缺点"></a>过渡框架的两个缺点</h2><blockquote>
-<p>android 过渡框架<code>Android Transition Framework</code> 对于实现不同状态之间的过渡的确很好用，但是有两个缺点却是比较致命的。</p>
-<p>网上的一些 Transition 的文章在介绍过渡特性的时候的确很用心，让我们觉得过渡框架大有可为，但是这两个问题却被有意或无意的忽视掉了。</p>
+                <h2 id="过渡框架的三个缺点"><a href="#过渡框架的三个缺点" class="headerlink" title="过渡框架的三个缺点"></a>过渡框架的三个缺点</h2><blockquote>
+<p>android 过渡框架<code>Android Transition Framework</code> 对于实现不同状态之间的过渡的确很好用，但是有三个缺点却是比较致命的。</p>
+<p>网上的一些 Transition 的文章在介绍过渡特性的时候的确很用心，让我们觉得过渡框架大有可为，但是这三个问题却被有意或无意的忽视掉了。</p>
 </blockquote>
-<p>在此我简单描述下这两个缺点。</p>
+<p>在此我简单描述下这三个缺点。</p>
 <p>在介绍缺点之前，我先简单总结一下过渡动画的「过渡手段」分类，也就是<code>Transition Framework</code> 中的 <code>Transition</code> 环节。</p>
 <p>在「过渡手段」中，过渡的动画有多种多样，但是它们的核心总是离不开两种。</p>
 <ol>
@@ -228,6 +228,8 @@
 <p>例如你的结束状态场景下的子 View 会有4个，但是某些情况下，你需要它是 3个 或者 5 个的话，这样你会发现你完全不能办到，因为你不可能去动态的修改 <code>xml</code>文件。</p>
 <p>这样的话，我们难道需要针对这样的情况编写 2 个结束场景的<code>xml</code> 或者更多个吗？这肯定是个灾难吧！</p>
 <p>针对这样的情况，我们又想走回不通过<code>xml</code> 管理的办法，通过<code>Java(Kotlin)</code> 代码来对子元素进行改变。但是这样你必须编写非常非常非常多的子元素的属性修改的代码。那么既然我们这样做了，那么过渡框架的意义还足够吗？我们使用过渡框架来简化代码的目的究竟还能不能达到？这就是问题所在了。</p>
+<h2 id="三、对嵌套布局不友好"><a href="#三、对嵌套布局不友好" class="headerlink" title="三、对嵌套布局不友好"></a>三、对嵌套布局不友好</h2><p>过渡框架虽然有递归遍历 ViewTree 的特性，但是在处理布局嵌套的过渡时，仍旧不能达到合理的效果。</p>
+<p>待补充</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
 <p>暂时没有总结，以后有空补充</p>
 </blockquote>
